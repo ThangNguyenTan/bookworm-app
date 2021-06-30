@@ -7416,6 +7416,85 @@ function Navigator() {
 
 /***/ }),
 
+/***/ "./resources/js/components/partials/Paginator.jsx":
+/*!********************************************************!*\
+  !*** ./resources/js/components/partials/Paginator.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Pagination.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+function Paginator(props) {
+  var pageObject = props.pageObject,
+      onChangePageNumber = props.onChangePageNumber;
+
+  if (!pageObject) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {});
+  }
+
+  var currentPage = pageObject.currentPage,
+      totalItems = pageObject.totalItems,
+      pages = pageObject.pages,
+      endPage = pageObject.endPage;
+
+  if (totalItems === 0) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {});
+  }
+
+  var renderPaginationItems = function renderPaginationItems() {
+    return pages.map(function (page) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default.Item, {
+        onClick: function onClick() {
+          return onChangePageNumber(page);
+        },
+        active: page === currentPage,
+        children: page
+      }, page);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "pagination-container",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default.Item, {
+        onClick: function onClick() {
+          if (currentPage - 1 < 1) {
+            return;
+          }
+
+          onChangePageNumber(currentPage - 1);
+        },
+        children: "Previous"
+      }), renderPaginationItems(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default.Item, {
+        onClick: function onClick() {
+          if (currentPage + 1 > endPage) {
+            return;
+          }
+
+          onChangePageNumber(currentPage + 1);
+        },
+        children: "Next"
+      })]
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Paginator);
+
+/***/ }),
+
 /***/ "./resources/js/config/store.js":
 /*!**************************************!*\
   !*** ./resources/js/config/store.js ***!
@@ -7679,11 +7758,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Accordion.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Accordion.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_authorActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/authorActions */ "./resources/js/actions/authorActions.js");
 /* harmony import */ var _actions_bookActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/bookActions */ "./resources/js/actions/bookActions.js");
@@ -7691,7 +7770,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_book_BookList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/book/BookList */ "./resources/js/components/book/BookList.jsx");
 /* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
 /* harmony import */ var _components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_partials_Paginator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/partials/Paginator */ "./resources/js/components/partials/Paginator.jsx");
+/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
@@ -7726,22 +7821,46 @@ function Shop() {
       authorError = authorListReducer.error,
       authors = authorListReducer.authors;
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+      _useState2 = _slicedToArray(_useState, 2),
+      currentPage = _useState2[0],
+      setCurrentPage = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(15),
+      _useState4 = _slicedToArray(_useState3, 2),
+      pageSize = _useState4[0],
+      setPageSize = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      pageObjectGlobal = _useState6[0],
+      setPageObjectGlobal = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      currentBooks = _useState8[0],
+      setCurrentBooks = _useState8[1];
+
+  var onChangePageNumber = function onChangePageNumber(pageNum) {
+    setCurrentPage(pageNum);
+  };
+
   var renderSortBySelect = function renderSortBySelect() {
     var options = [];
     var sortCriterias = ["Price (Low to High)", "Price (High to Low)"];
     sortCriterias.forEach(function (sortCriteria) {
-      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("option", {
         value: sortCriteria,
         children: sortCriteria
       }, sortCriteria));
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("select", {
       className: "custom-select",
       children: options
     });
   };
 
-  var renderPageSizeSelects = function renderPageSizeSelects() {
+  var renderPageSizeSelect = function renderPageSizeSelect() {
     var options = [];
     var pageSizeCriterias = [{
       name: "Show 5",
@@ -7757,32 +7876,36 @@ function Shop() {
       size: 25
     }];
     pageSizeCriterias.forEach(function (pageSizeCriteria) {
-      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("option", {
         value: pageSizeCriteria.size,
         children: pageSizeCriteria.name
       }, pageSizeCriteria.name));
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("select", {
       className: "custom-select",
+      onChange: function onChange(e) {
+        setPageSize(e.target.value);
+      },
+      value: pageSize,
       children: options
     });
   };
 
   var renderSearchByCategoriesPanel = function renderSearchByCategoriesPanel() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Toggle, {
-        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header,
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Toggle, {
+        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Header,
         eventKey: "0",
         children: "Category"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Collapse, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Collapse, {
         eventKey: "0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
-          children: [categoryError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Body, {
+          children: [categoryError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
             message: categoryError
-          }), categoryLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          }), categoryLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "categories-group row",
             children: categories.map(function (category) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "category-item ",
                 children: category.category_name
               }, category.id);
@@ -7794,20 +7917,20 @@ function Shop() {
   };
 
   var renderSearchByAuthorsPanel = function renderSearchByAuthorsPanel() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Toggle, {
-        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header,
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Toggle, {
+        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Header,
         eventKey: "1",
         children: "Author"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Collapse, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Collapse, {
         eventKey: "1",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
-          children: [authorError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Body, {
+          children: [authorError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
             message: authorError
-          }), authorLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          }), authorLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "categories-group row",
             children: authors.map(function (author) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "category-item ",
                 children: author.author_name
               }, author.id);
@@ -7823,116 +7946,94 @@ function Shop() {
     dispatch((0,_actions_categoryActions__WEBPACK_IMPORTED_MODULE_4__.getAllCategories)());
     dispatch((0,_actions_authorActions__WEBPACK_IMPORTED_MODULE_2__.getAllAuthors)());
   }, [dispatch]);
-  /*
-  useEffect(() => {
-      if (!loading && !error) {
-          let currentBooksData = sortBooks(books, {
-              searchedName,
-              searchedPrice,
-              searchedReviews,
-              searchedCategories,
-              sortCriteria,
-          });
-            const pageObject = paginate(
-              currentBooksData.length,
-              currentPage,
-              8,
-              6
-          );
-          currentBooksData = currentBooksData.slice(
-              pageObject.startIndex,
-              pageObject.endIndex + 1
-          );
-            setPageObjectGlobal(pageObject);
-          setCurrentBooks(currentBooksData);
-      }
-  }, [
-      currentPage,
-      books,
-      loading,
-      error,
-      searchedName,
-      searchedPrice,
-      searchedReviews,
-      searchedCategories,
-      sortCriteria,
-  ]);
-  */
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!loading && !error) {
+      var currentBooksData = books;
+      var pageObject = (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_9__.paginate)(currentBooksData.length, currentPage, pageSize, 6);
+      currentBooksData = currentBooksData.slice(pageObject.startIndex, pageObject.endIndex + 1);
+      setPageObjectGlobal(pageObject);
+      setCurrentBooks(currentBooksData);
+    }
+  }, [currentPage, books, loading, error, pageSize]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
     id: "shop-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "page-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("h2", {
-          children: ["Shop ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("h2", {
+          children: ["Shop ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "(Filtered by Category #1)"
           })]
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
           lg: 3,
           md: 4,
           sm: 12,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h5", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h5", {
             className: "mb-4",
             children: "Filter By"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
             defaultActiveKey: "0",
-            children: [renderSearchByCategoriesPanel(), renderSearchByAuthorsPanel(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Toggle, {
-                as: react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header,
+            children: [renderSearchByCategoriesPanel(), renderSearchByAuthorsPanel(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Toggle, {
+                as: react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Header,
                 eventKey: "2",
                 children: "Review"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Collapse, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Collapse, {
                 eventKey: "2",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Body, {
                   children: "Hello! I'm another body"
                 })
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
           lg: 9,
           md: 8,
           sm: 12,
-          children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
             message: error
-          }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          }), loading || !pageObjectGlobal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "shop-result-header mb-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
                 className: "align-items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
                   lg: 6,
                   md: 6,
                   sm: 12,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-                    children: "Showing 1\u201312 of 126 results"
+                  children: pageObjectGlobal.totalItems === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                    children: "No result"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                    children: "Showing ".concat(pageObjectGlobal.startIndex + 1, " -\n        ").concat(pageObjectGlobal.endIndex + 1, " of ").concat(pageObjectGlobal.totalItems, " results")
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
                   lg: 6,
                   md: 6,
                   sm: 12,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
                       lg: 6,
                       md: 6,
                       sm: 6,
                       children: renderSortBySelect()
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
                       lg: 6,
                       md: 6,
                       sm: 6,
-                      children: renderPageSizeSelects()
+                      children: renderPageSizeSelect()
                     })]
                   })
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_5__.default, {
-              books: books
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_5__.default, {
+              books: currentBooks
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_Paginator__WEBPACK_IMPORTED_MODULE_8__.default, {
+              pageObject: pageObjectGlobal,
+              onChangePageNumber: onChangePageNumber
             })]
           })]
         })]
@@ -8184,6 +8285,79 @@ var categoryListReducer = function categoryListReducer() {
       return state;
   }
 };
+
+/***/ }),
+
+/***/ "./resources/js/utils/pagination.js":
+/*!******************************************!*\
+  !*** ./resources/js/utils/pagination.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "paginate": () => (/* binding */ paginate)
+/* harmony export */ });
+function paginate(totalItems) {
+  var currentPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var pageSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 8;
+  var maxPages = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
+  // calculate total pages
+  var totalPages = Math.ceil(totalItems / pageSize); // ensure current page isn't out of range
+
+  if (currentPage < 1) {
+    currentPage = 1;
+  } else if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+
+  var startPage, endPage;
+
+  if (totalPages <= maxPages) {
+    // total pages less than max so show all pages
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    // total pages more than max so calculate start and end pages
+    var maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
+    var maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
+
+    if (currentPage <= maxPagesBeforeCurrentPage) {
+      // current page near the start
+      startPage = 1;
+      endPage = maxPages;
+    } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+      // current page near the end
+      startPage = totalPages - maxPages + 1;
+      endPage = totalPages;
+    } else {
+      // current page somewhere in the middle
+      startPage = currentPage - maxPagesBeforeCurrentPage;
+      endPage = currentPage + maxPagesAfterCurrentPage;
+    }
+  } // calculate start and end item indexes
+
+
+  var startIndex = (currentPage - 1) * pageSize;
+  var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1); // create an array of pages to ng-repeat in the pager control
+
+  var pages = Array.from(Array(endPage + 1 - startPage).keys()).map(function (i) {
+    return startPage + i;
+  }); // return object with all pager properties required by the view
+
+  return {
+    totalItems: totalItems,
+    currentPage: currentPage,
+    pageSize: pageSize,
+    totalPages: totalPages,
+    startPage: startPage,
+    endPage: endPage,
+    startIndex: startIndex,
+    endIndex: endIndex,
+    pages: pages
+  };
+}
 
 /***/ }),
 
@@ -16415,6 +16589,156 @@ var NavbarToggle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(fu
 NavbarToggle.displayName = 'NavbarToggle';
 NavbarToggle.defaultProps = defaultProps;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NavbarToggle);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/PageItem.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/PageItem.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "First": () => (/* binding */ First),
+/* harmony export */   "Prev": () => (/* binding */ Prev),
+/* harmony export */   "Ellipsis": () => (/* binding */ Ellipsis),
+/* harmony export */   "Next": () => (/* binding */ Next),
+/* harmony export */   "Last": () => (/* binding */ Last)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _SafeAnchor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SafeAnchor */ "./node_modules/react-bootstrap/esm/SafeAnchor.js");
+
+
+var _excluded = ["active", "disabled", "className", "style", "activeLabel", "children"],
+    _excluded2 = ["children"];
+
+/* eslint-disable react/no-multi-comp */
+
+
+
+var defaultProps = {
+  active: false,
+  disabled: false,
+  activeLabel: '(current)'
+};
+var PageItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(function (_ref, ref) {
+  var active = _ref.active,
+      disabled = _ref.disabled,
+      className = _ref.className,
+      style = _ref.style,
+      activeLabel = _ref.activeLabel,
+      children = _ref.children,
+      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref, _excluded);
+
+  var Component = active || disabled ? 'span' : _SafeAnchor__WEBPACK_IMPORTED_MODULE_4__.default;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("li", {
+    ref: ref,
+    style: style,
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, 'page-item', {
+      active: active,
+      disabled: disabled
+    })
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    className: "page-link",
+    disabled: disabled
+  }, props), children, active && activeLabel && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", {
+    className: "sr-only"
+  }, activeLabel)));
+});
+PageItem.defaultProps = defaultProps;
+PageItem.displayName = 'PageItem';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageItem);
+
+function createButton(name, defaultValue, label) {
+  if (label === void 0) {
+    label = name;
+  }
+
+  function Button(_ref2) {
+    var children = _ref2.children,
+        props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref2, _excluded2);
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(PageItem, props, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", {
+      "aria-hidden": "true"
+    }, children || defaultValue), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", {
+      className: "sr-only"
+    }, label));
+  }
+
+  Button.displayName = name;
+  return Button;
+}
+
+var First = createButton('First', '«');
+var Prev = createButton('Prev', '‹', 'Previous');
+var Ellipsis = createButton('Ellipsis', '…', 'More');
+var Next = createButton('Next', '›');
+var Last = createButton('Last', '»');
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/Pagination.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/Pagination.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+/* harmony import */ var _PageItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PageItem */ "./node_modules/react-bootstrap/esm/PageItem.js");
+
+
+var _excluded = ["bsPrefix", "className", "children", "size"];
+
+
+
+
+
+/**
+ * @property {PageItem} Item
+ * @property {PageItem} First
+ * @property {PageItem} Prev
+ * @property {PageItem} Ellipsis
+ * @property {PageItem} Next
+ * @property {PageItem} Last
+ */
+var Pagination = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      className = _ref.className,
+      children = _ref.children,
+      size = _ref.size,
+      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref, _excluded);
+
+  var decoratedBsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_4__.useBootstrapPrefix)(bsPrefix, 'pagination');
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("ul", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    ref: ref
+  }, props, {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, decoratedBsPrefix, size && decoratedBsPrefix + "-" + size)
+  }), children);
+});
+Pagination.First = _PageItem__WEBPACK_IMPORTED_MODULE_5__.First;
+Pagination.Prev = _PageItem__WEBPACK_IMPORTED_MODULE_5__.Prev;
+Pagination.Ellipsis = _PageItem__WEBPACK_IMPORTED_MODULE_5__.Ellipsis;
+Pagination.Item = _PageItem__WEBPACK_IMPORTED_MODULE_5__.default;
+Pagination.Next = _PageItem__WEBPACK_IMPORTED_MODULE_5__.Next;
+Pagination.Last = _PageItem__WEBPACK_IMPORTED_MODULE_5__.Last;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pagination);
 
 /***/ }),
 

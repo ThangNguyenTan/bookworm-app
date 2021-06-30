@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAuthors } from "../actions/authorActions";
@@ -7,6 +7,8 @@ import { getAllCategories } from "../actions/categoryActions";
 import BookList from "../components/book/BookList";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
+import Paginator from "../components/partials/Paginator";
+import { paginate } from "../utils/pagination";
 
 function Shop() {
     const dispatch = useDispatch();
@@ -27,59 +29,74 @@ function Shop() {
         authors,
     } = authorListReducer;
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(15);
+    const [pageObjectGlobal, setPageObjectGlobal] = useState(null);
+    const [currentBooks, setCurrentBooks] = useState([]);
+
+    const onChangePageNumber = (pageNum) => {
+        setCurrentPage(pageNum);
+    };
+
     const renderSortBySelect = () => {
         let options = [];
-        const sortCriterias = [
-            "Price (Low to High)",
-            "Price (High to Low)",
-        ]
+        const sortCriterias = ["Price (Low to High)", "Price (High to Low)"];
 
-        sortCriterias.forEach(sortCriteria => {
+        sortCriterias.forEach((sortCriteria) => {
             options.push(
-                <option key={sortCriteria} value={sortCriteria}>{sortCriteria}</option>
-            )
+                <option key={sortCriteria} value={sortCriteria}>
+                    {sortCriteria}
+                </option>
+            );
         });
 
-        return (
-            <select className="custom-select">
-                {options}
-            </select>
-        )
-    }
+        return <select className="custom-select">{options}</select>;
+    };
 
     const renderPageSizeSelect = () => {
         let options = [];
         const pageSizeCriterias = [
             {
                 name: "Show 5",
-                size: 5
+                size: 5,
             },
             {
                 name: "Show 15",
-                size: 15
+                size: 15,
             },
             {
                 name: "Show 20",
-                size: 20
+                size: 20,
             },
             {
                 name: "Show 25",
-                size: 25
-            }
-        ]
+                size: 25,
+            },
+        ];
 
-        pageSizeCriterias.forEach(pageSizeCriteria => {
+        pageSizeCriterias.forEach((pageSizeCriteria) => {
             options.push(
-                <option key={pageSizeCriteria.name} value={pageSizeCriteria.size}>{pageSizeCriteria.name}</option>
-            )
+                <option
+                    key={pageSizeCriteria.name}
+                    value={pageSizeCriteria.size}
+                >
+                    {pageSizeCriteria.name}
+                </option>
+            );
         });
 
         return (
-            <select className="custom-select">
+            <select
+                className="custom-select"
+                onChange={(e) => {
+                    setPageSize(e.target.value);
+                }}
+                value={pageSize}
+            >
                 {options}
             </select>
-        )
-    }
+        );
+    };
 
     const renderSearchByCategoriesPanel = () => {
         return (
@@ -151,23 +168,17 @@ function Shop() {
         dispatch(getAllAuthors());
     }, [dispatch]);
 
-    /*
     useEffect(() => {
         if (!loading && !error) {
-            let currentBooksData = sortBooks(books, {
-                searchedName,
-                searchedPrice,
-                searchedReviews,
-                searchedCategories,
-                sortCriteria,
-            });
+            let currentBooksData = books;
 
             const pageObject = paginate(
                 currentBooksData.length,
                 currentPage,
-                8,
+                pageSize,
                 6
             );
+
             currentBooksData = currentBooksData.slice(
                 pageObject.startIndex,
                 pageObject.endIndex + 1
@@ -176,18 +187,7 @@ function Shop() {
             setPageObjectGlobal(pageObject);
             setCurrentBooks(currentBooksData);
         }
-    }, [
-        currentPage,
-        books,
-        loading,
-        error,
-        searchedName,
-        searchedPrice,
-        searchedReviews,
-        searchedCategories,
-        sortCriteria,
-    ]);
-    */
+    }, [currentPage, books, loading, error, pageSize]);
 
     return (
         <div id="shop-page">
@@ -222,14 +222,25 @@ function Shop() {
                     <Col lg={9} md={8} sm={12}>
                         {error && <ErrorBox message={error} />}
 
-                        {loading ? (
+                        {loading || !pageObjectGlobal ? (
                             <LoadingBox />
                         ) : (
                             <>
                                 <div className="shop-result-header mb-4">
                                     <Row className="align-items-center">
                                         <Col lg={6} md={6} sm={12}>
-                                            <p>Showing 1–12 of 126 results</p>
+                                            {pageObjectGlobal.totalItems ===
+                                            0 ? (
+                                                <p>No result</p>
+                                            ) : (
+                                                <p>{`Showing ${
+                                                    pageObjectGlobal.startIndex +
+                                                    1
+                                                } -
+        ${pageObjectGlobal.endIndex + 1} of ${
+                                                    pageObjectGlobal.totalItems
+                                                } results`}</p>
+                                            )}
                                         </Col>
                                         <Col lg={6} md={6} sm={12}>
                                             <Row>
@@ -244,7 +255,12 @@ function Shop() {
                                     </Row>
                                 </div>
 
-                                <BookList books={books} />
+                                <BookList books={currentBooks} />
+
+                                <Paginator
+                                    pageObject={pageObjectGlobal}
+                                    onChangePageNumber={onChangePageNumber}
+                                />
                             </>
                         )}
                     </Col>

@@ -89,6 +89,15 @@ footer ul li p {
   background-color: rgba(128, 128, 128, 0.3);
 }
 
+/*Paginator*/
+.pagination-container {
+  margin-top: 30px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
 #about-page .about-content {
   max-width: 800px;
 }
