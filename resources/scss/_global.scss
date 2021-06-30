@@ -4,8 +4,15 @@
     box-sizing: border-box;
 }
 
-ul,ol {
+ul,
+ol {
     list-style: none;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    color: #19110b;
 }
 
 #main {
@@ -14,8 +21,46 @@ ul,ol {
     padding-bottom: 30px;
 }
 
+/*Button*/
+.button {
+    padding: 0.75rem 3rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button.large {
+    padding: 1.5rem 3rem;
+}
+
+.button.block {
+    width: 100%;
+    text-align: center;
+}
+
+.button.primary {
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+    color: #fff;
+}
+
+.button.primary:hover {
+    background-color: #fff;
+    color: $primary-color;
+}
+
+.button.dark {
+    background-color: #161619;
+    border: 1px solid #161619;
+    color: #fff;
+}
+
+.button.dark:hover {
+    background-color: #fff;
+    color: #161619;
+}
+
 footer {
-    background-color: #F8F9FA;
+    background-color: #f8f9fa;
     padding-bottom: 10px;
     padding-top: 20px;
 
@@ -25,7 +70,6 @@ footer {
     }
 
     ul {
-
         li {
             margin-bottom: 10px;
 
