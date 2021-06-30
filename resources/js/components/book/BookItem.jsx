@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
+import { Card, Col } from "react-bootstrap";
 
 function BookItem(props) {
     const dispatch = useDispatch();
@@ -12,13 +11,20 @@ function BookItem(props) {
     const { cart } = useSelector((state) => state.cartReducer);
 
     const handleAddToCart = () => {
-        dispatch(addToCart(bookItem, 1));
+        //console.log(bookItem)
+        dispatch(addToCart({
+            book_title: bookItem.book_title,
+            book_price: bookItem.book_price,
+            book_cover_photo: bookItem.book_cover_photo,
+            author: bookItem.author,
+            id: bookItem.id
+        }, 1));
     };
 
     const renderAddToCartButton = () => {
         if (cart) {
             const existed = cart.find((cartItem) => {
-                return cartItem.bookID === bookItem._id;
+                return cartItem.bookID === bookItem.id;
             });
             if (existed) {
                 return (
@@ -45,64 +51,33 @@ function BookItem(props) {
         );
     };
 
-    if (bookItem) {
-        return (
-            <div className="book-item">
-                <Link to={`/books/${bookItem.id}`} className="book-item__image">
-                    {bookItem.book_cover_photo ? (
-                        <img
-                            src={`./images/bookcover/${bookItem.book_cover_photo}.jpg`}
-                            alt={bookItem.book_title}
-                            className="img-fluid"
-                        />
-                    ) : (
-                        <img
-                            src={`https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg`}
-                            alt={bookItem.book_title}
-                            className="img-fluid"
-                        />
-                    )}
-                </Link>
-                <Link
-                    to={`/books/${bookItem.id}`}
-                    className="book-item__content"
-                >
-                    <h5>{bookItem.book_title}</h5>
-                    <h6>{bookItem.author.author_name}</h6>
-                    <h4>${bookItem.book_price}</h4>
-                </Link>
-                <div className="book-item__footer">
-                    {renderAddToCartButton()}
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className="book-item">
-            <Link to="/books/bookID" className="book-item__image">
-                <img
-                    src="https://d3i5mgdwi2ze58.cloudfront.net/kxk6iwn543doz8jqbs2sckh2fcot"
-                    alt="One Hundred Years of Solitude"
-                    className="img-fluid"
-                />
-            </Link>
-            <Link to="/books/bookID" className="book-item__content">
-                <h5>One Hundred Years of Solitude</h5>
-                <h6>Gabriel Garcia Marquez</h6>
-                <h4>$29.00</h4>
-            </Link>
-            <div className="book-item__footer">
-                <ul className="row">
-                    <li>
-                        <ShoppingBasketOutlinedIcon />
-                    </li>
-                    <li>
-                        <FavoriteBorderOutlinedIcon />
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <Col lg={3} md={6} sm={12}>
+            <Card className="book-item">
+                <Link to={`/books/${bookItem.id}`}>
+                    <Card.Img
+                        variant="top"
+                        src={
+                            bookItem.book_cover_photo
+                                ? `./images/bookcover/${bookItem.book_cover_photo}.jpg`
+                                : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+                        }
+                    />
+                </Link>
+                <Card.Body>
+                    <Card.Title>
+                        <Link to={`/books/${bookItem.id}`}>
+                            {bookItem.book_title}
+                        </Link>
+                    </Card.Title>
+                    <Card.Text>
+                        <h6>{bookItem.author.author_name}</h6>
+                        <h4>${bookItem.book_price}</h4>
+                    </Card.Text>
+                    {renderAddToCartButton()}
+                </Card.Body>
+            </Card>
+        </Col>
     );
 }
 

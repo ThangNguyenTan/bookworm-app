@@ -15,6 +15,10 @@ a {
     color: #19110b;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 #main {
     min-height: 73vh;
     padding-top: 30px;
@@ -105,4 +109,32 @@ footer {
 
 .pagination {
     justify-content: center;
+}
+
+/*Scroll bar*/
+/* customize scrollbar css */
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #ffffff;
+}
+::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    border: 1px #787878 solid;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0 6px #c8c8c8 inset;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #f75454;
+    border: 1px solid #000000;
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f75454;
+    border: 1px solid #333333;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #a6393d;
+    border: 1px solid #333333;
 }

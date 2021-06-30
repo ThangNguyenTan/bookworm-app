@@ -15,18 +15,17 @@ import {
   ) => {
     switch (action.type) {
       case ADD_TO_CART:
-        const a = Number(action.payload.book.price) *
+        const a = Number(action.payload.book.book_price) *
         Number(action.payload.quantity);
         return {
           ...state,
           cart: [
             {
-              bookID: action.payload.book._id,
-              image_url: action.payload.book.image_url,
-              name: action.payload.book.name,
+              book_title: action.payload.book.book_title,
+              book_price: action.payload.book.book_price,
+              book_cover_photo: action.payload.book.book_cover_photo,
               author: action.payload.book.author,
-              price: action.payload.book.price,
-              quantity: action.payload.quantity,
+              bookID: action.payload.book.id,
               sub_total: parseFloat(a.toFixed(2)),
             },
             ...state.cart,

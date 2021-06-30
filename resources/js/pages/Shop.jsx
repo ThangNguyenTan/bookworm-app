@@ -6,9 +6,16 @@ import { getAllBooks } from "../actions/bookActions";
 import { getAllCategories } from "../actions/categoryActions";
 import BookList from "../components/book/BookList";
 import ErrorBox from "../components/Partials/ErrorBox";
+import GridButtonGroup from "../components/partials/GridButtonGroup";
 import LoadingBox from "../components/partials/LoadingBox";
 import Paginator from "../components/partials/Paginator";
+import data from "../data";
 import { paginate } from "../utils/pagination";
+import {
+    sortBooks,
+    sortBooksIndividually,
+    sortBooksOrderBy,
+} from "../utils/sorters";
 
 function Shop() {
     const dispatch = useDispatch();
@@ -32,7 +39,50 @@ function Shop() {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(15);
     const [pageObjectGlobal, setPageObjectGlobal] = useState(null);
+    const [viewMode, setViewMode] = useState("portrait");
     const [currentBooks, setCurrentBooks] = useState([]);
+    const [searchedCategories, setSearchedCategories] = useState([]);
+    const [searchedAuthors, setSearchedAuthors] = useState([]);
+    const [searchedRating, setSearchedRating] = useState(0);
+    const [selectedSortCriteria, setSelectedSortCriteria] = useState("atoz");
+
+    const resetSearch = () => {
+        setSearchedCategories([]);
+        setSearchedAuthors([]);
+        setSearchedRating(0);
+    };
+
+    const selectCategoryItem = (categoryID) => {
+        resetSearch();
+
+        if (!searchedCategories.includes(categoryID)) {
+            setSearchedCategories((prevState) => [...prevState, categoryID]);
+        } else {
+            setSearchedCategories((prevState) =>
+                prevState.filter((categoryItem) => {
+                    return categoryItem !== categoryID;
+                })
+            );
+        }
+    };
+
+    const selectAuthorItem = (authorID) => {
+        resetSearch();
+
+        if (!searchedAuthors.includes(authorID)) {
+            setSearchedAuthors((prevState) => [...prevState, authorID]);
+        } else {
+            setSearchedAuthors((prevState) =>
+                prevState.filter((authorItem) => {
+                    return authorItem !== authorID;
+                })
+            );
+        }
+    };
+
+    const onChangeViewMode = (view) => {
+        setViewMode(view);
+    };
 
     const onChangePageNumber = (pageNum) => {
         pageNum = parseInt(pageNum);
@@ -41,17 +91,26 @@ function Shop() {
 
     const renderSortBySelect = () => {
         let options = [];
-        const sortCriterias = ["Price (Low to High)", "Price (High to Low)"];
 
-        sortCriterias.forEach((sortCriteria) => {
+        data.sortCriterias.forEach((sortCriteria) => {
             options.push(
-                <option key={sortCriteria} value={sortCriteria}>
-                    {sortCriteria}
+                <option key={sortCriteria.value} value={sortCriteria.value}>
+                    {sortCriteria.name}
                 </option>
             );
         });
 
-        return <select className="custom-select">{options}</select>;
+        return (
+            <select
+                className="custom-select"
+                value={selectedSortCriteria}
+                onChange={(e) => {
+                    setSelectedSortCriteria(e.target.value);
+                }}
+            >
+                {options}
+            </select>
+        );
     };
 
     const renderPageSizeSelect = () => {
@@ -117,7 +176,16 @@ function Shop() {
                                     return (
                                         <div
                                             key={category.id}
-                                            className={`category-item `}
+                                            className={`category-item ${
+                                                searchedCategories.includes(
+                                                    category.id
+                                                )
+                                                    ? "active"
+                                                    : ""
+                                            }`}
+                                            onClick={() =>
+                                                selectCategoryItem(category.id)
+                                            }
                                         >
                                             {category.category_name}
                                         </div>
@@ -144,12 +212,21 @@ function Shop() {
                         {authorLoading ? (
                             <LoadingBox />
                         ) : (
-                            <div className="categories-group row">
+                            <div className="author-group categories-group row">
                                 {authors.map((author) => {
                                     return (
                                         <div
                                             key={author.id}
-                                            className={`category-item `}
+                                            className={`category-item ${
+                                                searchedAuthors.includes(
+                                                    author.id
+                                                )
+                                                    ? "active"
+                                                    : ""
+                                            }`}
+                                            onClick={() =>
+                                                selectAuthorItem(author.id)
+                                            }
                                         >
                                             {author.author_name}
                                         </div>
@@ -163,6 +240,84 @@ function Shop() {
         );
     };
 
+    const renderSearchByReviewsPanel = () => {
+        return (
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="2">
+                    Review
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
+                    <Card.Body>
+                        <div className="categories-group row">
+                            {data.reviewCriterias.map((reviewCriteria) => {
+                                return (
+                                    <div
+                                        key={reviewCriteria.id}
+                                        className={`category-item ${
+                                            searchedRating ===
+                                            reviewCriteria.value
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            resetSearch();
+                                            if (
+                                                searchedRating ===
+                                                reviewCriteria.value
+                                            ) {
+                                                return setSearchedRating(0);
+                                            }
+                                            setSearchedRating(
+                                                reviewCriteria.value
+                                            );
+                                        }}
+                                    >
+                                        {reviewCriteria.name}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        );
+    };
+
+    const renderSearchTitle = () => {
+        let ans = "";
+        let withAnd = false;
+
+        if (searchedCategories.length > 0) {
+            ans += `Category `;
+            withAnd = true;
+            searchedCategories.forEach((searchedCategory, index) => {
+                ans += `#${searchedCategory}`;
+                if (index + 1 < searchedCategories.length) {
+                    ans += `, `;
+                }
+            });
+        }
+
+        if (searchedAuthors.length > 0) {
+            ans += `${withAnd ? " and" : ""} Author `;
+            withAnd = true;
+            searchedAuthors.forEach((searchedAuthor, index) => {
+                ans += `#${searchedAuthor}`;
+                if (index + 1 < searchedAuthors.length) {
+                    ans += `, `;
+                }
+            });
+        }
+
+        if (searchedRating != 0) {
+            ans += `${withAnd ? " and" : ""} Rating `;
+            withAnd = true;
+            ans += `${searchedRating} star(s) and above`;
+        }
+
+        return ans;
+    };
+
     useEffect(() => {
         dispatch(getAllBooks());
         dispatch(getAllCategories());
@@ -171,7 +326,26 @@ function Shop() {
 
     useEffect(() => {
         if (!loading && !error) {
-            let currentBooksData = books;
+            /*
+            // Combination Sorting
+            let currentBooksData = sortBooks(books, {
+                searchedCategories,
+                searchedAuthors,
+                searchedRating,
+                selectedSortCriteria,
+            });
+            */
+
+            // Individual Sorting
+            let currentBooksData = sortBooksIndividually(books, {
+                searchedCategories,
+                searchedAuthors,
+                searchedRating,
+            });
+            currentBooksData = sortBooksOrderBy(
+                currentBooksData,
+                selectedSortCriteria
+            );
 
             const pageObject = paginate(
                 currentBooksData.length,
@@ -179,8 +353,6 @@ function Shop() {
                 parseInt(pageSize),
                 6
             );
-
-            console.log(pageObject);
 
             currentBooksData = currentBooksData.slice(
                 pageObject.startIndex,
@@ -190,14 +362,27 @@ function Shop() {
             setPageObjectGlobal(pageObject);
             setCurrentBooks(currentBooksData);
         }
-    }, [currentPage, books, loading, error, pageSize]);
+    }, [
+        currentPage,
+        books,
+        loading,
+        error,
+        pageSize,
+        searchedCategories,
+        searchedAuthors,
+        searchedRating,
+        selectedSortCriteria,
+    ]);
 
     return (
         <div id="shop-page">
             <div className="page-header">
                 <Container>
                     <h2>
-                        Shop <span>(Filtered by Category #1)</span>
+                        Shop{" "}
+                        <span>
+                            (Filtered by {renderSearchTitle() || "N/A"})
+                        </span>
                     </h2>
                 </Container>
             </div>
@@ -209,16 +394,7 @@ function Shop() {
                         <Accordion defaultActiveKey="0">
                             {renderSearchByCategoriesPanel()}
                             {renderSearchByAuthorsPanel()}
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey="2">
-                                    Review
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="2">
-                                    <Card.Body>
-                                        {"Hello! I'm another body"}
-                                    </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
+                            {renderSearchByReviewsPanel()}
                         </Accordion>
                     </Col>
 
@@ -231,7 +407,12 @@ function Shop() {
                             <>
                                 <div className="shop-result-header mb-4">
                                     <Row className="align-items-center">
-                                        <Col lg={6} md={6} sm={12}>
+                                        <Col
+                                            lg={5}
+                                            md={6}
+                                            sm={12}
+                                            className="mt-2"
+                                        >
                                             {pageObjectGlobal.totalItems ===
                                             0 ? (
                                                 <p>No result</p>
@@ -240,25 +421,39 @@ function Shop() {
                                                     pageObjectGlobal.startIndex +
                                                     1
                                                 } -
-        ${pageObjectGlobal.endIndex + 1} of ${
+                                                ${
+                                                    pageObjectGlobal.endIndex +
+                                                    1
+                                                } of ${
                                                     pageObjectGlobal.totalItems
                                                 } results`}</p>
                                             )}
                                         </Col>
-                                        <Col lg={6} md={6} sm={12}>
+                                        <Col lg={7} md={6} sm={12}>
                                             <Row>
-                                                <Col lg={6} md={6} sm={6}>
+                                                <Col lg={5} md={6} sm={6}>
                                                     {renderSortBySelect()}
                                                 </Col>
-                                                <Col lg={6} md={6} sm={6}>
+                                                <Col lg={4} md={6} sm={6}>
                                                     {renderPageSizeSelect()}
+                                                </Col>
+                                                <Col lg={3} md={6} sm={6}>
+                                                    <GridButtonGroup
+                                                        viewMode={viewMode}
+                                                        onChangeViewMode={
+                                                            onChangeViewMode
+                                                        }
+                                                    />
                                                 </Col>
                                             </Row>
                                         </Col>
                                     </Row>
                                 </div>
 
-                                <BookList books={currentBooks} />
+                                <BookList
+                                    books={currentBooks}
+                                    viewMode={viewMode}
+                                />
 
                                 <Paginator
                                     pageObject={pageObjectGlobal}
