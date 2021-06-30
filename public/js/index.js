@@ -7470,20 +7470,20 @@ function Paginator(props) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default.Item, {
         onClick: function onClick() {
-          if (currentPage - 1 < 1) {
+          if (parseInt(currentPage) - 1 < 1) {
             return;
           }
 
-          onChangePageNumber(currentPage - 1);
+          onChangePageNumber(parseInt(currentPage) - 1);
         },
         children: "Previous"
       }), renderPaginationItems(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default.Item, {
         onClick: function onClick() {
-          if (currentPage + 1 > endPage) {
+          if (parseInt(currentPage) + 1 > endPage) {
             return;
           }
 
-          onChangePageNumber(currentPage + 1);
+          onChangePageNumber(parseInt(currentPage) + 1);
         },
         children: "Next"
       })]
@@ -7842,6 +7842,7 @@ function Shop() {
       setCurrentBooks = _useState8[1];
 
   var onChangePageNumber = function onChangePageNumber(pageNum) {
+    pageNum = parseInt(pageNum);
     setCurrentPage(pageNum);
   };
 
@@ -7949,7 +7950,8 @@ function Shop() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!loading && !error) {
       var currentBooksData = books;
-      var pageObject = (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_9__.paginate)(currentBooksData.length, currentPage, pageSize, 6);
+      var pageObject = (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_9__.paginate)(currentBooksData.length, currentPage, parseInt(pageSize), 6);
+      console.log(pageObject);
       currentBooksData = currentBooksData.slice(pageObject.startIndex, pageObject.endIndex + 1);
       setPageObjectGlobal(pageObject);
       setCurrentBooks(currentBooksData);

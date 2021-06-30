@@ -35,6 +35,7 @@ function Shop() {
     const [currentBooks, setCurrentBooks] = useState([]);
 
     const onChangePageNumber = (pageNum) => {
+        pageNum = parseInt(pageNum);
         setCurrentPage(pageNum);
     };
 
@@ -175,9 +176,11 @@ function Shop() {
             const pageObject = paginate(
                 currentBooksData.length,
                 currentPage,
-                pageSize,
+                parseInt(pageSize),
                 6
             );
+
+            console.log(pageObject);
 
             currentBooksData = currentBooksData.slice(
                 pageObject.startIndex,

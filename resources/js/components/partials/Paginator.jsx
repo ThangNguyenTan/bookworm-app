@@ -33,10 +33,10 @@ function Paginator(props) {
             <Pagination>
                 <Pagination.Item
                     onClick={() => {
-                        if (currentPage - 1 < 1) {
+                        if (parseInt(currentPage) - 1 < 1) {
                             return;
                         }
-                        onChangePageNumber(currentPage - 1);
+                        onChangePageNumber(parseInt(currentPage) - 1);
                     }}
                 >
                     Previous
@@ -44,10 +44,10 @@ function Paginator(props) {
                 {renderPaginationItems()}
                 <Pagination.Item
                     onClick={() => {
-                        if (currentPage + 1 > endPage) {
+                        if (parseInt(currentPage) + 1 > endPage) {
                             return;
                         }
-                        onChangePageNumber(currentPage + 1);
+                        onChangePageNumber(parseInt(currentPage) + 1);
                     }}
                 >
                     Next
