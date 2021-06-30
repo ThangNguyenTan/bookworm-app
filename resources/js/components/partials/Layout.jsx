@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from './Footer'
 import Navigator from './Navigator'
 
 function Layout({children}) {
@@ -8,6 +9,7 @@ function Layout({children}) {
             <main id="main">
                 {children}
             </main>
+            <Footer/>
         </div>
     )
 }

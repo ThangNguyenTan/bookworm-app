@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import bookwormLogo from "../../../assets/bookworm_icon.svg";
+import { Link } from "react-router-dom";
 
 function Navigator() {
     return (
@@ -12,10 +13,18 @@ function Navigator() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Shop</Nav.Link>
-                        <Nav.Link href="#link">About</Nav.Link>
-                        <Nav.Link href="#link">Cart (0)</Nav.Link>
+                        <Link to="/" className="nav-link">
+                            Home
+                        </Link>
+                        <Link to="/" className="nav-link">
+                            Shop
+                        </Link>
+                        <Link to="/about" className="nav-link">
+                            About
+                        </Link>
+                        <Link to="/" className="nav-link">
+                            Cart (0)
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

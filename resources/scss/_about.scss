@@ -1,0 +1,29 @@
+#about-page {
+
+    .about-content {
+        max-width: 800px;
+
+        .about-top {
+            margin-bottom: 30px;
+
+            h1 {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            p {
+                font-size: 1.3rem;
+            }
+        }
+
+        .about-bottom {
+            h2 {
+                margin-bottom: 20px;
+            }
+
+            p {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
