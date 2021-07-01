@@ -53,6 +53,20 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int  $bookID
+     * @return \Illuminate\Http\Response
+     */
+    public function getReviewsByBookID($bookID)
+    {
+        //
+        $reviews = Review::where('book_id', $bookID)->get();
+
+        return response($reviews);
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

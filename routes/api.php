@@ -47,6 +47,7 @@ Route::delete("/discounts/delete/{id}", [DiscountController::class, "destroy"]);
 
 Route::get("/reviews", [ReviewController::class, "index"]);
 Route::get("/reviews/reviewID/{id}", [ReviewController::class, "show"]);
+Route::get("/reviews/bookID/{bookID}", [ReviewController::class, "getReviewsByBookID"]);
 Route::post("/reviews/add", [ReviewController::class, "store"]);
 Route::put("/reviews/edit/{id}", [ReviewController::class, "update"]);
 Route::delete("/reviews/delete/{id}", [ReviewController::class, "destroy"]);
