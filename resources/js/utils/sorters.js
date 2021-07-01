@@ -23,15 +23,15 @@ export const sortBooksIndividually = (list, searchObject) => {
         searchObject;
     let returnedList = list;
 
-    if (searchedCategories) {
+    if (searchedCategories.length > 0) {
         return returnedList = sortBooksByCategories(returnedList, searchedCategories);
     }
 
-    if (searchedAuthors) {
+    if (searchedAuthors.length > 0) {
         return returnedList = sortBooksByAuthors(returnedList, searchedAuthors);
     }
 
-    if (searchedRating) {
+    if (searchedRating > 0) {
         return returnedList = sortBooksByRatings(returnedList, searchedRating);
     }
 
@@ -67,7 +67,8 @@ const sortBooksByAuthors = (list, searchedAuthors) => {
 
     searchedAuthors.forEach((sortGenre) => {
         list.forEach((item) => {
-            if (item.category_id === sortGenre) {
+            console.log(item.author.id);
+            if (item.author.id === sortGenre) {
                 if (!returnedList.includes(item)) {
                     returnedList.push(item);
                 }

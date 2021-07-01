@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/books/{route}',function(){
+    return view('welcome');
+});
+
 Route::get('/{route}',function(){
     return view('welcome');
 });

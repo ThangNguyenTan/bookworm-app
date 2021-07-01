@@ -1,0 +1,109 @@
+#book-details-page {
+    .book-details__card {
+        .card-img-top {
+            height: 320px;
+        }
+
+        .book-item {
+            h6 {
+                text-align: right;
+                margin-top: 20px;
+
+                span {
+                    color: grey;
+                }
+            }
+        }
+    }
+
+    .book-details__utils {
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #f7f7f7;
+
+            input {
+                background-color: #f7f7f7;
+                border: none;
+                outline: none;
+            }
+
+            .decrement,
+            .increment {
+                font-size: 2rem;
+                font-weight: bold;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                line-height: 32px;
+                cursor: pointer;
+
+                &:hover {
+                    color: #FFF;
+                    background-color: #000;
+                }
+            }
+        }
+    }
+}
+
+.review-list {
+    background-color: #F7F7F7;
+    padding: 20px;
+    border-radius: 20px;
+
+    .review-list__header {
+        margin-bottom: 40px;
+    }
+
+    .review-list__ratings {
+        margin-bottom: 40px;
+
+        ul {
+            display: flex;
+
+            li {
+                cursor: pointer;
+
+                &:first-child {
+                    margin-right: 30px;
+                }
+
+                &:hover,
+                &.active {
+                    text-decoration: underline;
+                }
+
+                &.active {
+                    font-weight: bold;
+                }
+            }
+
+            li.divider {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .review-list__result-header {
+        margin-bottom: 20px;
+    }
+}
+
+.review-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
+
+    .review-item__header {
+        display: flex;
+        align-items: end;
+
+        p {
+            margin-top: 3px;
+        }
+    }
+}
