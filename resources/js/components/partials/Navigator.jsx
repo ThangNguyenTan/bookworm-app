@@ -25,6 +25,9 @@ function Navigator() {
                         <Link to="/about" className="nav-link">
                             About
                         </Link>
+                        <Link to="/profile" className="nav-link">
+                            Profile
+                        </Link>
                         <Link to="/cart" className="nav-link">
                             Cart ({cart.length})
                         </Link>

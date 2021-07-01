@@ -4,12 +4,38 @@ import {
     ADD_ORDER_FAIL,
     ADD_ORDER_REQUEST,
     ADD_ORDER_SUCCESS,
+    GET_ALL_ORDERS_FAIL,
+    GET_ALL_ORDERS_REQUEST,
+    GET_ALL_ORDERS_SUCCESS,
     GET_ORDER_DETAILS_FAIL,
     GET_ORDER_DETAILS_REQUEST,
     GET_ORDER_DETAILS_SUCCESS,
 } from "../constants/orderConstants";
 
 const ORDERS_URL = `/api/orders`;
+
+export const getAllOrders = () => {
+    return async (dispatch) => {
+      dispatch({
+        type: GET_ALL_ORDERS_REQUEST,
+      });
+      try {
+        const { data } = await axios.get(`${ORDERS_URL}`);
+        dispatch({
+          type: GET_ALL_ORDERS_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: GET_ALL_ORDERS_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+    };
+  };
 
 export const getOrderDetails = (orderID) => {
     return async (dispatch) => {

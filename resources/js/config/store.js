@@ -4,7 +4,7 @@ import { authorListReducer } from "../reducers/authorReducer";
 import { bookDetailsReducer, bookListReducer } from "../reducers/bookReducers";
 import { cartReducer } from "../reducers/cartReducers";
 import { categoryListReducer } from "../reducers/categoryReducers";
-import { orderActionReducer, orderDetailsReducer } from "../reducers/orderReducer";
+import { orderActionReducer, orderDetailsReducer, orderListReducer } from "../reducers/orderReducer";
 import { reviewActionReducer, reviewListReducer } from "../reducers/reviewReducers";
 
 const initialState = {};
@@ -18,7 +18,8 @@ const reducer = combineReducers({
     reviewActionReducer,
     reviewListReducer,
     orderActionReducer,
-    orderDetailsReducer
+    orderDetailsReducer,
+    orderListReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
