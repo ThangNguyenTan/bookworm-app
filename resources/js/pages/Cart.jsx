@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,10 +7,23 @@ import CartTable from "../components/cart/CartTable";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
 
-function Cart() {
+function Cart(props) {
     const dispatch = useDispatch();
     const { cart } = useSelector((state) => state.cartReducer);
-    const { loading, error } = useSelector((state) => state.orderActionReducer);
+    const { loading, error, order } = useSelector((state) => state.orderActionReducer);
+    const [isSubmitted, setIsSubmitted] = useState(false); 
+
+    useEffect(() => {
+        if (isSubmitted) {
+            if (!loading && !error && order) {
+                props.history.push(`/orders/${order.id}`)
+            }
+        }
+    }, [
+        isSubmitted,
+        loading,
+        error
+    ])
 
     const toPrice = (num) => {
         return num.toFixed(2);
@@ -24,6 +37,7 @@ function Cart() {
 
     const handlePlaceOrder = () => {
         dispatch(placeOrder({ totalPrice }));
+        setIsSubmitted(true)
     };
 
     const renderCartSummary = () => {

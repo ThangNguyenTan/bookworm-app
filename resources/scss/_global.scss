@@ -9,6 +9,13 @@ ol {
     list-style: none;
 }
 
+.table {
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+
 a {
     text-decoration: none;
     display: inline-block;

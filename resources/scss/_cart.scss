@@ -4,11 +4,6 @@
         border-radius: 5px;
         border: 1px solid grey;
         overflow: hidden;
-
-        th, td {
-            text-align: center;
-            vertical-align: middle;
-        }
     }
 
     @media screen and (min-width: 320px) and (max-width: 1024px) {
@@ -31,7 +26,7 @@
     .cart-item__product {
         display: flex;
         align-items: center;
-        width: 350px;
+        min-width: 350px;
 
         .image {
             max-width: 120px;

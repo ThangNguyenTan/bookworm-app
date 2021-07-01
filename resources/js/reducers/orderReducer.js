@@ -77,6 +77,7 @@ export const orderDetailsReducer = (
 export const orderActionReducer = (
     state = {
         loading: false,
+        order: null
     },
     action
 ) => {
@@ -91,6 +92,7 @@ export const orderActionReducer = (
             return {
                 ...state,
                 loading: false,
+                order: action.payload
             };
         case ADD_ORDER_FAIL:
             return {

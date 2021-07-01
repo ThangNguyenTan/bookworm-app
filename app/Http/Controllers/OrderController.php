@@ -89,7 +89,7 @@ class OrderController extends Controller
         $order->OrderItems;
 
         foreach ($order->OrderItems as $index => $order_item) {
-            $order_item->Book;
+            $order_item->Book->Author;
         }
 
         return response($order);

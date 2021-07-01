@@ -1,12 +1,17 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import CartItem from './CartItem';
+import CartItemRO from './CartItemRO';
 
-function CartTable({cartList}) {
+function CartTable({cartList, disableUtils}) {
 
     const renderCartItems = () => {
         return cartList.map(cartItem => {
-            return <CartItem key={cartItem.bookID} cartItem={cartItem}/>
+            const bookID = cartItem.bookID || cartItem.book_id;
+            if (disableUtils) {
+                return <CartItemRO key={bookID} cartItem={cartItem}/>
+            }
+            return <CartItem key={bookID} cartItem={cartItem}/>
         })
     }
 
@@ -19,7 +24,7 @@ function CartTable({cartList}) {
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
-                        <th></th>
+                        {disableUtils ? <></> : <th></th>}
                     </tr>
                 </thead>
                 <tbody>
