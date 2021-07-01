@@ -15,8 +15,8 @@ import {
   ) => {
     switch (action.type) {
       case ADD_TO_CART:
-        const a = Number(action.payload.book.book_price) *
-        Number(action.payload.quantity);
+        const a = parseFloat(action.payload.book.book_price) *
+        parseFloat(action.payload.quantity);
         return {
           ...state,
           cart: [
@@ -27,6 +27,7 @@ import {
               author: action.payload.book.author,
               bookID: action.payload.book.id,
               sub_total: parseFloat(a.toFixed(2)),
+              quantity: Number(action.payload.quantity)
             },
             ...state.cart,
           ],
@@ -43,7 +44,7 @@ import {
           ...state,
           cart: state.cart.map((cartItem) => {
             if (cartItem.bookID === action.payload.bookID) {
-              const b = Number(cartItem.price) * Number(action.payload.quantity);
+              const b = parseFloat(cartItem.book_price) * parseFloat(action.payload.quantity);
               return {
                 ...cartItem,
                 quantity: action.payload.quantity,
@@ -54,6 +55,7 @@ import {
           }),
         };
       case CLEAR_CART:
+        localStorage.removeItem("cart");
         return {
           ...state,
           cart: [],

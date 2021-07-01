@@ -86,7 +86,11 @@ class OrderController extends Controller
         //
         $order = Order::findOrFail($id);
 
-        $order->orderItems = $order->OrderItems;
+        $order->OrderItems;
+
+        foreach ($order->OrderItems as $index => $order_item) {
+            $order_item->Book;
+        }
 
         return response($order);
     }

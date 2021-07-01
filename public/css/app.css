@@ -247,20 +247,28 @@ footer ul li p {
     text-align: center;
   }
 }
-#book-details-page .book-details__utils .quantity-container {
+@media screen and (min-width: 320px) and (max-width: 1240px) {
+  #book-details-page .row > div {
+    margin-bottom: 20px;
+  }
+}
+
+.quantity-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  border: 1px solid grey;
   background-color: #f7f7f7;
 }
-#book-details-page .book-details__utils .quantity-container input {
+.quantity-container input {
   background-color: #f7f7f7;
   border: none;
   outline: none;
+  text-align: center;
 }
-#book-details-page .book-details__utils .quantity-container .decrement,
-#book-details-page .book-details__utils .quantity-container .increment {
+.quantity-container .decrement,
+.quantity-container .increment {
   font-size: 2rem;
   font-weight: bold;
   width: 40px;
@@ -269,19 +277,14 @@ footer ul li p {
   line-height: 32px;
   cursor: pointer;
 }
-#book-details-page .book-details__utils .quantity-container .decrement:hover,
-#book-details-page .book-details__utils .quantity-container .increment:hover {
-  color: #FFF;
+.quantity-container .decrement:hover,
+.quantity-container .increment:hover {
+  color: #fff;
   background-color: #000;
-}
-@media screen and (min-width: 320px) and (max-width: 1240px) {
-  #book-details-page .row > div {
-    margin-bottom: 20px;
-  }
 }
 
 .review-list {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   padding: 20px;
   border-radius: 5px;
 }
@@ -328,4 +331,45 @@ footer ul li p {
   margin-top: 3px;
   max-width: 60px;
   width: 100%;
+}
+
+#cart-page .cart-table {
+  background-color: #F8F9FA;
+  border-radius: 5px;
+  border: 1px solid grey;
+  overflow: hidden;
+}
+#cart-page .cart-table th, #cart-page .cart-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+  #cart-page .cart-summary {
+    margin-top: 20px;
+  }
+}
+
+.cart-item .cart-item__action i {
+  font-size: 2rem;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.cart-item .cart-item__product {
+  display: flex;
+  align-items: center;
+  width: 350px;
+}
+.cart-item .cart-item__product .image {
+  max-width: 120px;
+  width: 100%;
+}
+.cart-item .cart-item__product .content {
+  margin-left: 10px;
+  text-align: left;
+}
+.cart-item .cart-item__product .content h5 {
+  font-size: 1rem;
+}
+.cart-item .cart-item__product .content p {
+  font-size: 1rem;
 }

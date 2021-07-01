@@ -21,35 +21,6 @@
     }
 
     .book-details__utils {
-        .quantity-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            background-color: #f7f7f7;
-
-            input {
-                background-color: #f7f7f7;
-                border: none;
-                outline: none;
-            }
-
-            .decrement,
-            .increment {
-                font-size: 2rem;
-                font-weight: bold;
-                width: 40px;
-                height: 40px;
-                text-align: center;
-                line-height: 32px;
-                cursor: pointer;
-
-                &:hover {
-                    color: #FFF;
-                    background-color: #000;
-                }
-            }
-        }
     }
 
     @media screen and (min-width: 320px) and (max-width: 1240px) {
@@ -59,8 +30,40 @@
     }
 }
 
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid grey;
+    background-color: #f7f7f7;
+
+    input {
+        background-color: #f7f7f7;
+        border: none;
+        outline: none;
+        text-align: center;
+    }
+
+    .decrement,
+    .increment {
+        font-size: 2rem;
+        font-weight: bold;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+            background-color: #000;
+        }
+    }
+}
+
 .review-list {
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
     padding: 20px;
     border-radius: 5px;
 

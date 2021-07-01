@@ -11,4 +11,8 @@ class OrderItem extends Model
 
     public $timestamps = false;
 
+    public function Book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }
