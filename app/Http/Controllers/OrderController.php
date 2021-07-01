@@ -31,7 +31,7 @@ class OrderController extends Controller
     {
         //
         $validated = $request->validate([
-            'order_amount' => 'required|numeric',
+            'order_amount' => 'required',
             "order_items"    => "required|array|min:1",
         ]);
 

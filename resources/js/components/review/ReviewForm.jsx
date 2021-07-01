@@ -1,8 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { addReview } from "../../actions/reviewActions";
 import data from "../../data";
+import ErrorBox from "../Partials/ErrorBox";
+import LoadingBox from "../partials/LoadingBox";
 
-function ReviewForm() {
+function ReviewForm({ bookID }) {
+    const dispatch = useDispatch();
+
+    const reviewActionReducer = useSelector(
+        (state) => state.reviewActionReducer
+    );
+    const { loading, error } = reviewActionReducer;
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [star, setStar] = useState(1);
@@ -17,6 +28,31 @@ function ReviewForm() {
         });
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(bookID);
+        dispatch(
+            addReview({
+                book_id: bookID,
+                review_title: title,
+                review_details: description,
+                rating_start: star,
+            })
+        );
+        
+        setTitle("");
+        setDescription("");
+        setStar(1);
+    };
+
+    if (error) {
+        return <ErrorBox message={error} />;
+    }
+
+    if (loading) {
+        return <LoadingBox />;
+    }
+
     return (
         <div id="review-form">
             <Card>
@@ -24,7 +60,7 @@ function ReviewForm() {
                     <h2>Write a Review</h2>
                 </Card.Header>
                 <Card.Body>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="title">Add a title</Form.Label>
                             <Form.Control
@@ -33,8 +69,10 @@ function ReviewForm() {
                                 name="title"
                                 value={title}
                                 onChange={(e) => {
-                                    setDescription(e.target.value);
+                                    setTitle(e.target.value);
                                 }}
+                                maxLength={120}
+                                required
                             />
                         </Form.Group>
 
@@ -51,8 +89,9 @@ function ReviewForm() {
                                 rows={3}
                                 value={description}
                                 onChange={(e) => {
-                                    setTitle(e.target.value);
+                                    setDescription(e.target.value);
                                 }}
+                                required
                             />
                         </Form.Group>
 
@@ -66,6 +105,7 @@ function ReviewForm() {
                                 onChange={(e) => {
                                     setStar(e.target.value);
                                 }}
+                                required
                             >
                                 {renderStarOptions()}
                             </select>

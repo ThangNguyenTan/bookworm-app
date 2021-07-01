@@ -1,18 +1,22 @@
-import React from 'react'
+import React from 'react';
+import moment from 'moment';
 
-function ReviewItem() {
+function ReviewItem({reviewItem}) {
+
+    const {review_title, review_details, review_date, rating_start} = reviewItem;
+
     return (
         <div className="review-item">
             <div className="review-item__header">
-                <h4>Review Title</h4>
+                <h4>{review_title}</h4>
                 <div className="mx-2">|</div>
-                <p>5 star(s)</p>
+                <p>{rating_start} star(s)</p>
             </div>
             <div className="review-item__body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, molestiae necessitatibus impedit ipsam sequi, eaque ratione cupiditate veniam maiores esse nobis placeat nemo! Iure ex voluptatibus in, deserunt excepturi expedita.</p>
+                <p>{review_details}</p>
             </div>
             <div className="review-item__footer">
-                <h6>April 26, 2021</h6>
+                <h6>{moment(new Date(review_date).getTime()).format('MMMM Do, YYYY')}</h6>
             </div>
         </div>
     )

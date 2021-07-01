@@ -166,6 +166,17 @@ footer ul li p {
   font-size: 1rem;
   color: grey;
 }
+@media screen and (min-width: 320px) and (max-width: 1240px) {
+  #shop-page .shop-result-header {
+    margin-top: 20px;
+  }
+  #shop-page .shop-result-header .utils-container .row > div {
+    margin-bottom: 20px;
+  }
+  #shop-page .shop-result-header .utils-container .row > div:last-child {
+    margin-bottom: 0;
+  }
+}
 
 /*Category Item*/
 .author-group {
@@ -231,6 +242,11 @@ footer ul li p {
 #book-details-page .book-details__card .book-item h6 span {
   color: grey;
 }
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #book-details-page .book-details__card .book-item h6 {
+    text-align: center;
+  }
+}
 #book-details-page .book-details__utils .quantity-container {
   display: flex;
   align-items: center;
@@ -258,11 +274,16 @@ footer ul li p {
   color: #FFF;
   background-color: #000;
 }
+@media screen and (min-width: 320px) and (max-width: 1240px) {
+  #book-details-page .row > div {
+    margin-bottom: 20px;
+  }
+}
 
 .review-list {
   background-color: #F7F7F7;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 .review-list .review-list__header {
   margin-bottom: 40px;
@@ -272,6 +293,7 @@ footer ul li p {
 }
 .review-list .review-list__ratings ul {
   display: flex;
+  flex-wrap: wrap;
 }
 .review-list .review-list__ratings ul li {
   cursor: pointer;
@@ -304,4 +326,6 @@ footer ul li p {
 }
 .review-item .review-item__header p {
   margin-top: 3px;
+  max-width: 60px;
+  width: 100%;
 }

@@ -4,6 +4,7 @@ import { authorListReducer } from "../reducers/authorReducer";
 import { bookDetailsReducer, bookListReducer } from "../reducers/bookReducers";
 import { cartReducer } from "../reducers/cartReducers";
 import { categoryListReducer } from "../reducers/categoryReducers";
+import { reviewActionReducer, reviewListReducer } from "../reducers/reviewReducers";
 
 const initialState = {};
 
@@ -12,7 +13,9 @@ const reducer = combineReducers({
     cartReducer,
     authorListReducer,
     categoryListReducer,
-    bookDetailsReducer
+    bookDetailsReducer,
+    reviewActionReducer,
+    reviewListReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

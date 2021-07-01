@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getBookDetails } from "../actions/bookActions";
 import { addToCart } from "../actions/cartActions";
+import { getReviewsByBookID } from "../actions/reviewActions";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
 import ReviewForm from "../components/review/ReviewForm";
@@ -15,6 +16,12 @@ function BookDetails(props) {
     const { cart } = useSelector((state) => state.cartReducer);
     const bookDetailsReducer = useSelector((state) => state.bookDetailsReducer);
     const { loading, error, book } = bookDetailsReducer;
+    const reviewListReducer = useSelector((state) => state.reviewListReducer);
+    const {
+        loading: reviewLoading,
+        error: reviewError,
+        reviews,
+    } = reviewListReducer;
     const [quantity, setQuantity] = useState(1);
 
     const currentURL = location.protocol + "//" + location.host;
@@ -108,6 +115,7 @@ function BookDetails(props) {
 
     useEffect(() => {
         dispatch(getBookDetails(bookID));
+        dispatch(getReviewsByBookID(bookID));
     }, [dispatch]);
 
     if (error) {
@@ -128,7 +136,7 @@ function BookDetails(props) {
 
             <Container>
                 <Row>
-                    <Col lg={8} md={7} sm={12}>
+                    <Col lg={8} md={12} sm={12}>
                         <div className="book-details__card">
                             <Card className="book-item landscape">
                                 <Row className="no-gutters">
@@ -187,27 +195,29 @@ function BookDetails(props) {
                         </div>
                     </Col>
 
-                    <Col lg={4} md={5} sm={12}>
+                    <Col lg={4} md={12} sm={12}>
                         <div className="book-details__utils">
                             <Card>
                                 <Card.Header>
                                     <h2>${book.book_price}</h2>
                                 </Card.Header>
-                                <Card.Body>
-                                    {renderAddToCartButton()}
-                                </Card.Body>
+                                <Card.Body>{renderAddToCartButton()}</Card.Body>
                             </Card>
                         </div>
                     </Col>
                 </Row>
-            
+
                 <Row>
-                    <Col lg={8} md={7} sm={12}>
-                        <ReviewList/>
+                    <Col lg={8} md={12} sm={12}>
+                        <ReviewList
+                            loading={reviewLoading}
+                            error={reviewError}
+                            reviews={reviews}
+                        />
                     </Col>
 
-                    <Col lg={4} md={5} sm={12}>
-                        <ReviewForm/>
+                    <Col lg={4} md={12} sm={12}>
+                        <ReviewForm bookID={bookID} />
                     </Col>
                 </Row>
             </Container>

@@ -2,14 +2,17 @@ import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import bookwormLogo from "../../../assets/bookworm_icon.svg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Navigator() {
+    const { cart } = useSelector((state) => state.cartReducer);
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">
+                <Link to="/" className="navbar-brand">
                     <img src={bookwormLogo} alt="Logo" className="img-fluid" />
-                </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
@@ -22,8 +25,8 @@ function Navigator() {
                         <Link to="/about" className="nav-link">
                             About
                         </Link>
-                        <Link to="/" className="nav-link">
-                            Cart (0)
+                        <Link to="/cart" className="nav-link">
+                            Cart ({cart.length})
                         </Link>
                     </Nav>
                 </Navbar.Collapse>

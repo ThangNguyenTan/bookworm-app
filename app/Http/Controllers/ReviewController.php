@@ -31,7 +31,7 @@ class ReviewController extends Controller
     {
         //
         $validated = $request->validate([
-            'book_id' => 'required|numeric',
+            'book_id' => 'required',
             'review_title' => 'required|string|max:120',
             'review_details' => 'string',
             'rating_start' => 'required|string|max:255',
@@ -91,7 +91,7 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
 
         $validated = $request->validate([
-            'book_id' => 'required|numeric',
+            'book_id' => 'required',
             'review_title' => 'required|string|max:120',
             'review_details' => 'string',
             'rating_start' => 'required|string|max:255',

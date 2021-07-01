@@ -43,6 +43,16 @@ const data = {
             name: "Price (High to Low)",
             value: "pricedesc"
         },
+    ],
+    reviewSortCriterias: [
+        {
+            name: "Sort by Date: Old to New",
+            value: "dateasc"
+        },
+        {
+            name: "Sort by Date: New to Old",
+            value: "datedesc"
+        },
     ]
 };
 

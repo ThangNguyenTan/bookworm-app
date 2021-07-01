@@ -32,4 +32,9 @@ class Book extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function Reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

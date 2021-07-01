@@ -16,7 +16,7 @@ class BookController extends Controller
     {
         //
         //$books = Book::all();
-        $books = Book::with('Author', 'Category', "Discounts")->get();
+        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get();
 
         return response($books);
     }
@@ -31,11 +31,11 @@ class BookController extends Controller
     {
         //
         $validated = $request->validate([
-            'category_id' => 'required|numeric',
-            'author_id' => 'required|numeric',
+            'category_id' => 'required',
+            'author_id' => 'required',
             'book_title' => 'required|max:255',
             'book_summary' => 'required',
-            'book_price' => 'required|numeric',
+            'book_price' => 'required',
         ]);
 
         $book = new Book();
@@ -83,11 +83,11 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
 
         $validated = $request->validate([
-            'category_id' => 'required|numeric',
-            'author_id' => 'required|numeric',
+            'category_id' => 'required',
+            'author_id' => 'required',
             'book_title' => 'required|max:255',
             'book_summary' => 'required',
-            'book_price' => 'required|numeric',
+            'book_price' => 'required',
         ]);
 
         $book->category_id = $request->category_id;

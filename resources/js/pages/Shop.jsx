@@ -409,7 +409,7 @@ function Shop() {
                                     <Row className="align-items-center">
                                         <Col
                                             lg={5}
-                                            md={6}
+                                            md={12}
                                             sm={12}
                                             className="mt-2"
                                         >
@@ -429,15 +429,15 @@ function Shop() {
                                                 } results`}</p>
                                             )}
                                         </Col>
-                                        <Col lg={7} md={6} sm={12}>
+                                        <Col lg={7} md={12} sm={12} className="utils-container">
                                             <Row>
-                                                <Col lg={5} md={6} sm={6}>
+                                                <Col lg={5} md={5} sm={6}>
                                                     {renderSortBySelect()}
                                                 </Col>
-                                                <Col lg={4} md={6} sm={6}>
+                                                <Col lg={4} md={4} sm={6}>
                                                     {renderPageSizeSelect()}
                                                 </Col>
-                                                <Col lg={3} md={6} sm={6}>
+                                                <Col lg={3} md={3} sm={6}>
                                                     <GridButtonGroup
                                                         viewMode={viewMode}
                                                         onChangeViewMode={

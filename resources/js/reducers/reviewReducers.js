@@ -1,39 +1,33 @@
 import {
-    GET_ALL_BOOKS_FAIL,
-    GET_ALL_BOOKS_REQUEST,
-    GET_ALL_BOOKS_SUCCESS,
-    GET_BOOK_DETAILS_FAIL,
-    GET_BOOK_DETAILS_REQUEST,
-    GET_BOOK_DETAILS_SUCCESS,
-} from "../constants/bookConstants";
-import { calculateRatings } from "../utils/calculation";
+    ADD_REVIEW_FAIL,
+    ADD_REVIEW_REQUEST,
+    ADD_REVIEW_SUCCESS,
+    GET_BOOK_REVIEWS_FAIL,
+    GET_BOOK_REVIEWS_REQUEST,
+    GET_BOOK_REVIEWS_SUCCESS,
+} from "../constants/reviewConstants";
 
-export const bookListReducer = (
+export const reviewListReducer = (
     state = {
-        books: [],
+        reviews: [],
         loading: true,
     },
     action
 ) => {
     switch (action.type) {
-        case GET_ALL_BOOKS_REQUEST:
+        case GET_BOOK_REVIEWS_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
-        case GET_ALL_BOOKS_SUCCESS:
+        case GET_BOOK_REVIEWS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                books: action.payload.map(bookItem => {
-                    return {
-                        ...bookItem,
-                        ratings: calculateRatings(bookItem.reviews).ratings
-                    }
-                }),
+                reviews: action.payload,
             };
-        case GET_ALL_BOOKS_FAIL:
+        case GET_BOOK_REVIEWS_FAIL:
             return {
                 ...state,
                 loading: false,
@@ -45,27 +39,25 @@ export const bookListReducer = (
     }
 };
 
-export const bookDetailsReducer = (
+export const reviewActionReducer = (
     state = {
-        book: null,
-        loading: true,
+        loading: false,
     },
     action
 ) => {
     switch (action.type) {
-        case GET_BOOK_DETAILS_REQUEST:
+        case ADD_REVIEW_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
-        case GET_BOOK_DETAILS_SUCCESS:
+        case ADD_REVIEW_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                book: action.payload,
             };
-        case GET_BOOK_DETAILS_FAIL:
+        case ADD_REVIEW_FAIL:
             return {
                 ...state,
                 loading: false,

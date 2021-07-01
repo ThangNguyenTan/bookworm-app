@@ -17,7 +17,7 @@ function BookItem(props) {
     const renderAddToCartButton = () => {
         if (cart) {
             const existed = cart.find((cartItem) => {
-                return cartItem.bookID === bookItem._id;
+                return cartItem.bookID === bookItem.id;
             });
             if (existed) {
                 return (

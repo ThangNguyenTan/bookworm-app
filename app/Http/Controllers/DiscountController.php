@@ -78,7 +78,7 @@ class DiscountController extends Controller
             'book_id' => 'required',
             'discount_start_date' => 'required|max:13|date',
             'discount_end_date' => 'required|max:13|date|after_or_equal:discount_start_date',
-            'discount_price' => 'required|numeric',
+            'discount_price' => 'required',
         ]);
 
         $discount->book_id = $request->book_id;
