@@ -27,7 +27,8 @@ import {
               author: action.payload.book.author,
               bookID: action.payload.book.id,
               sub_total: parseFloat(a.toFixed(2)),
-              quantity: Number(action.payload.quantity)
+              quantity: Number(action.payload.quantity),
+              book_og_price: action.payload.book.book_og_price
             },
             ...state.cart,
           ],

@@ -73,7 +73,7 @@ function Cart(props) {
                         <h2>{`Currently you don't have any items`}</h2>
                         <Link to="/shop" className="button primary mt-3">Go to Shop</Link>
                     </div>
-                </div>
+                </div> 
             </div>
           </div>
         );

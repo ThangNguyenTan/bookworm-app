@@ -6,7 +6,7 @@ import {
     GET_BOOK_DETAILS_REQUEST,
     GET_BOOK_DETAILS_SUCCESS,
 } from "../constants/bookConstants";
-import { calculateRatings } from "../utils/calculation";
+import { calculateDiscountPrice, calculateRatings } from "../utils/calculation";
 
 export const bookListReducer = (
     state = {
@@ -26,11 +26,12 @@ export const bookListReducer = (
             return {
                 ...state,
                 loading: false,
-                books: action.payload.map(bookItem => {
+                books: action.payload.map((bookItem) => {
                     return {
                         ...bookItem,
-                        ratings: calculateRatings(bookItem.reviews).ratings
-                    }
+                        ratings: calculateRatings(bookItem.reviews).ratings,
+                        discount_price: calculateDiscountPrice(bookItem),
+                    };
                 }),
             };
         case GET_ALL_BOOKS_FAIL:
@@ -63,7 +64,10 @@ export const bookDetailsReducer = (
             return {
                 ...state,
                 loading: false,
-                book: action.payload,
+                book: {
+                    ...action.payload,
+                    discount_price: calculateDiscountPrice(action.payload),
+                },
             };
         case GET_BOOK_DETAILS_FAIL:
             return {

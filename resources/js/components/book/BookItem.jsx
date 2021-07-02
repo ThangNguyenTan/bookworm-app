@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
-import { Card, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 function BookItem(props) {
     const dispatch = useDispatch();
@@ -10,13 +10,27 @@ function BookItem(props) {
 
     const { cart } = useSelector((state) => state.cartReducer);
 
+    const renderPriceTag = () => {
+        if (bookItem.discount_price == bookItem.book_price) {
+            return <h4 className="price">${bookItem.book_price}</h4>;
+        }
+
+        return (
+            <h4 className="price">
+                ${bookItem.discount_price}
+                <span>${bookItem.book_price}</span>
+            </h4>
+        );
+    };
+
     const handleAddToCart = () => {
         //console.log(bookItem)
         dispatch(
             addToCart(
                 {
                     book_title: bookItem.book_title,
-                    book_price: bookItem.book_price,
+                    book_og_price: bookItem.book_price,
+                    book_price: bookItem.discount_price,
                     book_cover_photo: bookItem.book_cover_photo,
                     author: bookItem.author,
                     id: bookItem.id,
@@ -76,7 +90,7 @@ function BookItem(props) {
                 </Card.Title>
                 <Card.Text>
                     <h6>{bookItem.author.author_name}</h6>
-                    <h4>${bookItem.book_price}</h4>
+                    {renderPriceTag()}
                 </Card.Text>
                 {renderAddToCartButton()}
             </Card.Body>

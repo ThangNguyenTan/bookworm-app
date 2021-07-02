@@ -126,12 +126,12 @@ export const sortBooksOrderBy = (list, orderBy) => {
         */
         case "priceasc":
             returnedList = list.sort(
-                (a, b) => parseFloat(a.book_price) - parseFloat(b.book_price)
+                (a, b) => parseFloat(a.discount_price) - parseFloat(b.discount_price)
             );
             break;
         case "pricedesc":
             returnedList = list.sort(
-                (a, b) => parseFloat(b.book_price) - parseFloat(a.book_price)
+                (a, b) => parseFloat(b.discount_price) - parseFloat(a.discount_price)
             );
             break;
         default:

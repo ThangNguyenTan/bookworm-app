@@ -22,6 +22,20 @@ class BookController extends Controller
     }
 
     /**
+     * Display a listing of reccomendation for the books
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getBookRec()
+    {
+        //
+        //$books = Book::all();
+        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get();
+
+        return response($books);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -64,8 +78,9 @@ class BookController extends Controller
         //$book = Book::with('Author', 'Category')->get()->where('id', '=', $id)->firstOrFail();
         $book = Book::findOrFail($id);
 
-        $book->author = $book->Author;
-        $book->category = $book->Category;
+        $book->Author;
+        $book->Category;
+        $book->Discounts;
 
         return response($book);
     }

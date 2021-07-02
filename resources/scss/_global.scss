@@ -118,6 +118,19 @@ footer {
     justify-content: center;
 }
 
+/*Price*/
+.price {
+    font-size: 1.2rem;
+
+    span {
+        font-size: 0.9rem;
+        text-decoration: line-through;
+        color: grey;
+        margin-left: 5px;
+        display: inline-block;
+    }
+}
+
 /*Scroll bar*/
 /* customize scrollbar css */
 ::-webkit-scrollbar {

@@ -26,13 +26,29 @@ function BookDetails(props) {
 
     const currentURL = location.protocol + "//" + location.host;
 
+    const renderPriceTag = () => {
+        const {discount_price, book_price} = book;
+
+        if (discount_price == book_price) {
+            return <h2 className="price">${book_price}</h2>;
+        }
+
+        return (
+            <h2 className="price">
+                ${discount_price}
+                <span>${book_price}</span>
+            </h2>
+        );
+    };
+
     const handleAddToCart = () => {
         //console.log(bookItem)
         dispatch(
             addToCart(
                 {
                     book_title: book.book_title,
-                    book_price: book.book_price,
+                    book_og_price: book.book_price,
+                    book_price: book.discount_price,
                     book_cover_photo: book.book_cover_photo,
                     author: book.author,
                     id: book.id,
@@ -199,7 +215,7 @@ function BookDetails(props) {
                         <div className="book-details__utils">
                             <Card>
                                 <Card.Header>
-                                    <h2>${book.book_price}</h2>
+                                    {renderPriceTag()}
                                 </Card.Header>
                                 <Card.Body>{renderAddToCartButton()}</Card.Body>
                             </Card>

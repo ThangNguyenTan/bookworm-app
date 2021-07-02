@@ -8,12 +8,26 @@ function CartItem({ cartItem }) {
     const {
         book_title,
         author,
-        book_price,
+        book_price: discount_price,
+        book_og_price: book_price,
         book_cover_photo,
         quantity,
         bookID,
         sub_total,
     } = cartItem;
+
+    const renderPriceTag = () => {
+        if (discount_price == book_price) {
+            return <h6 className="price">${book_price}</h6>
+        }
+
+        return (
+            <h6 className="price">
+                ${discount_price}
+                <span>${book_price}</span>
+            </h6>
+        );
+    };
 
     const handleQuantityUpdate = (qty) => {
         dispatch(changeQuantity(bookID, qty));
@@ -94,7 +108,7 @@ function CartItem({ cartItem }) {
                 </div>
             </td>
             <td className="cart-item__price">
-                <h6 className="default-price">${book_price}</h6>
+                {renderPriceTag()}
             </td>
             <td className="cart-item__quantity">{renderQuantityUtils()}</td>
             <td className="cart-item__total">

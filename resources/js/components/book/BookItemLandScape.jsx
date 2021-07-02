@@ -10,8 +10,33 @@ function BookItem(props) {
 
     const { cart } = useSelector((state) => state.cartReducer);
 
+    const renderPriceTag = () => {
+        if (bookItem.discount_price == bookItem.book_price) {
+            return <h4 className="price">${bookItem.book_price}</h4>;
+        }
+
+        return (
+            <h4 className="price">
+                ${bookItem.discount_price}
+                <span>${bookItem.book_price}</span>
+            </h4>
+        );
+    };
+
     const handleAddToCart = () => {
-        dispatch(addToCart(bookItem, 1));
+        dispatch(
+            addToCart(
+                {
+                    book_title: bookItem.book_title,
+                    book_og_price: bookItem.book_price,
+                    book_price: bookItem.discount_price,
+                    book_cover_photo: bookItem.book_cover_photo,
+                    author: bookItem.author,
+                    id: bookItem.id,
+                },
+                1
+            )
+        );
     };
 
     const renderAddToCartButton = () => {
@@ -68,7 +93,7 @@ function BookItem(props) {
                         <Card.Text>
                             <p>{bookItem.book_summary}</p>
                             <h6>{bookItem.author.author_name}</h6>
-                            <h4>${bookItem.book_price}</h4>
+                            {renderPriceTag()}
                         </Card.Text>
                         {renderAddToCartButton()}
                     </Card.Body>

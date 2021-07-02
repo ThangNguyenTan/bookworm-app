@@ -3114,11 +3114,28 @@ function BookItem(props) {
   }),
       cart = _useSelector.cart;
 
+  var renderPriceTag = function renderPriceTag() {
+    if (bookItem.discount_price == bookItem.book_price) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+        className: "price",
+        children: ["$", bookItem.book_price]
+      });
+    }
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+      className: "price",
+      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        children: ["$", bookItem.book_price]
+      })]
+    });
+  };
+
   var handleAddToCart = function handleAddToCart() {
     //console.log(bookItem)
     dispatch((0,_actions_cartActions__WEBPACK_IMPORTED_MODULE_2__.addToCart)({
       book_title: bookItem.book_title,
-      book_price: bookItem.book_price,
+      book_og_price: bookItem.book_price,
+      book_price: bookItem.discount_price,
       book_cover_photo: bookItem.book_cover_photo,
       author: bookItem.author,
       id: bookItem.id
@@ -3169,9 +3186,7 @@ function BookItem(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Text, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
           children: bookItem.author.author_name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
-          children: ["$", bookItem.book_price]
-        })]
+        }), renderPriceTag()]
       }), renderAddToCartButton()]
     })]
   });
@@ -3217,8 +3232,31 @@ function BookItem(props) {
   }),
       cart = _useSelector.cart;
 
+  var renderPriceTag = function renderPriceTag() {
+    if (bookItem.discount_price == bookItem.book_price) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+        className: "price",
+        children: ["$", bookItem.book_price]
+      });
+    }
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+      className: "price",
+      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        children: ["$", bookItem.book_price]
+      })]
+    });
+  };
+
   var handleAddToCart = function handleAddToCart() {
-    dispatch((0,_actions_cartActions__WEBPACK_IMPORTED_MODULE_2__.addToCart)(bookItem, 1));
+    dispatch((0,_actions_cartActions__WEBPACK_IMPORTED_MODULE_2__.addToCart)({
+      book_title: bookItem.book_title,
+      book_og_price: bookItem.book_price,
+      book_price: bookItem.discount_price,
+      book_cover_photo: bookItem.book_cover_photo,
+      author: bookItem.author,
+      id: bookItem.id
+    }, 1));
   };
 
   var renderAddToCartButton = function renderAddToCartButton() {
@@ -3272,9 +3310,7 @@ function BookItem(props) {
               children: bookItem.book_summary
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
               children: bookItem.author.author_name
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
-              children: ["$", bookItem.book_price]
-            })]
+            }), renderPriceTag()]
           }), renderAddToCartButton()]
         })
       })]
@@ -3392,11 +3428,28 @@ function CartItem(_ref) {
   var currentURL = location.protocol + "//" + location.host;
   var book_title = cartItem.book_title,
       author = cartItem.author,
-      book_price = cartItem.book_price,
+      discount_price = cartItem.book_price,
+      book_price = cartItem.book_og_price,
       book_cover_photo = cartItem.book_cover_photo,
       quantity = cartItem.quantity,
       bookID = cartItem.bookID,
       sub_total = cartItem.sub_total;
+
+  var renderPriceTag = function renderPriceTag() {
+    if (discount_price == book_price) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
+        className: "price",
+        children: ["$", book_price]
+      });
+    }
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
+      className: "price",
+      children: ["$", discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        children: ["$", book_price]
+      })]
+    });
+  };
 
   var handleQuantityUpdate = function handleQuantityUpdate(qty) {
     dispatch((0,_actions_cartActions__WEBPACK_IMPORTED_MODULE_2__.changeQuantity)(bookID, qty));
@@ -3478,10 +3531,7 @@ function CartItem(_ref) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
       className: "cart-item__price",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
-        className: "default-price",
-        children: ["$", book_price]
-      })
+      children: renderPriceTag()
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
       className: "cart-item__quantity",
       children: renderQuantityUtils()
@@ -5058,11 +5108,31 @@ function BookDetails(props) {
 
   var currentURL = location.protocol + "//" + location.host;
 
+  var renderPriceTag = function renderPriceTag() {
+    var discount_price = book.discount_price,
+        book_price = book.book_price;
+
+    if (discount_price == book_price) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
+        className: "price",
+        children: ["$", book_price]
+      });
+    }
+
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
+      className: "price",
+      children: ["$", discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+        children: ["$", book_price]
+      })]
+    });
+  };
+
   var handleAddToCart = function handleAddToCart() {
     //console.log(bookItem)
     dispatch((0,_actions_cartActions__WEBPACK_IMPORTED_MODULE_3__.addToCart)({
       book_title: book.book_title,
-      book_price: book.book_price,
+      book_og_price: book.book_price,
+      book_price: book.discount_price,
       book_cover_photo: book.book_cover_photo,
       author: book.author,
       id: book.id
@@ -5219,9 +5289,7 @@ function BookDetails(props) {
             className: "book-details__utils",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Header, {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
-                  children: ["$", book.book_price]
-                })
+                children: renderPriceTag()
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
                 children: renderAddToCartButton()
               })]
@@ -6317,7 +6385,8 @@ var bookListReducer = function bookListReducer() {
         loading: false,
         books: action.payload.map(function (bookItem) {
           return _objectSpread(_objectSpread({}, bookItem), {}, {
-            ratings: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateRatings)(bookItem.reviews).ratings
+            ratings: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateRatings)(bookItem.reviews).ratings,
+            discount_price: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateDiscountPrice)(bookItem)
           });
         })
       });
@@ -6349,7 +6418,9 @@ var bookDetailsReducer = function bookDetailsReducer() {
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_DETAILS_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
-        book: action.payload
+        book: _objectSpread(_objectSpread({}, action.payload), {}, {
+          discount_price: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateDiscountPrice)(action.payload)
+        })
       });
 
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_DETAILS_FAIL:
@@ -6413,7 +6484,8 @@ var cartReducer = function cartReducer() {
           author: action.payload.book.author,
           bookID: action.payload.book.id,
           sub_total: parseFloat(a.toFixed(2)),
-          quantity: Number(action.payload.quantity)
+          quantity: Number(action.payload.quantity),
+          book_og_price: action.payload.book.book_og_price
         }].concat(_toConsumableArray(state.cart))
       });
 
@@ -6709,7 +6781,8 @@ var reviewActionReducer = function reviewActionReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "toRating": () => (/* binding */ toRating),
-/* harmony export */   "calculateRatings": () => (/* binding */ calculateRatings)
+/* harmony export */   "calculateRatings": () => (/* binding */ calculateRatings),
+/* harmony export */   "calculateDiscountPrice": () => (/* binding */ calculateDiscountPrice)
 /* harmony export */ });
 var toRating = function toRating(num) {
   return num.toFixed(1);
@@ -6757,6 +6830,22 @@ var calculateRatings = function calculateRatings(reviews) {
     numberOfReviews: [0, a, b, c, d, e],
     ratings: ratings
   };
+};
+var calculateDiscountPrice = function calculateDiscountPrice(book) {
+  var discounts = book.discounts,
+      book_price = book.book_price;
+  var finalPrice = book_price;
+  var sortedDiscounts = discounts.filter(function (discount) {
+    var discount_start_date = discount.discount_start_date,
+        discount_end_date = discount.discount_end_date;
+    return new Date(discount_start_date).getTime() >= new Date().getTime() && (!discount_end_date || new Date(discount_end_date).getTime() < new Date().getTime());
+  });
+
+  if (sortedDiscounts.length > 0) {
+    finalPrice = sortedDiscounts[0].discount_price;
+  }
+
+  return finalPrice;
 };
 
 /***/ }),
@@ -6970,13 +7059,13 @@ var sortBooksOrderBy = function sortBooksOrderBy(list, orderBy) {
 
     case "priceasc":
       returnedList = list.sort(function (a, b) {
-        return parseFloat(a.book_price) - parseFloat(b.book_price);
+        return parseFloat(a.discount_price) - parseFloat(b.discount_price);
       });
       break;
 
     case "pricedesc":
       returnedList = list.sort(function (a, b) {
-        return parseFloat(b.book_price) - parseFloat(a.book_price);
+        return parseFloat(b.discount_price) - parseFloat(a.discount_price);
       });
       break;
 
