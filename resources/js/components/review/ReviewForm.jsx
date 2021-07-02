@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../actions/reviewActions";
 import data from "../../data";
 import ErrorBox from "../Partials/ErrorBox";
-import LoadingBox from "../partials/LoadingBox";
+//import LoadingBox from "../partials/LoadingBox";
 
 function ReviewForm({ bookID }) {
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function ReviewForm({ bookID }) {
                 rating_start: star,
             })
         );
-        
+
         setTitle("");
         setDescription("");
         setStar(1);
@@ -49,9 +49,21 @@ function ReviewForm({ bookID }) {
         return <ErrorBox message={error} />;
     }
 
-    if (loading) {
-        return <LoadingBox />;
-    }
+    const renderSubmitReviewButton = () => {
+        if (loading) {
+            return (
+                <button type="button" className="button dark block">
+                    Loading...
+                </button>
+            );
+        }
+
+        return (
+            <button type="submit" className="button dark block">
+                Submit Review
+            </button>
+        );
+    };
 
     return (
         <div id="review-form">
@@ -111,11 +123,7 @@ function ReviewForm({ bookID }) {
                             </select>
                         </Form.Group>
 
-                        <Form.Group>
-                            <button type="submit" className="button dark block">
-                                Submit Review
-                            </button>
-                        </Form.Group>
+                        <Form.Group>{renderSubmitReviewButton()}</Form.Group>
                     </Form>
                 </Card.Body>
             </Card>

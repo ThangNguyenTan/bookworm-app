@@ -1,4 +1,11 @@
-@import "./bootstrap/bootstrap.min.css";
+/* make the customizations */
+$theme-colors: (
+    "primary": #f75454
+);
+
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+@import "~bootstrap/scss/bootstrap";
 @import "./variables";
 @import "./global";
 @import "./navbar";
