@@ -7,6 +7,11 @@ import BookCarousel from "../components/book/BookCarousel";
 import BookList from "../components/book/BookList";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
+import {
+    getBooksWithHighestRatings,
+    getBooksWithHighestReviews,
+    getBooksWithHighestSale,
+} from "../utils/sorters";
 
 function Home() {
     const dispatch = useDispatch();
@@ -39,7 +44,7 @@ function Home() {
                     </div>
 
                     <div className="on-sale__carousel">
-                        <BookCarousel books={books} />
+                        <BookCarousel books={getBooksWithHighestSale(books)} />
                     </div>
                 </section>
 
@@ -49,7 +54,10 @@ function Home() {
                         defaultActiveKey="first"
                     >
                         <Row>
-                            <Col sm={12} className="featured-books__tab-container">
+                            <Col
+                                sm={12}
+                                className="featured-books__tab-container"
+                            >
                                 <h4>Featured Books</h4>
                                 <Nav variant="pills">
                                     <Nav.Item>
@@ -64,13 +72,24 @@ function Home() {
                                     </Nav.Item>
                                 </Nav>
                             </Col>
-                            <Col sm={12} className="featured-books__result-container">
+                            <Col
+                                sm={12}
+                                className="featured-books__result-container"
+                            >
                                 <Tab.Content>
                                     <Tab.Pane eventKey="first">
-                                        <BookList books={books.slice(0, 8)}/>
+                                        <BookList
+                                            books={getBooksWithHighestRatings(
+                                                books
+                                            )}
+                                        />
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="second">
-                                        <BookList books={books.slice(0, 8)}/>
+                                        <BookList
+                                            books={getBooksWithHighestReviews(
+                                                books
+                                            )}
+                                        />
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Col>

@@ -67,3 +67,24 @@ export const calculateDiscountPrice = (book) => {
 
     return finalPrice;
 };
+
+export const calculateDiscountPriceDiff = (book) => {
+    const { discounts, book_price } = book;
+    let finalPrice = 0;
+
+    let sortedDiscounts = discounts.filter((discount) => {
+        const { discount_start_date, discount_end_date } = discount;
+
+        return (
+            new Date(discount_start_date).getTime() >= new Date().getTime() &&
+                (!discount_end_date ||
+            new Date(discount_end_date).getTime() < new Date().getTime())
+        );
+    });
+
+    if (sortedDiscounts.length > 0) {
+        finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
+    }
+
+    return finalPrice;
+};

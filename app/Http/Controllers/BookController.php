@@ -28,9 +28,7 @@ class BookController extends Controller
      */
     public function getBookRec()
     {
-        //
-        //$books = Book::all();
-        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get();
+        $books = Book::all();
 
         return response($books);
     }

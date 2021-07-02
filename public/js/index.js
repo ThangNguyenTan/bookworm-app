@@ -3015,9 +3015,7 @@ function BookCarousel(_ref) {
   };
 
   function SampleNextArrow(props) {
-    var className = props.className,
-        style = props.style,
-        onClick = props.onClick;
+    var onClick = props.onClick;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "carousel-nav next",
       onClick: onClick,
@@ -3028,9 +3026,7 @@ function BookCarousel(_ref) {
   }
 
   function SamplePrevArrow(props) {
-    var className = props.className,
-        style = props.style,
-        onClick = props.onClick;
+    var onClick = props.onClick;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "carousel-nav prev",
       onClick: onClick,
@@ -3042,7 +3038,7 @@ function BookCarousel(_ref) {
 
   var settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -3186,7 +3182,9 @@ function BookItem(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Text, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
           children: bookItem.author.author_name
-        }), renderPriceTag()]
+        }), renderPriceTag(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
+          children: [bookItem.ratings, " star(s) (", bookItem.reviews.length, " reviews)"]
+        })]
       }), renderAddToCartButton()]
     })]
   });
@@ -3310,7 +3308,9 @@ function BookItem(props) {
               children: bookItem.book_summary
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
               children: bookItem.author.author_name
-            }), renderPriceTag()]
+            }), renderPriceTag(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
+              children: [bookItem.ratings, " star(s) (", bookItem.reviews.length, " reviews)"]
+            })]
           }), renderAddToCartButton()]
         })
       })]
@@ -3414,8 +3414,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_cartActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/cartActions */ "./resources/js/actions/cartActions.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -3523,8 +3525,11 @@ function CartItem(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
-          children: book_title
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "/books/".concat(bookID),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
+            children: book_title
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
           children: author.author_name
         })]
@@ -5511,19 +5516,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Tab.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Nav.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Tab.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Nav.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_bookActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/bookActions */ "./resources/js/actions/bookActions.js");
 /* harmony import */ var _components_book_BookCarousel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/book/BookCarousel */ "./resources/js/components/book/BookCarousel.jsx");
 /* harmony import */ var _components_book_BookList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/book/BookList */ "./resources/js/components/book/BookList.jsx");
 /* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
 /* harmony import */ var _components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _utils_sorters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/sorters */ "./resources/js/utils/sorters.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -5549,77 +5556,77 @@ function Home() {
   }, [dispatch]);
 
   if (error) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__.default, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__.default, {
       message: error
     });
   }
 
   if (loading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__.default, {});
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__.default, {});
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     id: "home-page",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
         id: "on-sale",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "on-sale__header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
             children: "On Sale"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
               to: "/shop",
               className: "btn btn-dark",
-              children: ["View All ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+              children: ["View All ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
                 className: "fas fa-caret-right"
               })]
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "on-sale__carousel",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_book_BookCarousel__WEBPACK_IMPORTED_MODULE_3__.default, {
-            books: books
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_book_BookCarousel__WEBPACK_IMPORTED_MODULE_3__.default, {
+            books: (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_7__.getBooksWithHighestSale)(books)
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
         id: "featured-books",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Container, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Container, {
           id: "left-tabs-example",
           defaultActiveKey: "first",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
               sm: 12,
               className: "featured-books__tab-container",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
                 children: "Featured Books"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
                 variant: "pills",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Item, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Link, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Item, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Link, {
                     eventKey: "first",
                     children: "Recommended"
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Item, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Link, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Item, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Link, {
                     eventKey: "second",
                     children: "Popular"
                   })
                 })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
               sm: 12,
               className: "featured-books__result-container",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Content, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Pane, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Content, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Pane, {
                   eventKey: "first",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_4__.default, {
-                    books: books.slice(0, 8)
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_4__.default, {
+                    books: (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_7__.getBooksWithHighestRatings)(books)
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Pane, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default.Pane, {
                   eventKey: "second",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_4__.default, {
-                    books: books.slice(0, 8)
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_4__.default, {
+                    books: (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_7__.getBooksWithHighestReviews)(books)
                   })
                 })]
               })
@@ -6782,7 +6789,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "toRating": () => (/* binding */ toRating),
 /* harmony export */   "calculateRatings": () => (/* binding */ calculateRatings),
-/* harmony export */   "calculateDiscountPrice": () => (/* binding */ calculateDiscountPrice)
+/* harmony export */   "calculateDiscountPrice": () => (/* binding */ calculateDiscountPrice),
+/* harmony export */   "calculateDiscountPriceDiff": () => (/* binding */ calculateDiscountPriceDiff)
 /* harmony export */ });
 var toRating = function toRating(num) {
   return num.toFixed(1);
@@ -6843,6 +6851,22 @@ var calculateDiscountPrice = function calculateDiscountPrice(book) {
 
   if (sortedDiscounts.length > 0) {
     finalPrice = sortedDiscounts[0].discount_price;
+  }
+
+  return finalPrice;
+};
+var calculateDiscountPriceDiff = function calculateDiscountPriceDiff(book) {
+  var discounts = book.discounts,
+      book_price = book.book_price;
+  var finalPrice = 0;
+  var sortedDiscounts = discounts.filter(function (discount) {
+    var discount_start_date = discount.discount_start_date,
+        discount_end_date = discount.discount_end_date;
+    return new Date(discount_start_date).getTime() >= new Date().getTime() && (!discount_end_date || new Date(discount_end_date).getTime() < new Date().getTime());
+  });
+
+  if (sortedDiscounts.length > 0) {
+    finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
   }
 
   return finalPrice;
@@ -6932,12 +6956,57 @@ function paginate(totalItems) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getBooksWithHighestSale": () => (/* binding */ getBooksWithHighestSale),
+/* harmony export */   "getBooksWithHighestRatings": () => (/* binding */ getBooksWithHighestRatings),
+/* harmony export */   "getBooksWithHighestReviews": () => (/* binding */ getBooksWithHighestReviews),
 /* harmony export */   "sortBooks": () => (/* binding */ sortBooks),
 /* harmony export */   "sortBooksIndividually": () => (/* binding */ sortBooksIndividually),
 /* harmony export */   "sortBooksOrderBy": () => (/* binding */ sortBooksOrderBy),
 /* harmony export */   "sortReviews": () => (/* binding */ sortReviews),
 /* harmony export */   "sortReviewsOrderBy": () => (/* binding */ sortReviewsOrderBy)
 /* harmony export */ });
+/* harmony import */ var _calculation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calculation */ "./resources/js/utils/calculation.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var getBooksWithHighestSale = function getBooksWithHighestSale(bookList) {
+  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+  bookList = bookList.map(function (bookItem) {
+    return _objectSpread(_objectSpread({}, bookItem), {}, {
+      discount_price_diff: (0,_calculation__WEBPACK_IMPORTED_MODULE_0__.calculateDiscountPriceDiff)(bookItem)
+    });
+  });
+  bookList = bookList.sort(function (a, b) {
+    return b.discount_price_diff - a.discount_price_diff;
+  });
+  return bookList.slice(0, numberOfBooks);
+};
+var getBooksWithHighestRatings = function getBooksWithHighestRatings(bookList) {
+  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
+  bookList = bookList.sort(function (a, b) {
+    if (a.ratings == b.ratings) {
+      return a.discount_price - b.discount_price;
+    }
+
+    return b.ratings - a.ratings;
+  });
+  return bookList.slice(0, numberOfBooks);
+};
+var getBooksWithHighestReviews = function getBooksWithHighestReviews(bookList) {
+  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
+  bookList = bookList.sort(function (a, b) {
+    if (a.reviews.length == b.reviews.length) {
+      return a.discount_price - b.discount_price;
+    }
+
+    return b.reviews.length - a.reviews.length;
+  });
+  return bookList.slice(0, numberOfBooks);
+};
 var sortBooks = function sortBooks(list, searchObject) {
   var searchedCategories = searchObject.searchedCategories,
       searchedAuthors = searchObject.searchedAuthors,

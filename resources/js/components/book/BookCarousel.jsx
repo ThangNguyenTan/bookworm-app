@@ -10,7 +10,7 @@ function BookCarousel({ books }) {
     };
 
     function SampleNextArrow(props) {
-        const { className, style, onClick } = props;
+        const { onClick } = props;
         return (
             <div
                 className={`carousel-nav next`}
@@ -22,7 +22,7 @@ function BookCarousel({ books }) {
     }
 
     function SamplePrevArrow(props) {
-        const { className, style, onClick } = props;
+        const { onClick } = props;
         return (
             <div
                 className="carousel-nav prev"
@@ -35,7 +35,7 @@ function BookCarousel({ books }) {
 
     const settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,

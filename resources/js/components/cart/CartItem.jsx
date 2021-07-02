@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { changeQuantity, removeFromCart } from "../../actions/cartActions";
 
 function CartItem({ cartItem }) {
@@ -18,7 +19,7 @@ function CartItem({ cartItem }) {
 
     const renderPriceTag = () => {
         if (discount_price == book_price) {
-            return <h6 className="price">${book_price}</h6>
+            return <h6 className="price">${book_price}</h6>;
         }
 
         return (
@@ -103,13 +104,13 @@ function CartItem({ cartItem }) {
                     />
                 </div>
                 <div className="content">
-                    <h5>{book_title}</h5>
+                    <Link to={`/books/${bookID}`}>
+                        <h5>{book_title}</h5>
+                    </Link>
                     <p>{author.author_name}</p>
                 </div>
             </td>
-            <td className="cart-item__price">
-                {renderPriceTag()}
-            </td>
+            <td className="cart-item__price">{renderPriceTag()}</td>
             <td className="cart-item__quantity">{renderQuantityUtils()}</td>
             <td className="cart-item__total">
                 <h6>${sub_total}</h6>
