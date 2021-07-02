@@ -49,6 +49,7 @@ function Home() {
                 </section>
 
                 <section id="featured-books">
+                    <Container>
                     <Tab.Container
                         id="left-tabs-example"
                         defaultActiveKey="first"
@@ -95,6 +96,7 @@ function Home() {
                             </Col>
                         </Row>
                     </Tab.Container>
+                    </Container>
                 </section>
             </Container>
         </div>

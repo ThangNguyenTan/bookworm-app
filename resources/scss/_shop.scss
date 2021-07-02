@@ -75,6 +75,10 @@
 
     .card-img-top {
         height: 250px;
+
+        @media screen and (min-width: 320px) and (max-width: 767px) {
+            height: 350px;
+        }
     }
 
     &.landscape {
