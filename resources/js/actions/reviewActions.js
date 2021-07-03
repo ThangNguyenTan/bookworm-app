@@ -17,7 +17,7 @@ export const getReviewsByBookID = (bookID) => {
             payload: bookID,
         });
         try {
-            const { data } = await axios.get(`${REVIEWS_URL}/bookID/${bookID}`);
+            const { data } = await axios.get(`${REVIEWS_URL}/${bookID}/book`);
             dispatch({
                 type: GET_BOOK_REVIEWS_SUCCESS,
                 payload: data,
@@ -41,12 +41,10 @@ export const addReview = (newReview) => {
             payload: newReview,
         });
         try {
-            await axios.post(`${REVIEWS_URL}/add`, {
+            await axios.post(`${REVIEWS_URL}/${newReview.book_id}/book`, {
                 ...newReview,
             });
-            const { data } = await axios.get(
-                `${REVIEWS_URL}/bookID/${newReview.book_id}`
-            );
+            const { data } = await axios.get(`${REVIEWS_URL}/${newReview.book_id}/book`);
             dispatch({
                 type: ADD_REVIEW_SUCCESS,
             });

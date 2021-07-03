@@ -41,7 +41,7 @@ export const getBookDetails = (bookID) => {
       payload: bookID
     });
     try {
-      const { data } = await axios.get(`${BOOKS_URL}/bookID/${bookID}`);
+      const { data } = await axios.get(`${BOOKS_URL}/${bookID}`);
       dispatch({
         type: GET_BOOK_DETAILS_SUCCESS,
         payload: data,

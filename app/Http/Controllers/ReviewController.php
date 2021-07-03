@@ -13,10 +13,10 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
-        $reviews = Review::all();
+        $reviews = Review::where('book_id', $id)->get();
 
         return response($reviews);
     }
@@ -54,7 +54,6 @@ class ReviewController extends Controller
      *
      * @param  int  $bookID
      * @return \Illuminate\Http\Response
-     */
     public function getReviewsByBookID($bookID)
     {
         //
@@ -62,6 +61,7 @@ class ReviewController extends Controller
 
         return response($reviews);
     }
+     */
 
     /**
      * Display the specified resource.

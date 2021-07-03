@@ -2431,7 +2431,7 @@ var getBookDetails = function getBookDetails(bookID) {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(BOOKS_URL, "/bookID/").concat(bookID));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(BOOKS_URL, "/").concat(bookID));
 
             case 4:
               _yield$axios$get2 = _context2.sent;
@@ -2713,7 +2713,7 @@ var getOrderDetails = function getOrderDetails(orderID) {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(ORDERS_URL, "/orderID/").concat(orderID));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(ORDERS_URL, "/").concat(orderID));
 
             case 4:
               _yield$axios$get2 = _context2.sent;
@@ -2763,7 +2763,7 @@ var placeOrder = function placeOrder(_ref3) {
               _getState = getState(), cartReducer = _getState.cartReducer;
               cart = cartReducer.cart;
               _context3.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(ORDERS_URL, "/add"), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(ORDERS_URL), {
                 order_amount: parseFloat(totalPrice),
                 order_items: cart.map(function (cartItem) {
                   return {
@@ -2859,7 +2859,7 @@ var getReviewsByBookID = function getReviewsByBookID(bookID) {
               });
               _context.prev = 1;
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/bookID/").concat(bookID));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/").concat(bookID, "/book"));
 
             case 4:
               _yield$axios$get = _context.sent;
@@ -2907,11 +2907,11 @@ var addReview = function addReview(newReview) {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(REVIEWS_URL, "/add"), _objectSpread({}, newReview));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(REVIEWS_URL, "/").concat(newReview.book_id, "/book"), _objectSpread({}, newReview));
 
             case 4:
               _context2.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/bookID/").concat(newReview.book_id));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/").concat(newReview.book_id, "/book"));
 
             case 6:
               _yield$axios$get2 = _context2.sent;

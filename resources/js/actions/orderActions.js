@@ -46,7 +46,7 @@ export const getOrderDetails = (orderID) => {
         });
         try {
             const { data } = await axios.get(
-                `${ORDERS_URL}/orderID/${orderID}`
+                `${ORDERS_URL}/${orderID}`
             );
             dispatch({
                 type: GET_ORDER_DETAILS_SUCCESS,
@@ -72,7 +72,7 @@ export const placeOrder = ({ totalPrice }) => {
         try {
             const { cartReducer } = getState();
             const { cart } = cartReducer;
-            const { data } = await axios.post(`${ORDERS_URL}/add`, {
+            const { data } = await axios.post(`${ORDERS_URL}`, {
                 order_amount: parseFloat(totalPrice),
                 order_items: cart.map((cartItem) => {
                     return {
