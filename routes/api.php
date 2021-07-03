@@ -85,6 +85,3 @@ Route::delete("/orders/delete/{id}", [OrderController::class, "destroy"]);
 
 Route::apiResource("orders", OrderController::class);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});

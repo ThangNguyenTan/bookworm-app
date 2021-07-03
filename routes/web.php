@@ -27,6 +27,10 @@ Route::get('/books/{route}',function(){
     return view('welcome');
 });
 
+Route::get('/orders/{route}',function(){
+    return view('welcome');
+});
+
 Route::get('/{route}',function(){
     return view('welcome');
 });
