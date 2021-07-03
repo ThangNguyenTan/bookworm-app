@@ -10637,7 +10637,7 @@ footer ul li p {
 .book-item .card-title {
   font-size: 1rem;
 }
-.book-item .card-title a {
+.book-item .card-title a, .book-item h6.author {
   display: block;
   overflow: hidden;
   white-space: nowrap;
