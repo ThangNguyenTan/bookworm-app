@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -10,20 +10,69 @@ import LoadingBox from "../components/partials/LoadingBox";
 function Cart(props) {
     const dispatch = useDispatch();
     const { cart } = useSelector((state) => state.cartReducer);
-    const { loading, error, order } = useSelector((state) => state.orderActionReducer);
-    const [isSubmitted, setIsSubmitted] = useState(false); 
+    const { loading, error, order } = useSelector(
+        (state) => state.orderActionReducer
+    );
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [alertBoxContainer, setAlertBoxContainer] = useState(false);
 
     useEffect(() => {
         if (isSubmitted) {
             if (!loading && !error && order) {
-                props.history.push(`/orders/${order.id}`)
+                setAlertBoxContainer(
+                    <div id="cart-page">
+                        <div className="container text-center">
+                            <div
+                                style={{
+                                    marginTop: "100px",
+                                }}
+                            >
+                                <div>
+                                    <h2>
+                                        You have successfully placed an order.{" "}
+                                        <br /> You will be redirected back to
+                                        home page.
+                                    </h2>
+                                    <Link
+                                        to="/"
+                                        className="button primary mt-3"
+                                    >
+                                        Go to Home page
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+                setTimeout(() => {
+                    props.history.push(`/`);
+                }, 10000);
+            } else if (error && !loading) {
+                setAlertBoxContainer(
+                    <div id="cart-page">
+                        <div className="container text-center">
+                            <div
+                                style={{
+                                    marginTop: "100px",
+                                }}
+                            >
+                                <div>
+                                    <h2>
+                                        {error}. <br />
+                                        The record with that book ID will be
+                                        removed.
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
             }
         }
-    }, [
-        isSubmitted,
-        loading,
-        error
-    ])
+    }, [isSubmitted, loading, error]);
 
     const toPrice = (num) => {
         return num.toFixed(2);
@@ -37,7 +86,7 @@ function Cart(props) {
 
     const handlePlaceOrder = () => {
         dispatch(placeOrder({ totalPrice }));
-        setIsSubmitted(true)
+        setIsSubmitted(true);
     };
 
     const renderCartSummary = () => {
@@ -62,22 +111,30 @@ function Cart(props) {
         );
     };
 
+    if (alertBoxContainer) {
+        return alertBoxContainer;
+    }
+
     if (cart.length === 0) {
         return (
-          <div id="cart-page">
-            <div className="container text-center">
-                <div style={{
-                    marginTop: "100px"
-                }}>
-                    <div>
-                        <h2>{`Currently you don't have any items`}</h2>
-                        <Link to="/shop" className="button primary mt-3">Go to Shop</Link>
+            <div id="cart-page">
+                <div className="container text-center">
+                    <div
+                        style={{
+                            marginTop: "100px",
+                        }}
+                    >
+                        <div>
+                            <h2>{`Currently you don't have any items`}</h2>
+                            <Link to="/shop" className="button primary mt-3">
+                                Go to Shop
+                            </Link>
+                        </div>
                     </div>
-                </div> 
+                </div>
             </div>
-          </div>
         );
-      }
+    }
 
     return (
         <div id="cart-page">

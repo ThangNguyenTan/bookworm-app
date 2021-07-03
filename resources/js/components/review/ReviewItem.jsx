@@ -13,7 +13,7 @@ function ReviewItem({reviewItem}) {
                 <p>{rating_start} star(s)</p>
             </div>
             <div className="review-item__body">
-                <p>{review_details}</p>
+                <p>{review_details || <i>There is no details for this review</i>}</p>
             </div>
             <div className="review-item__footer">
                 <h6>{moment(new Date(review_date).getTime()).format('MMMM Do, YYYY')}</h6>

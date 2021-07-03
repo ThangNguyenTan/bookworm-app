@@ -62,6 +62,10 @@ export const calculateDiscountPrice = (book) => {
     });
 
     if (sortedDiscounts.length > 0) {
+        if (sortedDiscounts.length > 1) {
+            sortedDiscounts.sort((a, b) => a.discount_price - b.discount_price);
+        }
+
         finalPrice = sortedDiscounts[0].discount_price;
     }
 

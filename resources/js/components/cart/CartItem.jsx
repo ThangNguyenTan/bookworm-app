@@ -45,7 +45,7 @@ function CartItem({ cartItem }) {
                     className="decrement"
                     onClick={() => {
                         if (quantity === 1) {
-                            return;
+                            return handleRemoveFromCart();
                         }
                         handleQuantityUpdate(parseInt(quantity) - 1);
                     }}
@@ -60,17 +60,15 @@ function CartItem({ cartItem }) {
                         min={1}
                         max={8}
                         value={quantity}
-                        onChange={(e) => {
-                            handleQuantityUpdate(parseInt(e.target.value));
-                        }}
+                        disabled
                         required
                     />
                 </div>
                 <div
                     className="increment"
                     onClick={() => {
-                        if (quantity === 8) {
-                            return;
+                        if (quantity >= 8) {
+                            return handleQuantityUpdate(8);
                         }
                         handleQuantityUpdate(parseInt(quantity) + 1);
                     }}
@@ -104,7 +102,7 @@ function CartItem({ cartItem }) {
                     />
                 </div>
                 <div className="content">
-                    <Link to={`/books/${bookID}`}>
+                    <Link to={`/books/${bookID}`} target="_blank" rel="noopener noreferrer">
                         <h5>{book_title}</h5>
                     </Link>
                     <p>{author.author_name}</p>

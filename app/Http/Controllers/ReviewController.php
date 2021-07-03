@@ -32,9 +32,8 @@ class ReviewController extends Controller
         //
         $validated = $request->validate([
             'book_id' => 'required',
-            'review_title' => 'required|string|max:120',
-            'review_details' => 'string',
-            'rating_start' => 'required|string|max:255',
+            'review_title' => 'required|max:120',
+            'rating_start' => 'required|max:255',
         ]);
 
         $review = new Review();
@@ -92,9 +91,8 @@ class ReviewController extends Controller
 
         $validated = $request->validate([
             'book_id' => 'required',
-            'review_title' => 'required|string|max:120',
-            'review_details' => 'string',
-            'rating_start' => 'required|string|max:255',
+            'review_title' => 'required|max:120',
+            'rating_start' => 'required|max:255',
         ]);
 
         $review->book_id = $request->book_id;

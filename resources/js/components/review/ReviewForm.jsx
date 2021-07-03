@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../actions/reviewActions";
 import data from "../../data";
+import AlertBox from "../partials/AlertBox";
 import ErrorBox from "../Partials/ErrorBox";
 //import LoadingBox from "../partials/LoadingBox";
 
@@ -17,6 +18,20 @@ function ReviewForm({ bookID }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [star, setStar] = useState(1);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [alertBoxContainer, setAlertBoxContainer] = useState(<></>);
+
+    useEffect(() => {
+        if (isSubmitted && !loading && !error) {
+            setAlertBoxContainer(
+                <AlertBox isShowed={true} message={"Added a review"} />
+            );
+            setTimeout(() => {
+                setAlertBoxContainer(<></>);
+            }, 5000);
+            setIsSubmitted(false);
+        }
+    }, [isSubmitted, loading, error]);
 
     const renderStarOptions = () => {
         return data.reviewCriterias.map((reviewCriteria) => {
@@ -30,7 +45,7 @@ function ReviewForm({ bookID }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(bookID);
+
         dispatch(
             addReview({
                 book_id: bookID,
@@ -43,6 +58,7 @@ function ReviewForm({ bookID }) {
         setTitle("");
         setDescription("");
         setStar(1);
+        setIsSubmitted(true);
     };
 
     if (error) {
@@ -72,6 +88,7 @@ function ReviewForm({ bookID }) {
                     <h2>Write a Review</h2>
                 </Card.Header>
                 <Card.Body>
+                    {alertBoxContainer}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="title">Add a title</Form.Label>
@@ -103,7 +120,6 @@ function ReviewForm({ bookID }) {
                                 onChange={(e) => {
                                     setDescription(e.target.value);
                                 }}
-                                required
                             />
                         </Form.Group>
 

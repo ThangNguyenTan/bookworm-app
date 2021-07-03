@@ -1,17 +1,19 @@
 import { calculateDiscountPriceDiff } from "./calculation";
 
 export const getBooksWithHighestSale = (bookList, numberOfBooks = 10) => {
-    bookList = bookList.map(bookItem => {
+    bookList = bookList.map((bookItem) => {
         return {
             ...bookItem,
-            discount_price_diff: calculateDiscountPriceDiff(bookItem)
-        }
+            discount_price_diff: calculateDiscountPriceDiff(bookItem),
+        };
     });
 
-    bookList = bookList.sort((a, b) => b.discount_price_diff - a.discount_price_diff)
+    bookList = bookList.sort(
+        (a, b) => b.discount_price_diff - a.discount_price_diff
+    );
 
     return bookList.slice(0, numberOfBooks);
-}
+};
 
 export const getBooksWithHighestRatings = (bookList, numberOfBooks = 8) => {
     bookList = bookList.sort((a, b) => {
@@ -19,21 +21,21 @@ export const getBooksWithHighestRatings = (bookList, numberOfBooks = 8) => {
             return a.discount_price - b.discount_price;
         }
         return b.ratings - a.ratings;
-    })
+    });
 
     return bookList.slice(0, numberOfBooks);
-}
+};
 
 export const getBooksWithHighestReviews = (bookList, numberOfBooks = 8) => {
     bookList = bookList.sort((a, b) => {
-        if (a.reviews.length == b.reviews.length ) {
+        if (a.reviews.length == b.reviews.length) {
             return a.discount_price - b.discount_price;
         }
-        return b.reviews.length  - a.reviews.length ;
-    })
+        return b.reviews.length - a.reviews.length;
+    });
 
     return bookList.slice(0, numberOfBooks);
-}
+};
 
 export const sortBooks = (list, searchObject) => {
     const { searchedCategories, searchedAuthors, searchedRating } =
@@ -153,22 +155,22 @@ export const sortBooksOrderBy = (list, orderBy) => {
                 b.book_title.localeCompare(a.book_title)
             );
             break;
-        /*
-      case "ratingasc":
-        returnedList = list.sort((a, b) => a.ratings - b.ratings);
-        break;
-      case "ratingdesc":
-        returnedList = list.sort((a, b) => b.ratings - a.ratings);
-        break;
-        */
+        case "popularity":
+            returnedList = getBooksWithHighestReviews(list, list.length);
+            break;
+        case "onsale":
+            returnedList = getBooksWithHighestSale(list, list.length);
+            break;
         case "priceasc":
             returnedList = list.sort(
-                (a, b) => parseFloat(a.discount_price) - parseFloat(b.discount_price)
+                (a, b) =>
+                    parseFloat(a.discount_price) - parseFloat(b.discount_price)
             );
             break;
         case "pricedesc":
             returnedList = list.sort(
-                (a, b) => parseFloat(b.discount_price) - parseFloat(a.discount_price)
+                (a, b) =>
+                    parseFloat(b.discount_price) - parseFloat(a.discount_price)
             );
             break;
         default:

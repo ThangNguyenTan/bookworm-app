@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_CART } from "../constants/cartConstants";
+import { CLEAR_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
 import {
     ADD_ORDER_FAIL,
     ADD_ORDER_REQUEST,
@@ -11,31 +11,32 @@ import {
     GET_ORDER_DETAILS_REQUEST,
     GET_ORDER_DETAILS_SUCCESS,
 } from "../constants/orderConstants";
+import { removeFromCart } from "./cartActions";
 
 const ORDERS_URL = `/api/orders`;
 
 export const getAllOrders = () => {
     return async (dispatch) => {
-      dispatch({
-        type: GET_ALL_ORDERS_REQUEST,
-      });
-      try {
-        const { data } = await axios.get(`${ORDERS_URL}`);
         dispatch({
-          type: GET_ALL_ORDERS_SUCCESS,
-          payload: data,
+            type: GET_ALL_ORDERS_REQUEST,
         });
-      } catch (error) {
-        dispatch({
-          type: GET_ALL_ORDERS_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
-        });
-      }
+        try {
+            const { data } = await axios.get(`${ORDERS_URL}`);
+            dispatch({
+                type: GET_ALL_ORDERS_SUCCESS,
+                payload: data,
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_ALL_ORDERS_FAIL,
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
+            });
+        }
     };
-  };
+};
 
 export const getOrderDetails = (orderID) => {
     return async (dispatch) => {
@@ -89,6 +90,7 @@ export const placeOrder = ({ totalPrice }) => {
                 type: CLEAR_CART,
             });
         } catch (error) {
+            dispatch(removeFromCart(error.response.data.invalid_book_id))
             dispatch({
                 type: ADD_ORDER_FAIL,
                 payload:

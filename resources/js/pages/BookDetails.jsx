@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getBookDetails } from "../actions/bookActions";
 import { addToCart } from "../actions/cartActions";
 import { getReviewsByBookID } from "../actions/reviewActions";
+import AlertBox from "../components/partials/AlertBox";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
 import ReviewForm from "../components/review/ReviewForm";
@@ -23,11 +24,21 @@ function BookDetails(props) {
         reviews,
     } = reviewListReducer;
     const [quantity, setQuantity] = useState(1);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const [alertBoxContainer, setAlertBoxContainer] = useState(<></>);
 
     const currentURL = location.protocol + "//" + location.host;
 
+    useEffect(() => {
+        if (isAddedToCart) {
+            setAlertBoxContainer(
+                <AlertBox isShowed={true} message={"Added to cart"} />
+            );
+        }
+    }, [isAddedToCart]);
+
     const renderPriceTag = () => {
-        const {discount_price, book_price} = book;
+        const { discount_price, book_price } = book;
 
         if (discount_price == book_price) {
             return <h2 className="price">${book_price}</h2>;
@@ -56,6 +67,8 @@ function BookDetails(props) {
                 quantity
             )
         );
+
+        setIsAddedToCart(true);
     };
 
     const renderAddToCartButton = () => {
@@ -100,17 +113,15 @@ function BookDetails(props) {
                             min={1}
                             max={8}
                             value={quantity}
-                            onChange={(e) => {
-                                setQuantity(e.target.value);
-                            }}
+                            disabled
                             required
                         />
                     </div>
                     <div
                         className="increment"
                         onClick={() => {
-                            if (quantity === 8) {
-                                return;
+                            if (quantity >= 8) {
+                                return setQuantity(8);
                             }
                             setQuantity((prev) => prev + 1);
                         }}
@@ -214,10 +225,11 @@ function BookDetails(props) {
                     <Col lg={4} md={12} sm={12}>
                         <div className="book-details__utils">
                             <Card>
-                                <Card.Header>
-                                    {renderPriceTag()}
-                                </Card.Header>
-                                <Card.Body>{renderAddToCartButton()}</Card.Body>
+                                <Card.Header>{renderPriceTag()}</Card.Header>
+                                <Card.Body>
+                                    {alertBoxContainer}
+                                    {renderAddToCartButton()}
+                                </Card.Body>
                             </Card>
                         </div>
                     </Col>

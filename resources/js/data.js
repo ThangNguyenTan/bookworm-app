@@ -36,6 +36,14 @@ const data = {
             value: "ztoa"
         },
         {
+            name: "Sort by Popularity",
+            value: "popularity"
+        },
+        {
+            name: "Sort by On Sale",
+            value: "onsale"
+        },
+        {
             name: "Price (Low to High)",
             value: "priceasc"
         },

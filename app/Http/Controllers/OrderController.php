@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -35,6 +36,29 @@ class OrderController extends Controller
             "order_items"    => "required|array|min:1",
         ]);
 
+        $orderItems = $request->order_items;
+
+        foreach ($orderItems as $index => $orderItemNormal) {
+            $bookID = $orderItemNormal['bookID'];
+            $quantity = $orderItemNormal['quantity'];
+            $price = $orderItemNormal['price'];
+
+            if (!$bookID || !$quantity || !$price) {
+                return response(collect([
+                    "message" => "Lack of information for the order items"
+                ]), 400);
+            }
+
+            $existedBook = Book::find($bookID);
+
+            if (!$existedBook) {
+                return response(collect([
+                    "message" => "The book with an ID of $bookID does not exist",
+                    "invalid_book_id" => $bookID
+                ]), 404); 
+            }
+        }
+
         $order = new Order();
         
         $order->order_amount = $request->order_amount;
@@ -42,23 +66,13 @@ class OrderController extends Controller
 
         $order->save();
 
-        $orderItems = $request->order_items;
-
         foreach ($orderItems as $index => $orderItemNormal) {
             $orderItem = new OrderItem();
-
-            //return dd($orderItemNormal['bookID']);
 
             $bookID = $orderItemNormal['bookID'];
             $orderID = $order->id;
             $quantity = $orderItemNormal['quantity'];
-            $price = $orderItemNormal['price'];;
-
-            if (!$bookID || !$orderID || !$quantity || !$price) {
-                return response(collect([
-                    "message" => "Lack of information for the order items"
-                ]), 400);
-            }
+            $price = $orderItemNormal['price'];
 
             $orderItem->book_id = $bookID;
             $orderItem->order_id = $orderID;

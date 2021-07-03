@@ -1,4 +1,8 @@
-import { GET_ALL_CATEGORIES_FAIL, GET_ALL_CATEGORIES_REQUEST, GET_ALL_CATEGORIES_SUCCESS } from "../constants/categoryConstants";
+import {
+    GET_ALL_CATEGORIES_FAIL,
+    GET_ALL_CATEGORIES_REQUEST,
+    GET_ALL_CATEGORIES_SUCCESS,
+} from "../constants/categoryConstants";
 
 export const categoryListReducer = (
     state = {
@@ -18,7 +22,9 @@ export const categoryListReducer = (
             return {
                 ...state,
                 loading: false,
-                categories: action.payload,
+                categories: action.payload.sort((a, b) =>
+                    a.category_name.localeCompare(b.category_name)
+                ),
             };
         case GET_ALL_CATEGORIES_FAIL:
             return {
