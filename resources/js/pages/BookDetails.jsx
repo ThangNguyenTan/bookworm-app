@@ -23,6 +23,7 @@ function BookDetails(props) {
         error: reviewError,
         reviews,
     } = reviewListReducer;
+    
     const [quantity, setQuantity] = useState(1);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
     const [alertBoxContainer, setAlertBoxContainer] = useState(<></>);

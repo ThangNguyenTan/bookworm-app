@@ -10333,7 +10333,8 @@ ol {
   list-style: none;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   text-align: center;
   vertical-align: middle;
 }
@@ -10361,52 +10362,30 @@ a:hover {
   cursor: pointer;
   border-radius: 10px;
 }
-
 .button.large {
   padding: 1.5rem 3rem;
 }
-
 .button.block {
   width: 100%;
   text-align: center;
 }
-
 .button.primary {
   background-color: #f75454;
   border: 1px solid #f75454;
   color: #fff;
 }
-
 .button.primary:hover {
   background-color: #fff;
   color: #f75454;
 }
-
 .button.dark {
   background-color: #161619;
   border: 1px solid #161619;
   color: #fff;
 }
-
 .button.dark:hover {
   background-color: #fff;
   color: #161619;
-}
-
-footer {
-  background-color: #f8f9fa;
-  padding-bottom: 10px;
-  padding-top: 20px;
-}
-footer img {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-footer ul li {
-  margin-bottom: 10px;
-}
-footer ul li p {
-  margin-bottom: 0;
 }
 
 .page-header {
@@ -10479,6 +10458,22 @@ footer ul li p {
 
 .nav-link.active {
   font-weight: bold;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+footer img {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+footer ul li {
+  margin-bottom: 10px;
+}
+footer ul li p {
+  margin-bottom: 0;
 }
 
 #home-page #on-sale {

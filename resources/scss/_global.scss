@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 ul,
@@ -13,7 +13,8 @@ ol {
 }
 
 .table {
-    th, td {
+    th,
+    td {
         text-align: center;
         vertical-align: middle;
     }
@@ -41,56 +42,35 @@ a:hover {
     transition: all 0.3s ease;
     cursor: pointer;
     border-radius: 10px;
-}
 
-.button.large {
-    padding: 1.5rem 3rem;
-}
-
-.button.block {
-    width: 100%;
-    text-align: center;
-}
-
-.button.primary {
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
-    color: #fff;
-}
-
-.button.primary:hover {
-    background-color: #fff;
-    color: $primary-color;
-}
-
-.button.dark {
-    background-color: #161619;
-    border: 1px solid #161619;
-    color: #fff;
-}
-
-.button.dark:hover {
-    background-color: #fff;
-    color: #161619;
-}
-
-footer {
-    background-color: #f8f9fa;
-    padding-bottom: 10px;
-    padding-top: 20px;
-
-    img {
-        display: inline-block;
-        margin-bottom: 20px;
+    &.large {
+        padding: 1.5rem 3rem;
     }
 
-    ul {
-        li {
-            margin-bottom: 10px;
+    &.block {
+        width: 100%;
+        text-align: center;
+    }
 
-            p {
-                margin-bottom: 0;
-            }
+    &.primary {
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+        color: #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: $primary-color;
+        }
+    }
+
+    &.dark {
+        background-color: #161619;
+        border: 1px solid #161619;
+        color: #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: #161619;
         }
     }
 }

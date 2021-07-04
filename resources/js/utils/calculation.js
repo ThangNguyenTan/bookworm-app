@@ -39,6 +39,7 @@ export const calculateRatings = (reviews) => {
     let ratings = toRating(
         (1 * a + 2 * b + 3 * c + 4 * d + 5 * e) / (a + b + c + d + e)
     );
+    
     ratings = isNaN(ratings) ? 0 : ratings;
 
     return {
