@@ -5748,7 +5748,7 @@ function Home() {
             children: "On Sale"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
-              to: "/shop",
+              to: "/shop?sort-by=onsale",
               className: "btn btn-dark",
               children: ["View All ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
                 className: "fas fa-caret-right"
@@ -6066,7 +6066,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Shop() {
+function Shop(props) {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var bookListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.bookListReducer;
@@ -6086,6 +6086,7 @@ function Shop() {
   var authorLoading = authorListReducer.loading,
       authorError = authorListReducer.error,
       authors = authorListReducer.authors;
+  var sortByQueryString = props.location.search ? props.location.search.split("=")[1] : "atoz";
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
@@ -6127,7 +6128,7 @@ function Shop() {
       searchedRating = _useState16[0],
       setSearchedRating = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("atoz"),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sortByQueryString),
       _useState18 = _slicedToArray(_useState17, 2),
       selectedSortCriteria = _useState18[0],
       setSelectedSortCriteria = _useState18[1];
@@ -7050,6 +7051,12 @@ var calculateDiscountPriceDiff = function calculateDiscountPriceDiff(book) {
   });
 
   if (sortedDiscounts.length > 0) {
+    if (sortedDiscounts.length > 1) {
+      sortedDiscounts.sort(function (a, b) {
+        return a.discount_price - b.discount_price;
+      });
+    }
+
     finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
   }
 

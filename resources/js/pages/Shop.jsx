@@ -17,7 +17,7 @@ import {
     sortBooksOrderBy,
 } from "../utils/sorters";
 
-function Shop() {
+function Shop(props) {
     const dispatch = useDispatch();
     const bookListReducer = useSelector((state) => state.bookListReducer);
     const categoryListReducer = useSelector(
@@ -36,6 +36,10 @@ function Shop() {
         authors,
     } = authorListReducer;
 
+    const sortByQueryString = props.location.search
+    ? props.location.search.split("=")[1]
+    : "atoz";
+
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(15);
     const [pageObjectGlobal, setPageObjectGlobal] = useState(null);
@@ -44,7 +48,7 @@ function Shop() {
     const [searchedCategories, setSearchedCategories] = useState([]);
     const [searchedAuthors, setSearchedAuthors] = useState([]);
     const [searchedRating, setSearchedRating] = useState(0);
-    const [selectedSortCriteria, setSelectedSortCriteria] = useState("atoz");
+    const [selectedSortCriteria, setSelectedSortCriteria] = useState(sortByQueryString);
 
     const resetSearch = () => {
         setSearchedCategories([]);

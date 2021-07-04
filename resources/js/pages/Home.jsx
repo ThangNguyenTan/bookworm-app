@@ -37,7 +37,7 @@ function Home() {
                     <div className="on-sale__header">
                         <h4>On Sale</h4>
                         <div>
-                            <Link to="/shop" className="btn btn-dark">
+                            <Link to="/shop?sort-by=onsale" className="btn btn-dark">
                                 View All <i className="fas fa-caret-right"></i>
                             </Link>
                         </div>
