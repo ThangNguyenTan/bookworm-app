@@ -7018,23 +7018,33 @@ var calculateRatings = function calculateRatings(reviews) {
     ratings: ratings
   };
 };
-var calculateDiscountPrice = function calculateDiscountPrice(book) {
-  var discounts = book.discounts,
-      book_price = book.book_price;
-  var finalPrice = book_price;
-  var sortedDiscounts = discounts.filter(function (discount) {
+
+var filterDiscountItems = function filterDiscountItems(discounts) {
+  return discounts.filter(function (discount) {
     var discount_start_date = discount.discount_start_date,
         discount_end_date = discount.discount_end_date;
     return new Date(discount_start_date).getTime() >= new Date().getTime() && (!discount_end_date || new Date(discount_end_date).getTime() < new Date().getTime());
   });
+};
+
+var sortDiscountItems = function sortDiscountItems(discounts) {
+  if (discounts.length > 1) {
+    return discounts.sort(function (a, b) {
+      return a.discount_price - b.discount_price;
+    });
+  }
+
+  return discounts;
+};
+
+var calculateDiscountPrice = function calculateDiscountPrice(book) {
+  var discounts = book.discounts,
+      book_price = book.book_price;
+  var finalPrice = book_price;
+  var sortedDiscounts = filterDiscountItems(discounts);
 
   if (sortedDiscounts.length > 0) {
-    if (sortedDiscounts.length > 1) {
-      sortedDiscounts.sort(function (a, b) {
-        return a.discount_price - b.discount_price;
-      });
-    }
-
+    sortedDiscounts = sortDiscountItems(sortedDiscounts);
     finalPrice = sortedDiscounts[0].discount_price;
   }
 
@@ -7044,19 +7054,10 @@ var calculateDiscountPriceDiff = function calculateDiscountPriceDiff(book) {
   var discounts = book.discounts,
       book_price = book.book_price;
   var finalPrice = 0;
-  var sortedDiscounts = discounts.filter(function (discount) {
-    var discount_start_date = discount.discount_start_date,
-        discount_end_date = discount.discount_end_date;
-    return new Date(discount_start_date).getTime() >= new Date().getTime() && (!discount_end_date || new Date(discount_end_date).getTime() < new Date().getTime());
-  });
+  var sortedDiscounts = filterDiscountItems(discounts);
 
   if (sortedDiscounts.length > 0) {
-    if (sortedDiscounts.length > 1) {
-      sortedDiscounts.sort(function (a, b) {
-        return a.discount_price - b.discount_price;
-      });
-    }
-
+    sortedDiscounts = sortDiscountItems(sortedDiscounts);
     finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
   }
 
