@@ -48,11 +48,8 @@ export const calculateRatings = (reviews) => {
     };
 };
 
-export const calculateDiscountPrice = (book) => {
-    const { discounts, book_price } = book;
-    let finalPrice = book_price;
-
-    let sortedDiscounts = discounts.filter((discount) => {
+const filterDiscountItems = (discounts) => {
+    return discounts.filter((discount) => {
         const { discount_start_date, discount_end_date } = discount;
 
         return (
@@ -61,11 +58,24 @@ export const calculateDiscountPrice = (book) => {
             new Date(discount_end_date).getTime() < new Date().getTime())
         );
     });
+}
+
+const sortDiscountItems = (discounts) => {
+    if (discounts.length > 1) {
+        return discounts.sort((a, b) => a.discount_price - b.discount_price);
+    }
+
+    return discounts;
+}
+
+export const calculateDiscountPrice = (book) => {
+    const { discounts, book_price } = book;
+    let finalPrice = book_price;
+
+    let sortedDiscounts = filterDiscountItems(discounts);
 
     if (sortedDiscounts.length > 0) {
-        if (sortedDiscounts.length > 1) {
-            sortedDiscounts.sort((a, b) => a.discount_price - b.discount_price);
-        }
+        sortedDiscounts = sortDiscountItems(sortedDiscounts);
 
         finalPrice = sortedDiscounts[0].discount_price;
     }
@@ -77,20 +87,10 @@ export const calculateDiscountPriceDiff = (book) => {
     const { discounts, book_price } = book;
     let finalPrice = 0;
 
-    let sortedDiscounts = discounts.filter((discount) => {
-        const { discount_start_date, discount_end_date } = discount;
-
-        return (
-            new Date(discount_start_date).getTime() >= new Date().getTime() &&
-                (!discount_end_date ||
-            new Date(discount_end_date).getTime() < new Date().getTime())
-        );
-    });
+    let sortedDiscounts = filterDiscountItems(discounts);
 
     if (sortedDiscounts.length > 0) {
-        if (sortedDiscounts.length > 1) {
-            sortedDiscounts.sort((a, b) => a.discount_price - b.discount_price);
-        }
+        sortedDiscounts = sortDiscountItems(sortedDiscounts);
 
         finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
     }
