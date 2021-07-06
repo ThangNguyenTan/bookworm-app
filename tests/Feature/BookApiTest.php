@@ -12,6 +12,10 @@ class BookApiTest extends TestCase
 {
     private $url = '/api/books';
 
+    private function generateDiscountURL($id) {
+        return "/api/discounts/$id/book";
+    }
+
     /**
      * A basic feature test example.
      *
@@ -43,6 +47,27 @@ class BookApiTest extends TestCase
     public function test_can_get_all_books()
     {
         $response = $this->get("$this->url");
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_can_create_discount_for_book()
+    {
+        GLOBAL $createdBookID;
+
+        $data = [
+            "book_id" => 1,
+            "discount_start_date" => "2021-07-25",
+            "discount_end_date" => "2021-07-30",
+            "discount_price" => "19.99"
+        ];
+
+        $response = $this->post($this->generateDiscountURL($createdBookID), $data);
 
         $response->assertStatus(200);
     }
