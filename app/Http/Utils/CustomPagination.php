@@ -10,7 +10,6 @@ class CustomPagination
         $pageSize = 10,
         $maxPages = 6
     ) {
-        $pageSize += 1;
         // calculate total pages
         $totalPages = ceil($totalItems / $pageSize);
     

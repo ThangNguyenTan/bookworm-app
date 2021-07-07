@@ -91,4 +91,21 @@ class Calculation
 
         return $books;
     }
+
+    public function calculateDiscountPriceDiff($book) {
+        $discounts = $book['discounts'];
+        $book_price = $book['book_price'];
+        $finalPriceDiff = 0;
+    
+        $sortedDiscounts = $this->filterer->filterDiscountItems($discounts);
+    
+        if (count($sortedDiscounts) > 0) {
+            $sortedDiscounts = $this->sorter->sortDiscountItems($sortedDiscounts);
+    
+            $finalPriceDiff = floatval($book_price) - floatval($sortedDiscounts[0]['discount_price']);
+        }
+    
+        return floatval($finalPriceDiff);
+    }
+    
 }

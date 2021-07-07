@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Utils\CustomPagination;
 use App\Http\Utils\Filterer;
 use App\Http\Utils\Calculation;
+use App\Http\Utils\Sorter;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class BookController extends Controller
     /**
      * Display a listing of reccomendation for the books
      *
+     * @query: page, page-size, author, category, ratings, sort
      * @return \Illuminate\Http\Response
      */
     public function getBookRec(Request $request)
@@ -34,12 +36,14 @@ class BookController extends Controller
         $customPagination = new CustomPagination();
         $filterer = new Filterer();
         $calculator = new Calculation();
+        $sorter = new Sorter();
 
         $currentPage = intval($request->input('page')) ?: 1;
         $pageSize = intval($request->input('page-size')) ?: 15;
         $author = $request->input('author') ?: false;
         $category = $request->input('category') ?: false;
         $ratings = $request->input('ratings') ?: false;
+        $sortCriteria = $request->input('sort') ?: false;
 
         $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get()->toArray();
 
@@ -50,13 +54,20 @@ class BookController extends Controller
         ];
         $books = $filterer->filterBooks($books, $searchCriteria);
 
-        $pageObject = $customPagination->paginate(count($books), $currentPage, $pageSize);
         $books = $calculator->calculateFinalPriceForBooks($books);
+
+        $books = $sorter->sortBooks($books, $sortCriteria);
+
+        $pageObject = $customPagination->paginate(count($books), $currentPage, $pageSize);
         
-        $books = array_slice($books, $pageObject->startIndex,$pageObject->endIndex);
+        var_dump(intval($pageObject->startIndex));
+        var_dump(intval($pageObject->endIndex));
+
+        $books = array_slice($books, intval($pageObject->startIndex), intval($pageObject->pageSize), true);
 
         return response([
             "data" => $books,
+            "total" => count($books),
             "pageObject" => $pageObject
         ]);
     }
