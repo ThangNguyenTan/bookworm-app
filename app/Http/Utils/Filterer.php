@@ -40,7 +40,6 @@ class Filterer
     }
 
     public function filterBooks($books, $searchCriteria) {
-        $calculator = new Calculation();
         $author = $searchCriteria['author'] ?: false;
         $category = $searchCriteria['category'] ?: false;
         $ratings = $searchCriteria['ratings'] ?: false;
@@ -54,7 +53,6 @@ class Filterer
         }
 
         if ($ratings) {
-            $books = $this->calculator->calculateRatingsForBooks($books);
             $books = $this->filterBooksByRatings($books, $ratings);
         }
 

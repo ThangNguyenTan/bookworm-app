@@ -28,14 +28,6 @@ const data = {
     ],
     sortCriterias: [
         {
-            name: "A to Z",
-            value: "atoz"
-        },
-        {
-            name: "Z to A",
-            value: "ztoa"
-        },
-        {
             name: "Sort by Popularity",
             value: "popularity"
         },

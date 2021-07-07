@@ -2,7 +2,7 @@ import React from 'react'
 
 function ErrorBox({message}) {
     return (
-        <div>
+        <div className="container">
             <h3>Error: {message}</h3>
         </div>
     )

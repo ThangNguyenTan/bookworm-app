@@ -37,6 +37,9 @@ class Sorter
 
     public function sortByPopularity($books) {
         uasort($books, function($a, $b) {
+            if (count($b['reviews']) === count($a['reviews'])) {
+                return $a['discount_price'] - $b['discount_price'];
+            }
             return count($b['reviews']) - count($a['reviews']);
         });
     
@@ -48,6 +51,17 @@ class Sorter
             return $a['discount_price'] - $b['discount_price'];
         });
     
+        return $books;
+    }
+
+    public function sortByRatings($books) {
+        uasort($books, function($a, $b) {
+            if ($b['ratings'] === $a['ratings']) {
+                return $a['discount_price'] - $b['discount_price'];
+            }
+            return $b['ratings'] - $a['ratings'];
+        });
+
         return $books;
     }
 

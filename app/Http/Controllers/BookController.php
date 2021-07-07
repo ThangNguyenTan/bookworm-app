@@ -16,22 +16,7 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        //$books = Book::all();
-        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get();
-
-        return response($books);
-    }
-
-    /**
-     * Display a listing of reccomendation for the books
-     *
-     * @query: page, page-size, author, category, ratings, sort
-     * @return \Illuminate\Http\Response
-     */
-    public function getBookRec(Request $request)
+    public function index(Request $request)
     {
         $customPagination = new CustomPagination();
         $filterer = new Filterer();
@@ -52,6 +37,9 @@ class BookController extends Controller
             'category' => $category,
             'ratings' => $ratings
         ];
+
+        $books = $calculator->calculateRatingsForBooks($books);
+
         $books = $filterer->filterBooks($books, $searchCriteria);
 
         $books = $calculator->calculateFinalPriceForBooks($books);
@@ -60,15 +48,44 @@ class BookController extends Controller
 
         $pageObject = $customPagination->paginate(count($books), $currentPage, $pageSize);
         
-        var_dump(intval($pageObject->startIndex));
-        var_dump(intval($pageObject->endIndex));
-
-        $books = array_slice($books, intval($pageObject->startIndex), intval($pageObject->pageSize), true);
+        $books = array_slice($books, intval($pageObject->startIndex), intval($pageObject->pageSize));
 
         return response([
             "data" => $books,
             "total" => count($books),
             "pageObject" => $pageObject
+        ]);
+    }
+
+    /**
+     * Display a listing of reccomendation for the books
+     *
+     * @query: page, page-size, author, category, ratings, sort
+     * @return \Illuminate\Http\Response
+     */
+    public function getBookRec(Request $request)
+    {
+        $sorter = new Sorter();
+        $calculator = new Calculation();
+
+        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get()->toArray();
+
+        $books = $calculator->calculateFinalPriceForBooks($books);
+        $books = $calculator->calculateRatingsForBooks($books);
+
+        $popularBooks = array_slice($sorter->sortByPopularity($books), 0, 8);
+        $onSaleBooks = array_slice($sorter->sortByOnSale($books), 0, 10);
+        $highlyRatedBooks = array_slice(
+            //array_reverse($sorter->sortByRatings($books))
+            $sorter->sortByRatings($books)
+            , 0
+            , 8
+        );
+        
+        return response([
+            'popularBooks' => $popularBooks,
+            'onSaleBooks' => $onSaleBooks,
+            'highlyRatedBooks' => $highlyRatedBooks,
         ]);
     }
 

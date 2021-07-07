@@ -2,7 +2,7 @@ import React from "react";
 import { Pagination } from "react-bootstrap";
 
 function Paginator(props) {
-    const { pageObject, onChangePageNumber } = props;
+    const { pageObject, onChangePageNumber, toTop } = props;
 
     if (!pageObject) {
         return <></>;
@@ -14,11 +14,23 @@ function Paginator(props) {
         return <></>;
     }
 
+    const scrollToTop = () => {
+        if (toTop) {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
+    };
+
     const renderPaginationItems = () => {
         return pages.map((page) => {
             return (
                 <Pagination.Item
-                    onClick={() => onChangePageNumber(page)}
+                    onClick={() => {
+                        scrollToTop();
+                        onChangePageNumber(page);
+                    }}
                     key={page}
                     active={page === currentPage}
                 >
@@ -36,6 +48,7 @@ function Paginator(props) {
                         if (parseInt(currentPage) - 1 < 1) {
                             return;
                         }
+                        scrollToTop();
                         onChangePageNumber(parseInt(currentPage) - 1);
                     }}
                 >
@@ -47,6 +60,7 @@ function Paginator(props) {
                         if (parseInt(currentPage) + 1 > endPage) {
                             return;
                         }
+                        scrollToTop();
                         onChangePageNumber(parseInt(currentPage) + 1);
                     }}
                 >

@@ -2,24 +2,20 @@ import React, { useEffect } from "react";
 import { Col, Container, Row, Tab, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllBooks } from "../actions/bookActions";
+import { getRecBooks } from "../actions/bookActions";
 import BookCarousel from "../components/book/BookCarousel";
 import BookList from "../components/book/BookList";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
-import {
-    getBooksWithHighestRatings,
-    getBooksWithHighestReviews,
-    getBooksWithHighestSale,
-} from "../utils/sorters";
 
 function Home() {
     const dispatch = useDispatch();
-    const bookListReducer = useSelector((state) => state.bookListReducer);
-    const { loading, error, books } = bookListReducer;
+    const recBookListReducer = useSelector((state) => state.recBookListReducer);
+    const { loading, error, popularBooks, onSaleBooks, highlyRatedBooks } =
+        recBookListReducer;
 
     useEffect(() => {
-        dispatch(getAllBooks());
+        dispatch(getRecBooks());
     }, [dispatch]);
 
     if (error) {
@@ -37,65 +33,62 @@ function Home() {
                     <div className="on-sale__header">
                         <h4>On Sale</h4>
                         <div>
-                            <Link to="/shop?sort-by=onsale" className="btn btn-dark">
+                            <Link
+                                to="/shop?sort-by=onsale"
+                                className="btn btn-dark"
+                            >
                                 View All <i className="fas fa-caret-right"></i>
                             </Link>
                         </div>
                     </div>
 
                     <div className="on-sale__carousel">
-                        <BookCarousel books={getBooksWithHighestSale(books)} />
+                        <BookCarousel books={onSaleBooks} />
                     </div>
                 </section>
 
                 <section id="featured-books">
                     <Container>
-                    <Tab.Container
-                        id="left-tabs-example"
-                        defaultActiveKey="first"
-                    >
-                        <Row>
-                            <Col
-                                sm={12}
-                                className="featured-books__tab-container"
-                            >
-                                <h4>Featured Books</h4>
-                                <Nav variant="pills">
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="first">
-                                            Recommended
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="second">
-                                            Popular
-                                        </Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                            </Col>
-                            <Col
-                                sm={12}
-                                className="featured-books__result-container"
-                            >
-                                <Tab.Content>
-                                    <Tab.Pane eventKey="first">
-                                        <BookList
-                                            books={getBooksWithHighestRatings(
-                                                books
-                                            )}
-                                        />
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="second">
-                                        <BookList
-                                            books={getBooksWithHighestReviews(
-                                                books
-                                            )}
-                                        />
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Col>
-                        </Row>
-                    </Tab.Container>
+                        <Tab.Container
+                            id="left-tabs-example"
+                            defaultActiveKey="first"
+                        >
+                            <Row>
+                                <Col
+                                    sm={12}
+                                    className="featured-books__tab-container"
+                                >
+                                    <h4>Featured Books</h4>
+                                    <Nav variant="pills">
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="first">
+                                                Recommended
+                                            </Nav.Link>
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="second">
+                                                Popular
+                                            </Nav.Link>
+                                        </Nav.Item>
+                                    </Nav>
+                                </Col>
+                                <Col
+                                    sm={12}
+                                    className="featured-books__result-container"
+                                >
+                                    <Tab.Content>
+                                        <Tab.Pane eventKey="first">
+                                            <BookList
+                                                books={highlyRatedBooks}
+                                            />
+                                        </Tab.Pane>
+                                        <Tab.Pane eventKey="second">
+                                            <BookList books={popularBooks} />
+                                        </Tab.Pane>
+                                    </Tab.Content>
+                                </Col>
+                            </Row>
+                        </Tab.Container>
                     </Container>
                 </section>
             </Container>

@@ -1,11 +1,22 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { authorListReducer } from "../reducers/authorReducer";
-import { bookDetailsReducer, bookListReducer } from "../reducers/bookReducers";
+import {
+    bookDetailsReducer,
+    bookListReducer,
+    recBookListReducer,
+} from "../reducers/bookReducers";
 import { cartReducer } from "../reducers/cartReducers";
 import { categoryListReducer } from "../reducers/categoryReducers";
-import { orderActionReducer, orderDetailsReducer, orderListReducer } from "../reducers/orderReducer";
-import { reviewActionReducer, reviewListReducer } from "../reducers/reviewReducers";
+import {
+    orderActionReducer,
+    orderDetailsReducer,
+    orderListReducer,
+} from "../reducers/orderReducer";
+import {
+    reviewActionReducer,
+    reviewListReducer,
+} from "../reducers/reviewReducers";
 
 const initialState = {};
 
@@ -19,7 +30,8 @@ const reducer = combineReducers({
     reviewListReducer,
     orderActionReducer,
     orderDetailsReducer,
-    orderListReducer
+    orderListReducer,
+    recBookListReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
