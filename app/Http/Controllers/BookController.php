@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Utils\CustomPagination;
+use App\Http\Utils\Filterer;
+use App\Http\Utils\Calculation;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -26,11 +29,36 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getBookRec()
+    public function getBookRec(Request $request)
     {
-        $books = Book::all();
+        $customPagination = new CustomPagination();
+        $filterer = new Filterer();
+        $calculator = new Calculation();
 
-        return response($books);
+        $currentPage = intval($request->input('page')) ?: 1;
+        $pageSize = intval($request->input('page-size')) ?: 15;
+        $author = $request->input('author') ?: false;
+        $category = $request->input('category') ?: false;
+        $ratings = $request->input('ratings') ?: false;
+
+        $books = Book::with('Author', 'Category', "Discounts", "Reviews")->get()->toArray();
+
+        $searchCriteria = [
+            'author' => $author,
+            'category' => $category,
+            'ratings' => $ratings
+        ];
+        $books = $filterer->filterBooks($books, $searchCriteria);
+
+        $pageObject = $customPagination->paginate(count($books), $currentPage, $pageSize);
+        $books = $calculator->calculateFinalPriceForBooks($books);
+        
+        $books = array_slice($books, $pageObject->startIndex,$pageObject->endIndex);
+
+        return response([
+            "data" => $books,
+            "pageObject" => $pageObject
+        ]);
     }
 
     /**

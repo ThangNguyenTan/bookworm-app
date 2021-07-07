@@ -49,6 +49,7 @@ Route::put("/books/edit/{id}", [BookController::class, "update"]);
 Route::delete("/books/delete/{id}", [BookController::class, "destroy"]);
 */
 
+Route::get("books/test", [BookController::class, 'getBookRec']);
 Route::apiResource("books", BookController::class);
 
 /*
