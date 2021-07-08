@@ -2386,7 +2386,7 @@ var createSearchBookURL = function createSearchBookURL(searchQueryObj) {
       searchedCategories = searchQueryObj.searchedCategories,
       searchedRating = searchQueryObj.searchedRating,
       selectedSortCriteria = searchQueryObj.selectedSortCriteria;
-  var searchURL = "".concat(BOOKS_URL, "?page=").concat(currentPage);
+  var searchURL = "".concat(BOOKS_URL, "/test?page=").concat(currentPage);
   searchURL = "".concat(searchURL, "&page-size=").concat(pageSize);
   searchURL = "".concat(searchURL, "&sort=").concat(selectedSortCriteria);
 
@@ -3317,10 +3317,8 @@ function BookItem(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Text, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
           className: "author",
-          children: bookItem.author.author_name
-        }), renderPriceTag(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
-          children: [bookItem.ratings, " star(s) ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), " (", bookItem.reviews_count, " reviews)"]
-        })]
+          children: bookItem.author ? bookItem.author.author_name : bookItem.author_name
+        }), renderPriceTag()]
       }), renderAddToCartButton()]
     })]
   });
@@ -3443,10 +3441,8 @@ function BookItem(props) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
               children: bookItem.book_summary
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
-              children: bookItem.author.author_name
-            }), renderPriceTag(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
-              children: [bookItem.ratings, " star(s) (", bookItem.reviews.length, " reviews)"]
-            })]
+              children: bookItem.author ? bookItem.author.author_name : bookItem.author_name
+            }), renderPriceTag()]
           }), renderAddToCartButton()]
         })
       })]
@@ -4668,6 +4664,7 @@ function ReviewList(_ref) {
       error = _ref.error,
       reviews = _ref.reviews;
   var reviewRatingsObject = (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_2__.calculateRatings)(reviews);
+  console.log(reviewRatingsObject);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7110,11 +7107,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/bookConstants */ "./resources/js/constants/bookConstants.js");
 /* harmony import */ var _utils_calculation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/calculation */ "./resources/js/utils/calculation.js");
+/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -7145,7 +7144,7 @@ var bookListReducer = function bookListReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
         books: action.payload.data,
-        pageObject: action.payload.pageObject
+        pageObject: (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_2__.paginate)(action.payload.total, action.payload.current_page, action.payload.per_page)
       });
 
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_ALL_BOOKS_FAIL:
@@ -7589,23 +7588,23 @@ var calculateRatings = function calculateRatings(reviews) {
       numberOf5StarReviews = [];
   reviews.forEach(function (review) {
     switch (review.rating_start) {
-      case "1":
+      case 1:
         numberOf1StarReviews.push(review);
         break;
 
-      case "2":
+      case 2:
         numberOf2StarReviews.push(review);
         break;
 
-      case "3":
+      case 3:
         numberOf3StarReviews.push(review);
         break;
 
-      case "4":
+      case 4:
         numberOf4StarReviews.push(review);
         break;
 
-      case "5":
+      case 5:
         numberOf5StarReviews.push(review);
         break;
 
@@ -7687,7 +7686,7 @@ __webpack_require__.r(__webpack_exports__);
 function paginate(totalItems) {
   var currentPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   var pageSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 8;
-  var maxPages = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
+  var maxPages = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 6;
   // calculate total pages
   var totalPages = Math.ceil(totalItems / pageSize); // ensure current page isn't out of range
 

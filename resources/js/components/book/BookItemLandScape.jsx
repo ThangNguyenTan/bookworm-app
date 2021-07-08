@@ -92,9 +92,8 @@ function BookItem(props) {
                         </Card.Title>
                         <Card.Text>
                             <p>{bookItem.book_summary}</p>
-                            <h6>{bookItem.author.author_name}</h6>
+                            <h6>{bookItem.author ? bookItem.author.author_name : bookItem.author_name}</h6>
                             {renderPriceTag()}
-                            <h6>{bookItem.ratings} star(s) ({bookItem.reviews.length} reviews)</h6>
                         </Card.Text>
                         {renderAddToCartButton()}
                     </Card.Body>

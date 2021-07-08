@@ -11,6 +11,7 @@ import ReviewItem from "./ReviewItem";
 
 function ReviewList({ loading, error, reviews }) {
     const reviewRatingsObject = calculateRatings(reviews);
+    console.log(reviewRatingsObject);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageObjectGlobal, setPageObjectGlobal] = useState(null);

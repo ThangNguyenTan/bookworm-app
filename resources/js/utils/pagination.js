@@ -2,7 +2,7 @@ export function paginate(
     totalItems,
     currentPage = 1,
     pageSize = 8,
-    maxPages = 10
+    maxPages = 6
 ) {
     // calculate total pages
     let totalPages = Math.ceil(totalItems / pageSize);

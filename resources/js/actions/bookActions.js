@@ -25,7 +25,7 @@ const createSearchBookURL = (searchQueryObj) => {
         searchedRating,
         selectedSortCriteria,
     } = searchQueryObj;
-    let searchURL = `${BOOKS_URL}?page=${currentPage}`;
+    let searchURL = `${BOOKS_URL}/test?page=${currentPage}`;
     searchURL = `${searchURL}&page-size=${pageSize}`;
     searchURL = `${searchURL}&sort=${selectedSortCriteria}`;
 

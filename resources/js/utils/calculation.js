@@ -11,19 +11,19 @@ export const calculateRatings = (reviews) => {
 
     reviews.forEach((review) => {
         switch (review.rating_start) {
-            case "1":
+            case 1:
                 numberOf1StarReviews.push(review);
                 break;
-            case "2":
+            case 2:
                 numberOf2StarReviews.push(review);
                 break;
-            case "3":
+            case 3:
                 numberOf3StarReviews.push(review);
                 break;
-            case "4":
+            case 4:
                 numberOf4StarReviews.push(review);
                 break;
-            case "5":
+            case 5:
                 numberOf5StarReviews.push(review);
                 break;
             default:

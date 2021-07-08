@@ -100,108 +100,223 @@ class BookController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
     public function getBookTest(Request $request)
     {
-        $customPagination = new CustomPagination();
-        $calculator = new Calculation();
-        $sorter = new Sorter();
-
-        $currentPage = intval($request->input('page')) ?: 1;
         $pageSize = intval($request->input('page-size')) ?: 15;
         $author = $request->input('author') ?: false;
         $category = $request->input('category') ?: false;
         $ratings = $request->input('ratings') ?: false;
         $sortCriteria = $request->input('sort') ?: false;
 
-        $books = DB::table("books");
+        $books = DB::table("books")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->join("authors", "books.author_id", "=", "authors.id")
+        ->join("categories", "books.category_id", "=", "categories.id")
+        ->selectRaw("
+            books.*,
+            authors.id AS author_id, 
+            authors.author_name AS author_name, 
+            categories.id AS category_id, 
+            (CASE 
+            WHEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) IS NULL 
+            THEN 
+                books.book_price 
+            WHEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) IS NOT NULL 
+            THEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+            END) AS discount_price
+        ")
+        ->groupBy("books.id", "authors.id", "categories.id");
 
         if ($author) {
-            $books = DB::table("books")
-            ->join("authors", "books.author_id", "=", "authors.id")
-            ->select("books.id", "authors.id")
-            ->groupBy("books.id", "authors.id")
-            ->having("authors.id", "=", $author)
-            ->get();
+            $books = $books->having("books.author_id", "=", $author);
         } else if ($category) {
-            $books = DB::table("books")
-            ->join("categories", "books.author_id", "=", "categories.id")
-            ->selectRaw("books.*")
-            ->groupBy("books.id", "categories.id")
-            ->having("books.category_id", "=", $category)
-            ->get();
+            $books = $books->having("books.category_id", "=", $category);
         } else if ($ratings) {
-            $books = DB::table("books")
-            ->join("reviews", "books.id", "=", "reviews.book_id")
-            ->join("authors", "books.author_id", "=", "authors.id")
-            ->join("categories", "books.category_id", "=", "categories.id")
-            ->selectRaw("books.* AS book_id, 
-            authors.id AS author_id,
-            categories.id AS category_id,
-            COUNT(CASE WHEN reviews.rating_start = '1' THEN 1 END) AS number_of_1_star_review,
-            COUNT(CASE WHEN reviews.rating_start = '2' THEN 1 END) AS number_of_2_star_review,
-            COUNT(CASE WHEN reviews.rating_start = '3' THEN 1 END) AS number_of_3_star_review,
-            COUNT(CASE WHEN reviews.rating_start = '4' THEN 1 END) AS number_of_4_star_review,
-            COUNT(CASE WHEN reviews.rating_start = '5' THEN 1 END) AS number_of_5_star_review,
-            COUNT(reviews.id) AS total_reviews,
-            (COUNT(CASE WHEN reviews.rating_start = '1' THEN 1 END) * 1 + COUNT(CASE WHEN reviews.rating_start = '2' THEN 1 END) * 2
-            + COUNT(CASE WHEN reviews.rating_start = '3' THEN 1 END) * 3 + COUNT(CASE WHEN reviews.rating_start = '4' THEN 1 END) * 4
-            + COUNT(CASE WHEN reviews.rating_start = '5' THEN 1 END) * 5) / COUNT(reviews.id) AS ratings")
-            ->groupBy("books.id", "authors.id", "categories.id")
-            ->havingRaw("(COUNT(CASE WHEN reviews.rating_start = '1' THEN 1 END) * 1 + COUNT(CASE WHEN reviews.rating_start = '2' THEN 1 END) * 2
-            + COUNT(CASE WHEN reviews.rating_start = '3' THEN 1 END) * 3 + COUNT(CASE WHEN reviews.rating_start = '4' THEN 1 END) * 4
-            + COUNT(CASE WHEN reviews.rating_start = '5' THEN 1 END) * 5) / COUNT(reviews.id) >= $ratings")
-            ->get();
+            $books = $books
+            ->havingRaw("(SELECT avg (cast (reviews.rating_start as float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id) >= $ratings");
         }
 
-        // $searchCriteria = [
-        //     'author' => $author,
-        //     'category' => $category,
-        //     'ratings' => $ratings
-        // ];
-
-        $books = $books->toArray();
-
-        foreach ($books as $index => $book) {
-            $discounts = DB::table('discounts')
-            ->join("books", "discounts.book_id", "=", "books.id")
-            ->selectRaw("discounts.* AS discounts")
-            ->groupBy("discounts.id")
-            ->having("discounts.book_id", "=", $book->id)
-            ->get()
-            ->toArray();
-
-            $reviews = DB::table('reviews')
-            ->join("books", "reviews.book_id", "=", "books.id")
-            ->selectRaw("reviews.* AS reviews")
-            ->groupBy("reviews.id")
-            ->having("reviews.book_id", "=", $book->id)
-            ->get()
-            ->toArray();
-
-            $book->discounts = $discounts;
-            $book->reviews = $reviews;
-
-            $book = json_decode(json_encode($book), true);
-            $books[$index] = $book;
+        if ($sortCriteria === "onsale") {
+            $books = $books->orderByRaw("
+                books.book_price - (CASE WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NULL THEN books.book_price 
+                WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NOT NULL THEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+                END) DESC
+            ");
+        } else if ($sortCriteria === "popularity") {
+            $books = $books->orderByRaw("
+                (SELECT COUNT(reviews.id) FROM reviews WHERE reviews.book_id = books.id) DESC
+            ");
+        } else if ($sortCriteria === "priceasc") {
+            $books = $books->orderByraw("
+                (CASE WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NULL THEN books.book_price 
+                WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NOT NULL THEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+                END) ASC
+            ");
+        } else if ($sortCriteria === "pricedesc") {
+            $books = $books->orderByRaw("
+                (CASE WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NULL THEN books.book_price 
+                WHEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+                IS NOT NULL THEN (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+                END) DESC
+            ");
         }
 
-        $books = $calculator->calculateRatingsForBooks($books);
+        $books = $books->paginate($pageSize);
 
-        $books = $calculator->calculateFinalPriceForBooks($books);
+        return response($books);
+    }
 
-        $books = $sorter->sortBooks($books, $sortCriteria);
+    /**
+     * Display a listing of reccomendation for the books
+     *
+     * @query: page, page-size, author, category, ratings, sort
+     * @return \Illuminate\Http\Response
+     */
+    public function getBookRecTest(Request $request)
+    {
+        $books = DB::table("books")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->join("authors", "books.author_id", "=", "authors.id")
+        ->join("categories", "books.category_id", "=", "categories.id")
+        ->selectRaw("
+            books.*,
+            authors.id AS author_id, 
+            authors.author_name AS author_name, 
+            categories.id AS category_id, 
+            (CASE 
+            WHEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) IS NULL 
+            THEN 
+                books.book_price 
+            WHEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) IS NOT NULL 
+            THEN 
+                (SELECT MIN(discounts.discount_price) 
+                FROM discounts 
+                WHERE discounts.book_id = books.id 
+                AND discount_start_date <= CURRENT_DATE
+                AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+            END) AS discount_price
+        ")
+        ->groupBy("books.id", "authors.id", "categories.id");
 
-        $pageObject = $customPagination->paginate(count($books), $currentPage, $pageSize);
+        $popularBooks = $books;
+        $popularBooks = $popularBooks
+        ->orderByRaw("
+            (SELECT COUNT(reviews.id) FROM reviews WHERE reviews.book_id = books.id) DESC
+        ")
+        ->skip(0)
+        ->take(8)
+        ->get()
+        ;
+
+        $onSaleBooks = $books;
+        $onSaleBooks = $onSaleBooks
+        ->orderByRaw("
+            books.book_price - (CASE WHEN (SELECT MIN(discounts.discount_price) 
+            FROM discounts 
+            WHERE discounts.book_id = books.id 
+            AND discount_start_date <= CURRENT_DATE
+            AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+            IS NULL THEN books.book_price 
+            WHEN (SELECT MIN(discounts.discount_price) 
+            FROM discounts 
+            WHERE discounts.book_id = books.id 
+            AND discount_start_date <= CURRENT_DATE
+            AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)) 
+            IS NOT NULL THEN (SELECT MIN(discounts.discount_price) 
+            FROM discounts 
+            WHERE discounts.book_id = books.id 
+            AND discount_start_date <= CURRENT_DATE
+            AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE))
+            END) DESC
+        ")
+        ->skip(0)
+        ->take(10)
+        ->get()
+        ;
+
+        $highlyRatedBooks = $books;
+        $highlyRatedBooks = $highlyRatedBooks
+        ->orderByRaw("
+            (SELECT avg (cast (reviews.rating_start as float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id) DESC
+        ")
+        ->skip(0)
+        ->take(8)
+        ->get()
+        ;
         
-        $books = array_slice($books, intval($pageObject->startIndex), intval($pageObject->pageSize));
-
         return response([
-            "data" => $books,
-            "total" => count($books),
-            "pageObject" => $pageObject
+            'popularBooks' => $popularBooks,
+            'onSaleBooks' => $onSaleBooks,
+            'highlyRatedBooks' => $highlyRatedBooks,
         ]);
     }
-     */
 
     /**
      * Display a listing of reccomendation for the books
