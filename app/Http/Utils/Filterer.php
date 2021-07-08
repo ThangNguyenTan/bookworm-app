@@ -32,9 +32,9 @@ class Filterer
     public function filterDiscountItems($discounts) {
         return array_filter($discounts, function($discount) {
             return (
-                $this->dateToMiliseconds($discount['discount_start_date']) >= $this->dateToMiliseconds("now") &&
+                $this->dateToMiliseconds($discount['discount_start_date']) <= $this->dateToMiliseconds("now") &&
                     (!$discount['discount_end_date'] ||
-                $this->dateToMiliseconds($discount['discount_end_date']) < $this->dateToMiliseconds("now"))
+                $this->dateToMiliseconds($discount['discount_end_date']) >= $this->dateToMiliseconds("now"))
             );
         });
     }

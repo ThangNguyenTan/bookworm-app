@@ -115,7 +115,6 @@ const sortBooksByAuthors = (list, searchedAuthors) => {
 
     searchedAuthors.forEach((sortGenre) => {
         list.forEach((item) => {
-            console.log(item.author.id);
             if (item.author.id === sortGenre) {
                 if (!returnedList.includes(item)) {
                     returnedList.push(item);

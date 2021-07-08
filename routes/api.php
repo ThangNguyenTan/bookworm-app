@@ -50,6 +50,7 @@ Route::delete("/books/delete/{id}", [BookController::class, "destroy"]);
 */
 
 Route::get("books/rec", [BookController::class, 'getBookRec']);
+//Route::get("books/test", [BookController::class, 'getBookTest']);
 Route::apiResource("books", BookController::class);
 
 /*

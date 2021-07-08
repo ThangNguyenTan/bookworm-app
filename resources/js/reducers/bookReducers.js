@@ -20,7 +20,6 @@ export const bookListReducer = (
     action
 ) => {
     switch (action.type) {
-        /*
         case GET_ALL_BOOKS_REQUEST:
             return {
                 ...state,
@@ -39,33 +38,22 @@ export const bookListReducer = (
                     };
                 }),
             };
-        case GET_ALL_BOOKS_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        */
-        case GET_ALL_BOOKS_REQUEST:
-            return {
-                ...state,
-                loading: true,
-                error: null,
-            };
+        /*
         case GET_ALL_BOOKS_SUCCESS:
-            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
                 books: action.payload.data,
                 pageObject: action.payload.pageObject
             };
+        */
         case GET_ALL_BOOKS_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             };
+
         default:
             return state;
     }

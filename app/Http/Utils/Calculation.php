@@ -78,6 +78,7 @@ class Calculation
 
     public function calculateRatingsForBooks($books) {
         foreach ($books as $index => $book) {
+            //$books[$index]['ratings'] = $this->calculateRatings($book['reviews']);
             $books[$index]['ratings'] = $this->calculateRatings($book['reviews']);
         }
 
