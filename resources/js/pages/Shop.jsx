@@ -278,26 +278,16 @@ function Shop(props) {
         let ans = "";
         let withAnd = false;
 
-        if (searchedCategories.length > 0) {
+        if (searchedCategories) {
             ans += `Category `;
             withAnd = true;
-            searchedCategories.forEach((searchedCategory, index) => {
-                ans += `#${searchedCategory}`;
-                if (index + 1 < searchedCategories.length) {
-                    ans += `, `;
-                }
-            });
+            ans += `#${searchedCategories}`;
         }
 
-        if (searchedAuthors.length > 0) {
+        if (searchedAuthors) {
             ans += `${withAnd ? " and" : ""} Author `;
             withAnd = true;
-            searchedAuthors.forEach((searchedAuthor, index) => {
-                ans += `#${searchedAuthor}`;
-                if (index + 1 < searchedAuthors.length) {
-                    ans += `, `;
-                }
-            });
+            ans += `#${searchedAuthors}`;
         }
 
         if (searchedRating != 0) {

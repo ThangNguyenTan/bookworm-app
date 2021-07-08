@@ -2426,7 +2426,7 @@ var getAllBooksTest = function getAllBooksTest(searchQueryObj) {
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               dispatch({
-                type: _constants_bookConstants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_BOOKS_SUCCESS,
+                type: _constants_bookConstants__WEBPACK_IMPORTED_MODULE_2__.GET_SERVER_BOOKS_SUCCESS,
                 payload: data
               });
               _context.next = 13;
@@ -5002,6 +5002,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "GET_ALL_BOOKS_REQUEST": () => (/* binding */ GET_ALL_BOOKS_REQUEST),
 /* harmony export */   "GET_ALL_BOOKS_SUCCESS": () => (/* binding */ GET_ALL_BOOKS_SUCCESS),
 /* harmony export */   "GET_ALL_BOOKS_FAIL": () => (/* binding */ GET_ALL_BOOKS_FAIL),
+/* harmony export */   "GET_SERVER_BOOKS_SUCCESS": () => (/* binding */ GET_SERVER_BOOKS_SUCCESS),
 /* harmony export */   "GET_RECOMMENDED_BOOKS_REQUEST": () => (/* binding */ GET_RECOMMENDED_BOOKS_REQUEST),
 /* harmony export */   "GET_RECOMMENDED_BOOKS_SUCCESS": () => (/* binding */ GET_RECOMMENDED_BOOKS_SUCCESS),
 /* harmony export */   "GET_RECOMMENDED_BOOKS_FAIL": () => (/* binding */ GET_RECOMMENDED_BOOKS_FAIL),
@@ -5012,6 +5013,7 @@ __webpack_require__.r(__webpack_exports__);
 var GET_ALL_BOOKS_REQUEST = "GET_ALL_BOOKS_REQUEST";
 var GET_ALL_BOOKS_SUCCESS = "GET_ALL_BOOKS_SUCCESS";
 var GET_ALL_BOOKS_FAIL = "GET_ALL_BOOKS_FAIL";
+var GET_SERVER_BOOKS_SUCCESS = "GET_SERVER_BOOKS_SUCCESS";
 var GET_RECOMMENDED_BOOKS_REQUEST = "GET_RECOMMENDED_BOOKS_REQUEST";
 var GET_RECOMMENDED_BOOKS_SUCCESS = "GET_RECOMMENDED_BOOKS_SUCCESS";
 var GET_RECOMMENDED_BOOKS_FAIL = "GET_RECOMMENDED_BOOKS_FAIL";
@@ -6435,28 +6437,16 @@ function Shop(props) {
     var ans = "";
     var withAnd = false;
 
-    if (searchedCategories.length > 0) {
+    if (searchedCategories) {
       ans += "Category ";
       withAnd = true;
-      searchedCategories.forEach(function (searchedCategory, index) {
-        ans += "#".concat(searchedCategory);
-
-        if (index + 1 < searchedCategories.length) {
-          ans += ", ";
-        }
-      });
+      ans += "#".concat(searchedCategories);
     }
 
-    if (searchedAuthors.length > 0) {
+    if (searchedAuthors) {
       ans += "".concat(withAnd ? " and" : "", " Author ");
       withAnd = true;
-      searchedAuthors.forEach(function (searchedAuthor, index) {
-        ans += "#".concat(searchedAuthor);
-
-        if (index + 1 < searchedAuthors.length) {
-          ans += ", ";
-        }
-      });
+      ans += "#".concat(searchedAuthors);
     }
 
     if (searchedRating != 0) {
@@ -7154,15 +7144,12 @@ var bookListReducer = function bookListReducer() {
         })
       });
 
-    /*
-    case GET_ALL_BOOKS_SUCCESS:
-        return {
-            ...state,
-            loading: false,
-            books: action.payload.data,
-            pageObject: action.payload.pageObject
-        };
-    */
+    case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_SERVER_BOOKS_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
+        books: action.payload.data,
+        pageObject: action.payload.pageObject
+      });
 
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_ALL_BOOKS_FAIL:
       return _objectSpread(_objectSpread({}, state), {}, {

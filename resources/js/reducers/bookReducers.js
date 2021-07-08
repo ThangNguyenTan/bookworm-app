@@ -8,6 +8,7 @@ import {
     GET_RECOMMENDED_BOOKS_FAIL,
     GET_RECOMMENDED_BOOKS_REQUEST,
     GET_RECOMMENDED_BOOKS_SUCCESS,
+    GET_SERVER_BOOKS_SUCCESS,
 } from "../constants/bookConstants";
 import { calculateDiscountPrice, calculateRatings } from "../utils/calculation";
 
@@ -38,15 +39,13 @@ export const bookListReducer = (
                     };
                 }),
             };
-        /*
-        case GET_ALL_BOOKS_SUCCESS:
+        case GET_SERVER_BOOKS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 books: action.payload.data,
                 pageObject: action.payload.pageObject
             };
-        */
         case GET_ALL_BOOKS_FAIL:
             return {
                 ...state,

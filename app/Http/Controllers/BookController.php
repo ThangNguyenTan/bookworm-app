@@ -26,6 +26,7 @@ class BookController extends Controller
 
         $books = Book::with("Reviews", "Author", "Category", "Discounts")->get();
 
+        // If no current page specified return the whole model
         if (!$request->input('page')) {
             return response($books);
         }
@@ -45,11 +46,18 @@ class BookController extends Controller
 
         $books = $books->toArray();
 
-        $books = $calculator->calculateRatingsForBooks($books);
+        // Loop and calculate discount price and ratings for all the books
+        foreach ($books as $index => $book) {
+            $books[$index]['discount_price'] = $calculator->calculateDiscountPrice($book);
+
+            $books[$index]['ratings'] = $calculator->calculateRatings($book['reviews']);
+        }
+
+        //$books = $calculator->calculateRatingsForBooks($books);
 
         $books = $filterer->filterBooks($books, $searchCriteria);
 
-        $books = $calculator->calculateFinalPriceForBooks($books);
+        //$books = $calculator->calculateFinalPriceForBooks($books);
 
         $books = $sorter->sortBooks($books, $sortCriteria);
 

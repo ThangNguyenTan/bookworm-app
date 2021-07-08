@@ -9,6 +9,7 @@ import {
     GET_RECOMMENDED_BOOKS_REQUEST,
     GET_RECOMMENDED_BOOKS_SUCCESS,
     GET_RECOMMENDED_BOOKS_FAIL,
+    GET_SERVER_BOOKS_SUCCESS,
 } from "../constants/bookConstants";
 
 //const BOOKS_URL = `${process.env.REACT_APP_API_URL}/api/books`;
@@ -52,7 +53,7 @@ export const getAllBooksTest = (searchQueryObj) => {
             const url = createSearchBookURL(searchQueryObj);
             const { data } = await axios.get(`${url}`);
             dispatch({
-                type: GET_ALL_BOOKS_SUCCESS,
+                type: GET_SERVER_BOOKS_SUCCESS,
                 payload: data,
             });
         } catch (error) {
