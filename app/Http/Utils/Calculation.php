@@ -20,6 +20,7 @@ class Calculation
         $numberOf4StarReviews = [];
         $numberOf5StarReviews = [];
 
+
         foreach ($reviews as $index => $review) {
             switch ($review['rating_start']) {
                 case '1':
@@ -94,17 +95,10 @@ class Calculation
     }
 
     public function calculateDiscountPriceDiff($book) {
-        $discounts = $book['discounts'];
-        $book_price = $book['book_price'];
-        $finalPriceDiff = 0;
-    
-        $sortedDiscounts = $this->filterer->filterDiscountItems($discounts);
-    
-        if (count($sortedDiscounts) > 0) {
-            $sortedDiscounts = $this->sorter->sortDiscountItems($sortedDiscounts);
-    
-            $finalPriceDiff = floatval($book_price) - floatval($sortedDiscounts[0]['discount_price']);
-        }
+        $discountPrice = $book['discount_price'];
+        $bookPrice = $book['book_price'];
+
+        $finalPriceDiff = floatval($bookPrice) - floatval($discountPrice);
     
         return floatval($finalPriceDiff);
     }

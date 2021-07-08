@@ -34,8 +34,6 @@ export const bookListReducer = (
                 books: action.payload.map((bookItem) => {
                     return {
                         ...bookItem,
-                        ratings: calculateRatings(bookItem.reviews).ratings,
-                        discount_price: calculateDiscountPrice(bookItem),
                     };
                 }),
             };

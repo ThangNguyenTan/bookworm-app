@@ -13,10 +13,10 @@ class Sorter
                 $books = $this->sortByPopularity($books);
                 break;
             case 'priceasc':
-                $books = $this->sortByPrice($books);
+                $books = $this->sortByPriceAsc($books);
                 break;
             case 'pricedesc':
-                $books = array_reverse($this->sortByOnSale($books));
+                $books = $this->sortByPriceDesc($books);
                 break;
             default:
                 break;
@@ -46,9 +46,17 @@ class Sorter
         return $books;
     }
 
-    public function sortByPrice($books) {
+    public function sortByPriceAsc($books) {
         uasort($books, function($a, $b) {
             return $a['discount_price'] - $b['discount_price'];
+        });
+    
+        return $books;
+    }
+
+    public function sortByPriceDesc($books) {
+        uasort($books, function($a, $b) {
+            return $b['discount_price'] - $a['discount_price'];
         });
     
         return $books;

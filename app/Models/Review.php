@@ -11,6 +11,10 @@ class Review extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'rating_start' => 'float',
+    ];
+
     public $timestamps = false;
 
     public function Book()

@@ -3319,7 +3319,7 @@ function BookItem(props) {
           className: "author",
           children: bookItem.author.author_name
         }), renderPriceTag(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
-          children: [bookItem.ratings, " star(s) ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), " (", bookItem.reviews.length, " reviews)"]
+          children: [bookItem.ratings, " star(s) ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), " (", bookItem.reviews_count, " reviews)"]
         })]
       }), renderAddToCartButton()]
     })]
@@ -7137,10 +7137,7 @@ var bookListReducer = function bookListReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
         books: action.payload.map(function (bookItem) {
-          return _objectSpread(_objectSpread({}, bookItem), {}, {
-            ratings: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateRatings)(bookItem.reviews).ratings,
-            discount_price: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateDiscountPrice)(bookItem)
-          });
+          return _objectSpread({}, bookItem);
         })
       });
 
