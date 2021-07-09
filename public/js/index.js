@@ -2204,11 +2204,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Home */ "./resources/js/pages/Home.jsx");
 /* harmony import */ var _pages_About__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/About */ "./resources/js/pages/About.jsx");
 /* harmony import */ var _pages_Shop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Shop */ "./resources/js/pages/Shop.jsx");
-/* harmony import */ var _pages_ShopClient__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/ShopClient */ "./resources/js/pages/ShopClient.jsx");
-/* harmony import */ var _pages_BookDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/BookDetails */ "./resources/js/pages/BookDetails.jsx");
-/* harmony import */ var _pages_Cart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Cart */ "./resources/js/pages/Cart.jsx");
-/* harmony import */ var _pages_Profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/Profile */ "./resources/js/pages/Profile.jsx");
-/* harmony import */ var _pages_OrderDetails__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/OrderDetails */ "./resources/js/pages/OrderDetails.jsx");
+/* harmony import */ var _pages_BookDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/BookDetails */ "./resources/js/pages/BookDetails.jsx");
+/* harmony import */ var _pages_Cart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Cart */ "./resources/js/pages/Cart.jsx");
+/* harmony import */ var _pages_Profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Profile */ "./resources/js/pages/Profile.jsx");
+/* harmony import */ var _pages_OrderDetails__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/OrderDetails */ "./resources/js/pages/OrderDetails.jsx");
+/* harmony import */ var _components_partials_ScrollToTop__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/partials/ScrollToTop */ "./resources/js/components/partials/ScrollToTop.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -2227,8 +2227,8 @@ function App() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
     className: "App",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.BrowserRouter, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_partials_Layout__WEBPACK_IMPORTED_MODULE_0__.default, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_partials_Layout__WEBPACK_IMPORTED_MODULE_0__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_partials_ScrollToTop__WEBPACK_IMPORTED_MODULE_8__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/",
             exact: true,
@@ -2242,27 +2242,23 @@ function App() {
             exact: true,
             component: _pages_Shop__WEBPACK_IMPORTED_MODULE_3__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-            path: "/shop-client",
-            exact: true,
-            component: _pages_ShopClient__WEBPACK_IMPORTED_MODULE_4__.default
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/cart",
             exact: true,
-            component: _pages_Cart__WEBPACK_IMPORTED_MODULE_6__.default
+            component: _pages_Cart__WEBPACK_IMPORTED_MODULE_5__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/profile",
             exact: true,
-            component: _pages_Profile__WEBPACK_IMPORTED_MODULE_7__.default
+            component: _pages_Profile__WEBPACK_IMPORTED_MODULE_6__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/books/:bookID",
             exact: true,
-            component: _pages_BookDetails__WEBPACK_IMPORTED_MODULE_5__.default
+            component: _pages_BookDetails__WEBPACK_IMPORTED_MODULE_4__.default
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/orders/:orderID",
             exact: true,
-            component: _pages_OrderDetails__WEBPACK_IMPORTED_MODULE_8__.default
+            component: _pages_OrderDetails__WEBPACK_IMPORTED_MODULE_7__.default
           })]
-        })
+        })]
       })
     })
   });
@@ -2386,7 +2382,7 @@ var createSearchBookURL = function createSearchBookURL(searchQueryObj) {
       searchedCategories = searchQueryObj.searchedCategories,
       searchedRating = searchQueryObj.searchedRating,
       selectedSortCriteria = searchQueryObj.selectedSortCriteria;
-  var searchURL = "".concat(BOOKS_URL, "/test?page=").concat(currentPage);
+  var searchURL = "".concat(BOOKS_URL, "?page=").concat(currentPage);
   searchURL = "".concat(searchURL, "&page-size=").concat(pageSize);
   searchURL = "".concat(searchURL, "&sort=").concat(selectedSortCriteria);
 
@@ -2569,7 +2565,7 @@ var getBookDetails = function getBookDetails(bookID) {
               data = _yield$axios$get4.data;
               dispatch({
                 type: _constants_bookConstants__WEBPACK_IMPORTED_MODULE_2__.GET_BOOK_DETAILS_SUCCESS,
-                payload: data
+                payload: data[0]
               });
               _context4.next = 12;
               break;
@@ -2975,10 +2971,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var REVIEWS_URL = "/api/reviews";
-var getReviewsByBookID = function getReviewsByBookID(bookID) {
+
+var createSearchReviewURL = function createSearchReviewURL(bookID, searchQueryObj) {
+  //page, page-size, author, category, ratings, sort
+  var currentPage = searchQueryObj.currentPage,
+      pageSize = searchQueryObj.pageSize,
+      selectedSortCriteria = searchQueryObj.selectedSortCriteria,
+      searchedRating = searchQueryObj.searchedRating;
+  var searchURL = "".concat(REVIEWS_URL, "/").concat(bookID, "/book?page=").concat(currentPage);
+  searchURL = "".concat(searchURL, "&page-size=").concat(pageSize);
+  searchURL = "".concat(searchURL, "&ratings=").concat(searchedRating);
+  searchURL = "".concat(searchURL, "&sort=").concat(selectedSortCriteria);
+  return searchURL;
+};
+
+var getReviewsByBookID = function getReviewsByBookID(bookID, searchQueryObj) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
-      var _yield$axios$get, data;
+      var url, _yield$axios$get, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -2989,33 +2999,38 @@ var getReviewsByBookID = function getReviewsByBookID(bookID) {
                 payload: bookID
               });
               _context.prev = 1;
-              _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/").concat(bookID, "/book"));
+              url = createSearchReviewURL(bookID, searchQueryObj);
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(url));
 
-            case 4:
+            case 5:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
+              dispatch({
+                type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.SET_REVIEWS_SEARCH_OBJECT,
+                payload: searchQueryObj
+              });
               dispatch({
                 type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.GET_BOOK_REVIEWS_SUCCESS,
                 payload: data
               });
-              _context.next = 12;
+              _context.next = 14;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](1);
               dispatch({
                 type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.GET_BOOK_REVIEWS_FAIL,
                 payload: _context.t0.response && _context.t0.response.data.message ? _context.t0.response.data.message : _context.t0.message
               });
 
-            case 12:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 9]]);
+      }, _callee, null, [[1, 11]]);
     }));
 
     return function (_x) {
@@ -3025,8 +3040,8 @@ var getReviewsByBookID = function getReviewsByBookID(bookID) {
 };
 var addReview = function addReview(newReview) {
   return /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
-      var _yield$axios$get2, data;
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch, getState) {
+      var _getState, reviewSearchObjectReducer, searchObject, url, _yield$axios$get2, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
@@ -3036,15 +3051,18 @@ var addReview = function addReview(newReview) {
                 type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.ADD_REVIEW_REQUEST,
                 payload: newReview
               });
-              _context2.prev = 1;
-              _context2.next = 4;
+              _getState = getState(), reviewSearchObjectReducer = _getState.reviewSearchObjectReducer;
+              searchObject = reviewSearchObjectReducer.searchObject;
+              _context2.prev = 3;
+              _context2.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(REVIEWS_URL, "/").concat(newReview.book_id, "/book"), _objectSpread({}, newReview));
 
-            case 4:
-              _context2.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(REVIEWS_URL, "/").concat(newReview.book_id, "/book"));
-
             case 6:
+              url = createSearchReviewURL(newReview.book_id, searchObject);
+              _context2.next = 9;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(url));
+
+            case 9:
               _yield$axios$get2 = _context2.sent;
               data = _yield$axios$get2.data;
               dispatch({
@@ -3054,26 +3072,26 @@ var addReview = function addReview(newReview) {
                 type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.GET_BOOK_REVIEWS_SUCCESS,
                 payload: data
               });
-              _context2.next = 15;
+              _context2.next = 18;
               break;
 
-            case 12:
-              _context2.prev = 12;
-              _context2.t0 = _context2["catch"](1);
+            case 15:
+              _context2.prev = 15;
+              _context2.t0 = _context2["catch"](3);
               dispatch({
                 type: _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_2__.ADD_REVIEW_FAIL,
                 payload: _context2.t0.response && _context2.t0.response.data.message ? _context2.t0.response.data.message : _context2.t0.message
               });
 
-            case 15:
+            case 18:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 12]]);
+      }, _callee2, null, [[3, 15]]);
     }));
 
-    return function (_x2) {
+    return function (_x2, _x3) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -3223,11 +3241,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_cartActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/cartActions */ "./resources/js/actions/cartActions.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_lazyload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-lazyload */ "./node_modules/react-lazyload/lib/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -3247,15 +3267,15 @@ function BookItem(props) {
 
   var renderPriceTag = function renderPriceTag() {
     if (bookItem.discount_price == bookItem.book_price) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
         className: "price",
         children: ["$", bookItem.book_price]
       });
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
       className: "price",
-      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
         children: ["$", bookItem.book_price]
       })]
     });
@@ -3268,7 +3288,10 @@ function BookItem(props) {
       book_og_price: bookItem.book_price,
       book_price: bookItem.discount_price,
       book_cover_photo: bookItem.book_cover_photo,
-      author: bookItem.author,
+      author: {
+        author_name: bookItem.author_name,
+        id: bookItem.author_id
+      },
       id: bookItem.id
     }, 1));
   };
@@ -3280,7 +3303,7 @@ function BookItem(props) {
       });
 
       if (existed) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
           to: "/cart",
           type: "button",
           style: {
@@ -3292,7 +3315,7 @@ function BookItem(props) {
       }
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
       type: "button",
       className: "button dark block",
       onClick: handleAddToCart,
@@ -3300,22 +3323,25 @@ function BookItem(props) {
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
     className: "book-item",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
       to: "/books/".concat(bookItem.id),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Img, {
-        variant: "top",
-        src: bookItem.book_cover_photo ? "./images/bookcover/".concat(bookItem.book_cover_photo, ".jpg") : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_lazyload__WEBPACK_IMPORTED_MODULE_3__.default, {
+        height: 200,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Img, {
+          variant: "top",
+          src: bookItem.book_cover_photo ? "./images/bookcover/".concat(bookItem.book_cover_photo, ".jpg") : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+        })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Body, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Title, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Body, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Title, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
           to: "/books/".concat(bookItem.id),
           children: bookItem.book_title
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Text, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Text, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h6", {
           className: "author",
           children: bookItem.author ? bookItem.author.author_name : bookItem.author_name
         }), renderPriceTag()]
@@ -3340,13 +3366,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_cartActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/cartActions */ "./resources/js/actions/cartActions.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_lazyload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-lazyload */ "./node_modules/react-lazyload/lib/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -3366,15 +3394,15 @@ function BookItem(props) {
 
   var renderPriceTag = function renderPriceTag() {
     if (bookItem.discount_price == bookItem.book_price) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
         className: "price",
         children: ["$", bookItem.book_price]
       });
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
       className: "price",
-      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+      children: ["$", bookItem.discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
         children: ["$", bookItem.book_price]
       })]
     });
@@ -3386,7 +3414,10 @@ function BookItem(props) {
       book_og_price: bookItem.book_price,
       book_price: bookItem.discount_price,
       book_cover_photo: bookItem.book_cover_photo,
-      author: bookItem.author,
+      author: {
+        author_name: bookItem.author_name,
+        id: bookItem.author_id
+      },
       id: bookItem.id
     }, 1));
   };
@@ -3398,7 +3429,7 @@ function BookItem(props) {
       });
 
       if (existed) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
           to: "/cart",
           type: "button",
           style: {
@@ -3410,7 +3441,7 @@ function BookItem(props) {
       }
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
       type: "button",
       className: "button dark block",
       onClick: handleAddToCart,
@@ -3418,29 +3449,32 @@ function BookItem(props) {
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
     className: "book-item landscape",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
       className: "no-gutters",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
         md: 4,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Img, {
-          width: "100%",
-          variant: "top",
-          src: bookItem.book_cover_photo ? "./images/bookcover/".concat(bookItem.book_cover_photo, ".jpg") : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_lazyload__WEBPACK_IMPORTED_MODULE_3__.default, {
+          height: 200,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Img, {
+            width: "100%",
+            variant: "top",
+            src: bookItem.book_cover_photo ? "./images/bookcover/".concat(bookItem.book_cover_photo, ".jpg") : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Body, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Title, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Body, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Title, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
               to: "/books/".concat(bookItem.id),
               children: bookItem.book_title
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default.Text, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default.Text, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               children: bookItem.book_summary
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h6", {
               children: bookItem.author ? bookItem.author.author_name : bookItem.author_name
             }), renderPriceTag()]
           }), renderAddToCartButton()]
@@ -4227,7 +4261,7 @@ function Navigator() {
             children: "Home"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.NavLink, {
             activeClassName: "active",
-            to: "/shop-client",
+            to: "/shop",
             className: "nav-link",
             children: "Shop"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.NavLink, {
@@ -4345,6 +4379,33 @@ function Paginator(props) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Paginator);
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/ScrollToTop.jsx":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/partials/ScrollToTop.jsx ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ScrollToTop)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+
+
+function ScrollToTop() {
+  var _useLocation = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useLocation)(),
+      pathname = _useLocation.pathname;
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 /***/ }),
 
@@ -4625,10 +4686,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../data */ "./resources/js/data.js");
-/* harmony import */ var _utils_calculation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/calculation */ "./resources/js/utils/calculation.js");
-/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/pagination */ "./resources/js/utils/pagination.js");
-/* harmony import */ var _utils_sorters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/sorters */ "./resources/js/utils/sorters.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_reviewActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/reviewActions */ "./resources/js/actions/reviewActions.js");
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../data */ "./resources/js/data.js");
+/* harmony import */ var _utils_calculation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/calculation */ "./resources/js/utils/calculation.js");
 /* harmony import */ var _Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
 /* harmony import */ var _partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
 /* harmony import */ var _partials_Paginator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../partials/Paginator */ "./resources/js/components/partials/Paginator.jsx");
@@ -4660,54 +4721,45 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function ReviewList(_ref) {
-  var loading = _ref.loading,
-      error = _ref.error,
-      reviews = _ref.reviews;
-  var reviewRatingsObject = (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_2__.calculateRatings)(reviews);
-  console.log(reviewRatingsObject);
+  var bookID = _ref.bookID;
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
       currentPage = _useState2[0],
       setCurrentPage = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
       _useState4 = _slicedToArray(_useState3, 2),
-      pageObjectGlobal = _useState4[0],
-      setPageObjectGlobal = _useState4[1];
+      pageSize = _useState4[0],
+      setPageSize = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("datedesc"),
       _useState6 = _slicedToArray(_useState5, 2),
-      pageSize = _useState6[0],
-      setPageSize = _useState6[1];
+      selectedSortCriteria = _useState6[0],
+      setSelectedSortCriteria = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("datedesc"),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState8 = _slicedToArray(_useState7, 2),
-      selectedSortCriteria = _useState8[0],
-      setSelectedSortCriteria = _useState8[1];
+      searchedRating = _useState8[0],
+      setSearchedRating = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      currentReviews = _useState10[0],
-      setCurrentReviews = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState12 = _slicedToArray(_useState11, 2),
-      searchedRating = _useState12[0],
-      setSearchedRating = _useState12[1];
-
+  var reviewListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.reviewListReducer;
+  });
+  var loading = reviewListReducer.loading,
+      error = reviewListReducer.error,
+      reviews = reviewListReducer.reviews,
+      reviewsStatus = reviewListReducer.reviewsStatus,
+      pageObjectGlobal = reviewListReducer.pageObject;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!loading && !error) {
-      var currentReviewsData = (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_4__.sortReviews)(reviews, {
-        searchedRating: searchedRating
-      });
-      currentReviewsData = (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_4__.sortReviewsOrderBy)(currentReviewsData, selectedSortCriteria);
-      var pageObject = (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_3__.paginate)(currentReviewsData.length, currentPage, parseInt(pageSize), 5);
-      currentReviewsData = currentReviewsData.slice(pageObject.startIndex, pageObject.endIndex + 1);
-      setPageObjectGlobal(pageObject);
-      setCurrentReviews(currentReviewsData);
-    }
-  }, [currentPage, reviews, loading, error, pageSize, selectedSortCriteria, searchedRating]);
+    dispatch((0,_actions_reviewActions__WEBPACK_IMPORTED_MODULE_2__.getReviewsByBookID)(bookID, {
+      currentPage: currentPage,
+      pageSize: pageSize,
+      selectedSortCriteria: selectedSortCriteria,
+      searchedRating: searchedRating
+    }));
+  }, [currentPage, pageSize, selectedSortCriteria, searchedRating]);
 
   if (error) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__.default, {
@@ -4725,7 +4777,7 @@ function ReviewList(_ref) {
   };
 
   var renderReviewItems = function renderReviewItems() {
-    return currentReviews.map(function (review) {
+    return reviews.map(function (review) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ReviewItem__WEBPACK_IMPORTED_MODULE_8__.default, {
         reviewItem: review
       }, review.id);
@@ -4734,7 +4786,7 @@ function ReviewList(_ref) {
 
   var renderSortBySelect = function renderSortBySelect() {
     var options = [];
-    _data__WEBPACK_IMPORTED_MODULE_1__.default.reviewSortCriterias.forEach(function (sortCriteria) {
+    _data__WEBPACK_IMPORTED_MODULE_3__.default.reviewSortCriterias.forEach(function (sortCriteria) {
       options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
         value: sortCriteria.value,
         children: sortCriteria.name
@@ -4779,19 +4831,16 @@ function ReviewList(_ref) {
       value: pageSize,
       children: options
     });
-  };
+  }; // if (reviews.length === 0 && !loading && !error) {
+  //     return (
+  //         <div className="review-list">
+  //             <div className="container text-center">
+  //                 <h2>Currently, there is no review</h2>
+  //             </div>
+  //         </div>
+  //     );
+  // }
 
-  if (reviews.length === 0 && !loading && !error) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-      className: "review-list",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-        className: "container text-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
-          children: "Currently, there is no review"
-        })
-      })
-    });
-  }
 
   var renderReviewSortItems = function renderReviewSortItems() {
     var ans = [];
@@ -4804,7 +4853,7 @@ function ReviewList(_ref) {
             onClick: function onClick() {
               setSearchedRating(i);
             },
-            children: [i, " star (", reviewRatingsObject.numberOfReviews[i], ")"]
+            children: [i, " star (", reviewsStatus["numberof".concat(i, "starreviews")], ")"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("li", {
             className: "divider",
             children: "|"
@@ -4820,7 +4869,7 @@ function ReviewList(_ref) {
             onClick: function onClick() {
               setSearchedRating(i);
             },
-            children: [i, " stars (", reviewRatingsObject.numberOfReviews[i], ")"]
+            children: [i, " star (", reviewsStatus["numberof".concat(i, "starreviews")], ")"]
           })
         }, i));
         return "continue";
@@ -4832,7 +4881,7 @@ function ReviewList(_ref) {
           onClick: function onClick() {
             setSearchedRating(i);
           },
-          children: [i, " stars (", reviewRatingsObject.numberOfReviews[i], ")"]
+          children: [i, " star (", reviewsStatus["numberof".concat(i, "starreviews")], ")"]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("li", {
           className: "divider",
           children: "|"
@@ -4840,7 +4889,7 @@ function ReviewList(_ref) {
       }, i));
     };
 
-    for (var i = 1; i < 6; i++) {
+    for (var i = 1; i <= 5; i++) {
       var _ret = _loop(i);
 
       if (_ret === "continue") continue;
@@ -4861,7 +4910,7 @@ function ReviewList(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "review-list__sub-header",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
-        children: [reviewRatingsObject.ratings, " Star(s)"]
+        children: [reviewsStatus.ratings, " Star(s)"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "review-list__ratings",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("ul", {
@@ -4870,7 +4919,7 @@ function ReviewList(_ref) {
             onClick: function onClick() {
               setSearchedRating(0);
             },
-            children: ["(", reviews.length, ")"]
+            children: ["(", (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_4__.calculateTotalReviews)(reviewsStatus), ")"]
           }), renderReviewSortItems()]
         })
       })]
@@ -4886,7 +4935,7 @@ function ReviewList(_ref) {
           children: pageObjectGlobal.totalItems === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
             children: "No result"
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
-            children: "Showing ".concat(pageObjectGlobal.startIndex + 1, " -\n                                                ").concat(pageObjectGlobal.endIndex + 1, " of ").concat(pageObjectGlobal.totalItems, " results")
+            children: "Showing ".concat(pageObjectGlobal.startIndex + 1, " -\n                            ").concat(pageObjectGlobal.endIndex + 1, " of ").concat(pageObjectGlobal.totalItems, " results")
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
           lg: 7,
@@ -4960,7 +5009,8 @@ var reducer = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
   orderActionReducer: _reducers_orderReducer__WEBPACK_IMPORTED_MODULE_5__.orderActionReducer,
   orderDetailsReducer: _reducers_orderReducer__WEBPACK_IMPORTED_MODULE_5__.orderDetailsReducer,
   orderListReducer: _reducers_orderReducer__WEBPACK_IMPORTED_MODULE_5__.orderListReducer,
-  recBookListReducer: _reducers_bookReducers__WEBPACK_IMPORTED_MODULE_2__.recBookListReducer
+  recBookListReducer: _reducers_bookReducers__WEBPACK_IMPORTED_MODULE_2__.recBookListReducer,
+  reviewSearchObjectReducer: _reducers_reviewReducers__WEBPACK_IMPORTED_MODULE_6__.reviewSearchObjectReducer
 });
 var composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_7__.compose;
 var store = (0,redux__WEBPACK_IMPORTED_MODULE_7__.createStore)(reducer, initialState, composeEnhancer((0,redux__WEBPACK_IMPORTED_MODULE_7__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default)));
@@ -5103,6 +5153,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "GET_BOOK_REVIEWS_REQUEST": () => (/* binding */ GET_BOOK_REVIEWS_REQUEST),
 /* harmony export */   "GET_BOOK_REVIEWS_SUCCESS": () => (/* binding */ GET_BOOK_REVIEWS_SUCCESS),
 /* harmony export */   "GET_BOOK_REVIEWS_FAIL": () => (/* binding */ GET_BOOK_REVIEWS_FAIL),
+/* harmony export */   "SET_REVIEWS_SEARCH_OBJECT": () => (/* binding */ SET_REVIEWS_SEARCH_OBJECT),
 /* harmony export */   "ADD_REVIEW_REQUEST": () => (/* binding */ ADD_REVIEW_REQUEST),
 /* harmony export */   "ADD_REVIEW_SUCCESS": () => (/* binding */ ADD_REVIEW_SUCCESS),
 /* harmony export */   "ADD_REVIEW_FAIL": () => (/* binding */ ADD_REVIEW_FAIL)
@@ -5110,6 +5161,7 @@ __webpack_require__.r(__webpack_exports__);
 var GET_BOOK_REVIEWS_REQUEST = "GET_BOOK_REVIEWS_REQUEST";
 var GET_BOOK_REVIEWS_SUCCESS = "GET_BOOK_REVIEWS_SUCCESS";
 var GET_BOOK_REVIEWS_FAIL = "GET_BOOK_REVIEWS_FAIL";
+var SET_REVIEWS_SEARCH_OBJECT = "SET_REVIEWS_SEARCH_OBJECT";
 var ADD_REVIEW_REQUEST = "ADD_REVIEW_REQUEST";
 var ADD_REVIEW_SUCCESS = "ADD_REVIEW_SUCCESS";
 var ADD_REVIEW_FAIL = "ADD_REVIEW_FAIL";
@@ -5291,21 +5343,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_bookActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/bookActions */ "./resources/js/actions/bookActions.js");
 /* harmony import */ var _actions_cartActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/cartActions */ "./resources/js/actions/cartActions.js");
-/* harmony import */ var _actions_reviewActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/reviewActions */ "./resources/js/actions/reviewActions.js");
-/* harmony import */ var _components_partials_AlertBox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/partials/AlertBox */ "./resources/js/components/partials/AlertBox.jsx");
-/* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
-/* harmony import */ var _components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
-/* harmony import */ var _components_review_ReviewForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/review/ReviewForm */ "./resources/js/components/review/ReviewForm.jsx");
-/* harmony import */ var _components_review_ReviewList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/review/ReviewList */ "./resources/js/components/review/ReviewList.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_partials_AlertBox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/partials/AlertBox */ "./resources/js/components/partials/AlertBox.jsx");
+/* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
+/* harmony import */ var _components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
+/* harmony import */ var _components_review_ReviewForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/review/ReviewForm */ "./resources/js/components/review/ReviewForm.jsx");
+/* harmony import */ var _components_review_ReviewList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/review/ReviewList */ "./resources/js/components/review/ReviewList.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5317,7 +5368,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -5349,12 +5399,6 @@ function BookDetails(props) {
   var loading = bookDetailsReducer.loading,
       error = bookDetailsReducer.error,
       book = bookDetailsReducer.book;
-  var reviewListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.reviewListReducer;
-  });
-  var reviewLoading = reviewListReducer.loading,
-      reviewError = reviewListReducer.error,
-      reviews = reviewListReducer.reviews;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5366,7 +5410,7 @@ function BookDetails(props) {
       isAddedToCart = _useState4[0],
       setIsAddedToCart = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {})),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {})),
       _useState6 = _slicedToArray(_useState5, 2),
       alertBoxContainer = _useState6[0],
       setAlertBoxContainer = _useState6[1];
@@ -5374,7 +5418,7 @@ function BookDetails(props) {
   var currentURL = location.protocol + "//" + location.host;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (isAddedToCart) {
-      setAlertBoxContainer( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_AlertBox__WEBPACK_IMPORTED_MODULE_5__.default, {
+      setAlertBoxContainer( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_partials_AlertBox__WEBPACK_IMPORTED_MODULE_4__.default, {
         isShowed: true,
         message: "Added to cart"
       }));
@@ -5386,15 +5430,15 @@ function BookDetails(props) {
         book_price = book.book_price;
 
     if (discount_price == book_price) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("h2", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
         className: "price",
         children: ["$", book_price]
       });
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("h2", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h2", {
       className: "price",
-      children: ["$", discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+      children: ["$", discount_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
         children: ["$", book_price]
       })]
     });
@@ -5407,7 +5451,10 @@ function BookDetails(props) {
       book_og_price: book.book_price,
       book_price: book.discount_price,
       book_cover_photo: book.book_cover_photo,
-      author: book.author,
+      author: {
+        author_name: book.author_name,
+        id: book.author_id
+      },
       id: book.id
     }, quantity));
     setIsAddedToCart(true);
@@ -5420,7 +5467,7 @@ function BookDetails(props) {
       });
 
       if (existed) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Link, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
           to: "/cart",
           type: "button",
           style: {
@@ -5432,13 +5479,13 @@ function BookDetails(props) {
       }
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
         htmlFor: "quantity",
         children: "Quantity"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "quantity-container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "decrement",
           onClick: function onClick() {
             if (quantity === 1) {
@@ -5450,9 +5497,9 @@ function BookDetails(props) {
             });
           },
           children: "-"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "quantity-input",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
             type: "number",
             id: "quantity",
             name: "quantity",
@@ -5462,7 +5509,7 @@ function BookDetails(props) {
             disabled: true,
             required: true
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "increment",
           onClick: function onClick() {
             if (quantity >= 8) {
@@ -5475,7 +5522,7 @@ function BookDetails(props) {
           },
           children: "+"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
         type: "button",
         className: "button dark block mt-4",
         onClick: handleAddToCart,
@@ -5485,66 +5532,65 @@ function BookDetails(props) {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_actions_bookActions__WEBPACK_IMPORTED_MODULE_2__.getBookDetails)(bookID));
-    dispatch((0,_actions_reviewActions__WEBPACK_IMPORTED_MODULE_4__.getReviewsByBookID)(bookID));
+    dispatch((0,_actions_bookActions__WEBPACK_IMPORTED_MODULE_2__.getBookDetails)(bookID)); //dispatch(getReviewsByBookID(bookID));
   }, [dispatch]);
 
   if (error) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_5__.default, {
       message: error
     });
   }
 
   if (loading) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_7__.default, {});
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_6__.default, {});
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     id: "book-details-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "page-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
           children: "Book Details"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
           lg: 8,
           md: 12,
           sm: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "book-details__card",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
               className: "book-item landscape",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
                 className: "no-gutters",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
                   md: 4,
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Img, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Img, {
                     width: "100%",
                     variant: "top",
                     src: book.book_cover_photo ? "".concat(currentURL, "/images/bookcover/").concat(book.book_cover_photo, ".jpg") : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg",
                     alt: book.book_title
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("h6", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h6", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
                       children: "By (author) "
-                    }), book.author.author_name]
+                    }), book.author_name]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
                   md: 8,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Body, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Title, {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Title, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
                         children: book.book_title
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Text, {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Text, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
                         children: book.book_summary
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
                         children: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolor soluta ullam, exercitationem reiciendis ipsa nemo inventore in quas expedita nesciunt natus deleniti blanditiis officia incidunt, sed autem perspiciatis maxime?"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
                         children: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolor soluta ullam, exercitationem reiciendis ipsa nemo inventore in quas expedita nesciunt natus deleniti blanditiis officia incidunt, sed autem perspiciatis maxime?"
                       })]
                     })]
@@ -5553,36 +5599,34 @@ function BookDetails(props) {
               })
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
           lg: 4,
           md: 12,
           sm: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "book-details__utils",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Header, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Header, {
                 children: renderPriceTag()
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Body, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
                 children: [alertBoxContainer, renderAddToCartButton()]
               })]
             })
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
           lg: 8,
           md: 12,
           sm: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_review_ReviewList__WEBPACK_IMPORTED_MODULE_9__.default, {
-            loading: reviewLoading,
-            error: reviewError,
-            reviews: reviews
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_review_ReviewList__WEBPACK_IMPORTED_MODULE_8__.default, {
+            bookID: bookID
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
           lg: 4,
           md: 12,
           sm: 12,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_review_ReviewForm__WEBPACK_IMPORTED_MODULE_8__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_review_ReviewForm__WEBPACK_IMPORTED_MODULE_7__.default, {
             bookID: bookID
           })
         })]
@@ -5607,12 +5651,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_orderActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/orderActions */ "./resources/js/actions/orderActions.js");
 /* harmony import */ var _components_cart_CartTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/cart/CartTable */ "./resources/js/components/cart/CartTable.jsx");
 /* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
@@ -5678,12 +5722,10 @@ function Cart(props) {
                 marginTop: "100px"
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h2", {
-                  children: ["You have successfully placed an order.", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), " You will be redirected back to home page."]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-                  to: "/",
-                  className: "button primary mt-3",
-                  children: "Go to Home page"
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+                  children: "You have successfully placed an order."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+                  children: "You will be redirected back to home page."
                 })]
               })
             })
@@ -5742,7 +5784,7 @@ function Cart(props) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_5__.default, {});
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default.Body, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Body, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
         children: ["$", totalPrice]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
@@ -5769,7 +5811,7 @@ function Cart(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
               children: "Currently you don't have any items"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
               to: "/shop",
               className: "button primary mt-3",
               children: "Go to Shop"
@@ -5804,9 +5846,9 @@ function Cart(props) {
           md: 12,
           sm: 12,
           className: "cart-summary",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
             className: "text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default.Header, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__.default.Header, {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
                 children: "Cart Totals"
               })
@@ -6561,483 +6603,6 @@ function Shop(props) {
 
 /***/ }),
 
-/***/ "./resources/js/pages/ShopClient.jsx":
-/*!*******************************************!*\
-  !*** ./resources/js/pages/ShopClient.jsx ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Accordion.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_authorActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/authorActions */ "./resources/js/actions/authorActions.js");
-/* harmony import */ var _actions_bookActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/bookActions */ "./resources/js/actions/bookActions.js");
-/* harmony import */ var _actions_categoryActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/categoryActions */ "./resources/js/actions/categoryActions.js");
-/* harmony import */ var _components_book_BookList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/book/BookList */ "./resources/js/components/book/BookList.jsx");
-/* harmony import */ var _components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Partials/ErrorBox */ "./resources/js/components/Partials/ErrorBox.jsx");
-/* harmony import */ var _components_partials_GridButtonGroup__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/partials/GridButtonGroup */ "./resources/js/components/partials/GridButtonGroup.jsx");
-/* harmony import */ var _components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/partials/LoadingBox */ "./resources/js/components/partials/LoadingBox.jsx");
-/* harmony import */ var _components_partials_Paginator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/partials/Paginator */ "./resources/js/components/partials/Paginator.jsx");
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../data */ "./resources/js/data.js");
-/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
-/* harmony import */ var _utils_sorters__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/sorters */ "./resources/js/utils/sorters.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function Shop(props) {
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var bookListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.bookListReducer;
-  });
-  var categoryListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.categoryListReducer;
-  });
-  var authorListReducer = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.authorListReducer;
-  });
-  var loading = bookListReducer.loading,
-      error = bookListReducer.error,
-      books = bookListReducer.books;
-  var categoryLoading = categoryListReducer.loading,
-      categoryError = categoryListReducer.error,
-      categories = categoryListReducer.categories;
-  var authorLoading = authorListReducer.loading,
-      authorError = authorListReducer.error,
-      authors = authorListReducer.authors;
-  var sortByQueryString = props.location.search ? props.location.search.split("=")[1] : "atoz";
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
-      _useState2 = _slicedToArray(_useState, 2),
-      currentPage = _useState2[0],
-      setCurrentPage = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(15),
-      _useState4 = _slicedToArray(_useState3, 2),
-      pageSize = _useState4[0],
-      setPageSize = _useState4[1];
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-      _useState6 = _slicedToArray(_useState5, 2),
-      pageObjectGlobal = _useState6[0],
-      setPageObjectGlobal = _useState6[1];
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("portrait"),
-      _useState8 = _slicedToArray(_useState7, 2),
-      viewMode = _useState8[0],
-      setViewMode = _useState8[1];
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      currentBooks = _useState10[0],
-      setCurrentBooks = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState12 = _slicedToArray(_useState11, 2),
-      searchedCategories = _useState12[0],
-      setSearchedCategories = _useState12[1];
-
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState14 = _slicedToArray(_useState13, 2),
-      searchedAuthors = _useState14[0],
-      setSearchedAuthors = _useState14[1];
-
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState16 = _slicedToArray(_useState15, 2),
-      searchedRating = _useState16[0],
-      setSearchedRating = _useState16[1];
-
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sortByQueryString),
-      _useState18 = _slicedToArray(_useState17, 2),
-      selectedSortCriteria = _useState18[0],
-      setSelectedSortCriteria = _useState18[1];
-
-  var resetSearch = function resetSearch() {
-    setSearchedCategories([]);
-    setSearchedAuthors([]);
-    setSearchedRating(0);
-  };
-
-  var selectCategoryItem = function selectCategoryItem(categoryID) {
-    resetSearch();
-
-    if (!searchedCategories.includes(categoryID)) {
-      setSearchedCategories(function (prevState) {
-        return [].concat(_toConsumableArray(prevState), [categoryID]);
-      });
-    } else {
-      setSearchedCategories(function (prevState) {
-        return prevState.filter(function (categoryItem) {
-          return categoryItem !== categoryID;
-        });
-      });
-    }
-  };
-
-  var selectAuthorItem = function selectAuthorItem(authorID) {
-    resetSearch();
-
-    if (!searchedAuthors.includes(authorID)) {
-      setSearchedAuthors(function (prevState) {
-        return [].concat(_toConsumableArray(prevState), [authorID]);
-      });
-    } else {
-      setSearchedAuthors(function (prevState) {
-        return prevState.filter(function (authorItem) {
-          return authorItem !== authorID;
-        });
-      });
-    }
-  };
-
-  var onChangeViewMode = function onChangeViewMode(view) {
-    setViewMode(view);
-  };
-
-  var onChangePageNumber = function onChangePageNumber(pageNum) {
-    pageNum = parseInt(pageNum);
-    setCurrentPage(pageNum);
-  };
-
-  var renderSortBySelect = function renderSortBySelect() {
-    var options = [];
-    _data__WEBPACK_IMPORTED_MODULE_10__.default.sortCriterias.forEach(function (sortCriteria) {
-      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("option", {
-        value: sortCriteria.value,
-        children: sortCriteria.name
-      }, sortCriteria.value));
-    });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("select", {
-      className: "custom-select",
-      value: selectedSortCriteria,
-      onChange: function onChange(e) {
-        setSelectedSortCriteria(e.target.value);
-      },
-      children: options
-    });
-  };
-
-  var renderPageSizeSelect = function renderPageSizeSelect() {
-    var options = [];
-    var pageSizeCriterias = [{
-      name: "Show 5",
-      size: 5
-    }, {
-      name: "Show 15",
-      size: 15
-    }, {
-      name: "Show 20",
-      size: 20
-    }, {
-      name: "Show 25",
-      size: 25
-    }];
-    pageSizeCriterias.forEach(function (pageSizeCriteria) {
-      options.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("option", {
-        value: pageSizeCriteria.size,
-        children: pageSizeCriteria.name
-      }, pageSizeCriteria.name));
-    });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("select", {
-      className: "custom-select",
-      onChange: function onChange(e) {
-        setPageSize(e.target.value);
-      },
-      value: pageSize,
-      children: options
-    });
-  };
-
-  var renderSearchByCategoriesPanel = function renderSearchByCategoriesPanel() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Toggle, {
-        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Header,
-        eventKey: "0",
-        children: "Category"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Collapse, {
-        eventKey: "0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
-          children: [categoryError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
-            message: categoryError
-          }), categoryLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_8__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-            className: "categories-group row",
-            children: categories.map(function (category) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-                className: "category-item ".concat(searchedCategories.includes(category.id) ? "active" : ""),
-                onClick: function onClick() {
-                  return selectCategoryItem(category.id);
-                },
-                children: category.category_name
-              }, category.id);
-            })
-          })]
-        })
-      })]
-    });
-  };
-
-  var renderSearchByAuthorsPanel = function renderSearchByAuthorsPanel() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Toggle, {
-        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Header,
-        eventKey: "1",
-        children: "Author"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Collapse, {
-        eventKey: "1",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
-          children: [authorError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
-            message: authorError
-          }), authorLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_8__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-            className: "author-group categories-group row",
-            children: authors.map(function (author) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-                className: "category-item ".concat(searchedAuthors.includes(author.id) ? "active" : ""),
-                onClick: function onClick() {
-                  return selectAuthorItem(author.id);
-                },
-                children: author.author_name
-              }, author.id);
-            })
-          })]
-        })
-      })]
-    });
-  };
-
-  var renderSearchByReviewsPanel = function renderSearchByReviewsPanel() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Toggle, {
-        as: react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Header,
-        eventKey: "2",
-        children: "Review"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Collapse, {
-        eventKey: "2",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Body, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-            className: "categories-group row",
-            children: _data__WEBPACK_IMPORTED_MODULE_10__.default.reviewCriterias.map(function (reviewCriteria) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-                className: "category-item ".concat(searchedRating === reviewCriteria.value ? "active" : ""),
-                onClick: function onClick() {
-                  resetSearch();
-
-                  if (searchedRating === reviewCriteria.value) {
-                    return setSearchedRating(0);
-                  }
-
-                  setSearchedRating(reviewCriteria.value);
-                },
-                children: reviewCriteria.name
-              }, reviewCriteria.id);
-            })
-          })
-        })
-      })]
-    });
-  };
-
-  var renderSearchTitle = function renderSearchTitle() {
-    var ans = "";
-    var withAnd = false;
-
-    if (searchedCategories.length > 0) {
-      ans += "Category ";
-      withAnd = true;
-      searchedCategories.forEach(function (searchedCategory, index) {
-        ans += "#".concat(searchedCategory);
-
-        if (index + 1 < searchedCategories.length) {
-          ans += ", ";
-        }
-      });
-    }
-
-    if (searchedAuthors.length > 0) {
-      ans += "".concat(withAnd ? " and" : "", " Author ");
-      withAnd = true;
-      searchedAuthors.forEach(function (searchedAuthor, index) {
-        ans += "#".concat(searchedAuthor);
-
-        if (index + 1 < searchedAuthors.length) {
-          ans += ", ";
-        }
-      });
-    }
-
-    if (searchedRating != 0) {
-      ans += "".concat(withAnd ? " and" : "", " Rating ");
-      withAnd = true;
-      ans += "".concat(searchedRating, " star(s) and above");
-    }
-
-    return ans;
-  };
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_actions_bookActions__WEBPACK_IMPORTED_MODULE_3__.getAllBooks)());
-    dispatch((0,_actions_categoryActions__WEBPACK_IMPORTED_MODULE_4__.getAllCategories)());
-    dispatch((0,_actions_authorActions__WEBPACK_IMPORTED_MODULE_2__.getAllAuthors)());
-  }, [dispatch]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!loading && !error) {
-      /*
-      // Combination Sorting
-      let currentBooksData = sortBooks(books, {
-          searchedCategories,
-          searchedAuthors,
-          searchedRating,
-          selectedSortCriteria,
-      });
-      */
-      // Individual Sorting
-      var currentBooksData = (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_12__.sortBooksIndividually)(books, {
-        searchedCategories: searchedCategories,
-        searchedAuthors: searchedAuthors,
-        searchedRating: searchedRating
-      });
-      currentBooksData = (0,_utils_sorters__WEBPACK_IMPORTED_MODULE_12__.sortBooksOrderBy)(currentBooksData, selectedSortCriteria);
-      var pageObject = (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_11__.paginate)(currentBooksData.length, currentPage, parseInt(pageSize), 6);
-      currentBooksData = currentBooksData.slice(pageObject.startIndex, pageObject.endIndex + 1);
-      setPageObjectGlobal(pageObject);
-      setCurrentBooks(currentBooksData);
-    }
-  }, [currentPage, books, loading, error, pageSize, searchedCategories, searchedAuthors, searchedRating, selectedSortCriteria]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-    id: "shop-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-      className: "page-header",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h2", {
-          children: ["Shop", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
-            children: ["(Filtered by ", renderSearchTitle() || "N/A", ")"]
-          })]
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__.default, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-          lg: 3,
-          md: 4,
-          sm: 12,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h5", {
-            className: "mb-4",
-            children: "Filter By"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
-            defaultActiveKey: "0",
-            children: [renderSearchByCategoriesPanel(), renderSearchByAuthorsPanel(), renderSearchByReviewsPanel()]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-          lg: 9,
-          md: 8,
-          sm: 12,
-          children: [error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Partials_ErrorBox__WEBPACK_IMPORTED_MODULE_6__.default, {
-            message: error
-          }), loading || !pageObjectGlobal ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_partials_LoadingBox__WEBPACK_IMPORTED_MODULE_8__.default, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-              className: "shop-result-header mb-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__.default, {
-                className: "align-items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-                  lg: 5,
-                  md: 12,
-                  sm: 12,
-                  className: "mt-2",
-                  children: pageObjectGlobal.totalItems === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
-                    children: "No result"
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
-                    children: "Showing ".concat(pageObjectGlobal.startIndex + 1, " -\n                                                ").concat(pageObjectGlobal.endIndex + 1, " of ").concat(pageObjectGlobal.totalItems, " results")
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-                  lg: 7,
-                  md: 12,
-                  sm: 12,
-                  className: "utils-container",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__.default, {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-                      lg: 5,
-                      md: 5,
-                      sm: 6,
-                      children: renderSortBySelect()
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-                      lg: 4,
-                      md: 4,
-                      sm: 6,
-                      children: renderPageSizeSelect()
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-                      lg: 3,
-                      md: 3,
-                      sm: 6,
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_partials_GridButtonGroup__WEBPACK_IMPORTED_MODULE_7__.default, {
-                        viewMode: viewMode,
-                        onChangeViewMode: onChangeViewMode
-                      })
-                    })]
-                  })
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_book_BookList__WEBPACK_IMPORTED_MODULE_5__.default, {
-              books: currentBooks,
-              viewMode: viewMode
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_partials_Paginator__WEBPACK_IMPORTED_MODULE_9__.default, {
-              toTop: true,
-              pageObject: pageObjectGlobal,
-              onChangePageNumber: onChangePageNumber
-            })]
-          })]
-        })]
-      })
-    })]
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Shop);
-
-/***/ }),
-
 /***/ "./resources/js/reducers/authorReducer.js":
 /*!************************************************!*\
   !*** ./resources/js/reducers/authorReducer.js ***!
@@ -7106,14 +6671,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "bookDetailsReducer": () => (/* binding */ bookDetailsReducer)
 /* harmony export */ });
 /* harmony import */ var _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/bookConstants */ "./resources/js/constants/bookConstants.js");
-/* harmony import */ var _utils_calculation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/calculation */ "./resources/js/utils/calculation.js");
-/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
+/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -7144,7 +6707,7 @@ var bookListReducer = function bookListReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
         books: action.payload.data,
-        pageObject: (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_2__.paginate)(action.payload.total, action.payload.current_page, action.payload.per_page)
+        pageObject: (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_1__.paginate)(action.payload.total, action.payload.current_page, action.payload.per_page)
       });
 
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_ALL_BOOKS_FAIL:
@@ -7208,9 +6771,7 @@ var bookDetailsReducer = function bookDetailsReducer() {
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_DETAILS_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
-        book: _objectSpread(_objectSpread({}, action.payload), {}, {
-          discount_price: (0,_utils_calculation__WEBPACK_IMPORTED_MODULE_1__.calculateDiscountPrice)(action.payload)
-        })
+        book: _objectSpread({}, action.payload)
       });
 
     case _constants_bookConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_DETAILS_FAIL:
@@ -7491,10 +7052,12 @@ var orderActionReducer = function orderActionReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "reviewSearchObjectReducer": () => (/* binding */ reviewSearchObjectReducer),
 /* harmony export */   "reviewListReducer": () => (/* binding */ reviewListReducer),
 /* harmony export */   "reviewActionReducer": () => (/* binding */ reviewActionReducer)
 /* harmony export */ });
 /* harmony import */ var _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/reviewConstants */ "./resources/js/constants/reviewConstants.js");
+/* harmony import */ var _utils_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/pagination */ "./resources/js/utils/pagination.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -7502,9 +7065,28 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
+var reviewSearchObjectReducer = function reviewSearchObjectReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    searchObject: {}
+  };
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_0__.SET_REVIEWS_SEARCH_OBJECT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        searchObject: action.payload
+      });
+
+    default:
+      return state;
+  }
+};
 var reviewListReducer = function reviewListReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     reviews: [],
+    reviewsStatus: null,
+    pageObject: null,
     loading: true
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -7519,7 +7101,9 @@ var reviewListReducer = function reviewListReducer() {
     case _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_REVIEWS_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
-        reviews: action.payload
+        reviews: action.payload.reviews.data,
+        reviewsStatus: action.payload.reviewsStatus[0],
+        pageObject: (0,_utils_pagination__WEBPACK_IMPORTED_MODULE_1__.paginate)(action.payload.reviews.total, action.payload.reviews.current_page, action.payload.reviews.per_page)
       });
 
     case _constants_reviewConstants__WEBPACK_IMPORTED_MODULE_0__.GET_BOOK_REVIEWS_FAIL:
@@ -7574,8 +7158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "toRating": () => (/* binding */ toRating),
 /* harmony export */   "calculateRatings": () => (/* binding */ calculateRatings),
-/* harmony export */   "calculateDiscountPrice": () => (/* binding */ calculateDiscountPrice),
-/* harmony export */   "calculateDiscountPriceDiff": () => (/* binding */ calculateDiscountPriceDiff)
+/* harmony export */   "calculateTotalReviews": () => (/* binding */ calculateTotalReviews)
 /* harmony export */ });
 var toRating = function toRating(num) {
   return num.toFixed(1);
@@ -7624,50 +7207,15 @@ var calculateRatings = function calculateRatings(reviews) {
     ratings: ratings
   };
 };
+var calculateTotalReviews = function calculateTotalReviews(reviewsStatus) {
+  var sum = 0;
 
-var filterDiscountItems = function filterDiscountItems(discounts) {
-  return discounts.filter(function (discount) {
-    var discount_start_date = discount.discount_start_date,
-        discount_end_date = discount.discount_end_date;
-    return new Date(discount_start_date).getTime() >= new Date().getTime() && (!discount_end_date || new Date(discount_end_date).getTime() < new Date().getTime());
-  });
-};
-
-var sortDiscountItems = function sortDiscountItems(discounts) {
-  if (discounts.length > 1) {
-    return discounts.sort(function (a, b) {
-      return a.discount_price - b.discount_price;
-    });
+  for (var i = 1; i <= 5; i++) {
+    var element = reviewsStatus["numberof".concat(i, "starreviews")];
+    sum += parseInt(element);
   }
 
-  return discounts;
-};
-
-var calculateDiscountPrice = function calculateDiscountPrice(book) {
-  var discounts = book.discounts,
-      book_price = book.book_price;
-  var finalPrice = book_price;
-  var sortedDiscounts = filterDiscountItems(discounts);
-
-  if (sortedDiscounts.length > 0) {
-    sortedDiscounts = sortDiscountItems(sortedDiscounts);
-    finalPrice = sortedDiscounts[0].discount_price;
-  }
-
-  return finalPrice;
-};
-var calculateDiscountPriceDiff = function calculateDiscountPriceDiff(book) {
-  var discounts = book.discounts,
-      book_price = book.book_price;
-  var finalPrice = 0;
-  var sortedDiscounts = filterDiscountItems(discounts);
-
-  if (sortedDiscounts.length > 0) {
-    sortedDiscounts = sortDiscountItems(sortedDiscounts);
-    finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
-  }
-
-  return finalPrice;
+  return sum;
 };
 
 /***/ }),
@@ -7742,245 +7290,6 @@ function paginate(totalItems) {
     pages: pages
   };
 }
-
-/***/ }),
-
-/***/ "./resources/js/utils/sorters.js":
-/*!***************************************!*\
-  !*** ./resources/js/utils/sorters.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getBooksWithHighestSale": () => (/* binding */ getBooksWithHighestSale),
-/* harmony export */   "getBooksWithHighestRatings": () => (/* binding */ getBooksWithHighestRatings),
-/* harmony export */   "getBooksWithHighestReviews": () => (/* binding */ getBooksWithHighestReviews),
-/* harmony export */   "sortBooks": () => (/* binding */ sortBooks),
-/* harmony export */   "sortBooksIndividually": () => (/* binding */ sortBooksIndividually),
-/* harmony export */   "sortBooksOrderBy": () => (/* binding */ sortBooksOrderBy),
-/* harmony export */   "sortReviews": () => (/* binding */ sortReviews),
-/* harmony export */   "sortReviewsOrderBy": () => (/* binding */ sortReviewsOrderBy)
-/* harmony export */ });
-/* harmony import */ var _calculation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calculation */ "./resources/js/utils/calculation.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var getBooksWithHighestSale = function getBooksWithHighestSale(bookList) {
-  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
-  bookList = bookList.map(function (bookItem) {
-    return _objectSpread(_objectSpread({}, bookItem), {}, {
-      discount_price_diff: (0,_calculation__WEBPACK_IMPORTED_MODULE_0__.calculateDiscountPriceDiff)(bookItem)
-    });
-  });
-  bookList = bookList.sort(function (a, b) {
-    return b.discount_price_diff - a.discount_price_diff;
-  });
-  return bookList.slice(0, numberOfBooks);
-};
-var getBooksWithHighestRatings = function getBooksWithHighestRatings(bookList) {
-  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
-  bookList = bookList.sort(function (a, b) {
-    if (a.ratings == b.ratings) {
-      return a.discount_price - b.discount_price;
-    }
-
-    return b.ratings - a.ratings;
-  });
-  return bookList.slice(0, numberOfBooks);
-};
-var getBooksWithHighestReviews = function getBooksWithHighestReviews(bookList) {
-  var numberOfBooks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
-  bookList = bookList.sort(function (a, b) {
-    if (a.reviews.length == b.reviews.length) {
-      return a.discount_price - b.discount_price;
-    }
-
-    return b.reviews.length - a.reviews.length;
-  });
-  return bookList.slice(0, numberOfBooks);
-};
-var sortBooks = function sortBooks(list, searchObject) {
-  var searchedCategories = searchObject.searchedCategories,
-      searchedAuthors = searchObject.searchedAuthors,
-      searchedRating = searchObject.searchedRating;
-  var returnedList = list;
-
-  if (searchedCategories) {
-    returnedList = sortBooksByCategories(returnedList, searchedCategories);
-  }
-
-  if (searchedAuthors) {
-    returnedList = sortBooksByAuthors(returnedList, searchedAuthors);
-  }
-
-  if (searchedRating) {
-    returnedList = sortBooksByRatings(returnedList, searchedRating);
-  }
-
-  return returnedList;
-};
-var sortBooksIndividually = function sortBooksIndividually(list, searchObject) {
-  var searchedCategories = searchObject.searchedCategories,
-      searchedAuthors = searchObject.searchedAuthors,
-      searchedRating = searchObject.searchedRating;
-  var returnedList = list;
-
-  if (searchedCategories.length > 0) {
-    return returnedList = sortBooksByCategories(returnedList, searchedCategories);
-  }
-
-  if (searchedAuthors.length > 0) {
-    return returnedList = sortBooksByAuthors(returnedList, searchedAuthors);
-  }
-
-  if (searchedRating > 0) {
-    return returnedList = sortBooksByRatings(returnedList, searchedRating);
-  }
-
-  return returnedList;
-};
-
-var sortBooksByCategories = function sortBooksByCategories(list, searchedCategories) {
-  var returnedList = [];
-
-  if (searchedCategories.length === 0) {
-    return list;
-  }
-
-  searchedCategories.forEach(function (sortGenre) {
-    list.forEach(function (item) {
-      if (item.category_id === sortGenre) {
-        if (!returnedList.includes(item)) {
-          returnedList.push(item);
-        }
-      }
-    });
-  });
-  return returnedList;
-};
-
-var sortBooksByAuthors = function sortBooksByAuthors(list, searchedAuthors) {
-  var returnedList = [];
-
-  if (searchedAuthors.length === 0) {
-    return list;
-  }
-
-  searchedAuthors.forEach(function (sortGenre) {
-    list.forEach(function (item) {
-      if (item.author.id === sortGenre) {
-        if (!returnedList.includes(item)) {
-          returnedList.push(item);
-        }
-      }
-    });
-  });
-  return returnedList;
-};
-
-var sortBooksByRatings = function sortBooksByRatings(list, searchedRating) {
-  var returnedList = [];
-
-  if (!searchedRating) {
-    return list;
-  }
-
-  returnedList = list.filter(function (item) {
-    return item.ratings >= searchedRating;
-  });
-  return returnedList;
-};
-
-var sortBooksOrderBy = function sortBooksOrderBy(list, orderBy) {
-  var returnedList = list;
-
-  switch (orderBy) {
-    case "atoz":
-      returnedList = list.sort(function (a, b) {
-        return a.book_title.localeCompare(b.book_title);
-      });
-      break;
-
-    case "ztoa":
-      returnedList = list.sort(function (a, b) {
-        return b.book_title.localeCompare(a.book_title);
-      });
-      break;
-
-    case "popularity":
-      returnedList = getBooksWithHighestReviews(list, list.length);
-      break;
-
-    case "onsale":
-      returnedList = getBooksWithHighestSale(list, list.length);
-      break;
-
-    case "priceasc":
-      returnedList = list.sort(function (a, b) {
-        return parseFloat(a.discount_price) - parseFloat(b.discount_price);
-      });
-      break;
-
-    case "pricedesc":
-      returnedList = list.sort(function (a, b) {
-        return parseFloat(b.discount_price) - parseFloat(a.discount_price);
-      });
-      break;
-
-    default:
-      break;
-  }
-
-  return returnedList;
-};
-var sortReviews = function sortReviews(list, searchObject) {
-  var searchedRating = searchObject.searchedRating;
-  var returnedList = list;
-
-  if (searchedRating === 0) {
-    return returnedList;
-  }
-
-  if (searchedRating) {
-    returnedList = returnedList.filter(function (returnedListItem) {
-      return returnedListItem.rating_start == searchedRating;
-    });
-  }
-
-  return returnedList;
-};
-var sortReviewsOrderBy = function sortReviewsOrderBy(list, orderBy) {
-  var returnedList = list;
-
-  switch (orderBy) {
-    case "dateasc":
-      returnedList = list.sort(function (a, b) {
-        var dateA = new Date(a.review_date).getTime();
-        var dateB = new Date(b.review_date).getTime();
-        return dateA > dateB ? 1 : -1;
-      });
-      break;
-
-    case "datedesc":
-      returnedList = list.sort(function (a, b) {
-        var dateA = new Date(a.review_date).getTime();
-        var dateB = new Date(b.review_date).getTime();
-        return dateA < dateB ? 1 : -1;
-      });
-      break;
-
-    default:
-      break;
-  }
-
-  return returnedList;
-};
 
 /***/ }),
 
@@ -63243,6 +62552,646 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-lazyload/lib/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-lazyload/lib/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.forceVisible = exports.forceCheck = exports.lazyload = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _event = __webpack_require__(/*! ./utils/event */ "./node_modules/react-lazyload/lib/utils/event.js");
+
+var _scrollParent = __webpack_require__(/*! ./utils/scrollParent */ "./node_modules/react-lazyload/lib/utils/scrollParent.js");
+
+var _scrollParent2 = _interopRequireDefault(_scrollParent);
+
+var _debounce = __webpack_require__(/*! ./utils/debounce */ "./node_modules/react-lazyload/lib/utils/debounce.js");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
+var _throttle = __webpack_require__(/*! ./utils/throttle */ "./node_modules/react-lazyload/lib/utils/throttle.js");
+
+var _throttle2 = _interopRequireDefault(_throttle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * react-lazyload
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+var defaultBoundingClientRect = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  width: 0,
+  height: 0
+};
+var LISTEN_FLAG = 'data-lazyload-listened';
+var listeners = [];
+var pending = [];
+
+// try to handle passive events
+var passiveEventSupported = false;
+try {
+  var opts = Object.defineProperty({}, 'passive', {
+    get: function get() {
+      passiveEventSupported = true;
+    }
+  });
+  window.addEventListener('test', null, opts);
+} catch (e) {}
+// if they are supported, setup the optional params
+// IMPORTANT: FALSE doubles as the default CAPTURE value!
+var passiveEvent = passiveEventSupported ? { capture: false, passive: true } : false;
+
+/**
+ * Check if `component` is visible in overflow container `parent`
+ * @param  {node} component React component
+ * @param  {node} parent    component's scroll parent
+ * @return {bool}
+ */
+var checkOverflowVisible = function checkOverflowVisible(component, parent) {
+  var node = component.ref;
+
+  var parentTop = void 0;
+  var parentLeft = void 0;
+  var parentHeight = void 0;
+  var parentWidth = void 0;
+
+  try {
+    var _parent$getBoundingCl = parent.getBoundingClientRect();
+
+    parentTop = _parent$getBoundingCl.top;
+    parentLeft = _parent$getBoundingCl.left;
+    parentHeight = _parent$getBoundingCl.height;
+    parentWidth = _parent$getBoundingCl.width;
+  } catch (e) {
+    parentTop = defaultBoundingClientRect.top;
+    parentLeft = defaultBoundingClientRect.left;
+    parentHeight = defaultBoundingClientRect.height;
+    parentWidth = defaultBoundingClientRect.width;
+  }
+
+  var windowInnerHeight = window.innerHeight || document.documentElement.clientHeight;
+  var windowInnerWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  // calculate top and height of the intersection of the element's scrollParent and viewport
+  var intersectionTop = Math.max(parentTop, 0); // intersection's top relative to viewport
+  var intersectionLeft = Math.max(parentLeft, 0); // intersection's left relative to viewport
+  var intersectionHeight = Math.min(windowInnerHeight, parentTop + parentHeight) - intersectionTop; // height
+  var intersectionWidth = Math.min(windowInnerWidth, parentLeft + parentWidth) - intersectionLeft; // width
+
+  // check whether the element is visible in the intersection
+  var top = void 0;
+  var left = void 0;
+  var height = void 0;
+  var width = void 0;
+
+  try {
+    var _node$getBoundingClie = node.getBoundingClientRect();
+
+    top = _node$getBoundingClie.top;
+    left = _node$getBoundingClie.left;
+    height = _node$getBoundingClie.height;
+    width = _node$getBoundingClie.width;
+  } catch (e) {
+    top = defaultBoundingClientRect.top;
+    left = defaultBoundingClientRect.left;
+    height = defaultBoundingClientRect.height;
+    width = defaultBoundingClientRect.width;
+  }
+
+  var offsetTop = top - intersectionTop; // element's top relative to intersection
+  var offsetLeft = left - intersectionLeft; // element's left relative to intersection
+
+  var offsets = Array.isArray(component.props.offset) ? component.props.offset : [component.props.offset, component.props.offset]; // Be compatible with previous API
+
+  return offsetTop - offsets[0] <= intersectionHeight && offsetTop + height + offsets[1] >= 0 && offsetLeft - offsets[0] <= intersectionWidth && offsetLeft + width + offsets[1] >= 0;
+};
+
+/**
+ * Check if `component` is visible in document
+ * @param  {node} component React component
+ * @return {bool}
+ */
+var checkNormalVisible = function checkNormalVisible(component) {
+  var node = component.ref;
+
+  // If this element is hidden by css rules somehow, it's definitely invisible
+  if (!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)) return false;
+
+  var top = void 0;
+  var elementHeight = void 0;
+
+  try {
+    var _node$getBoundingClie2 = node.getBoundingClientRect();
+
+    top = _node$getBoundingClie2.top;
+    elementHeight = _node$getBoundingClie2.height;
+  } catch (e) {
+    top = defaultBoundingClientRect.top;
+    elementHeight = defaultBoundingClientRect.height;
+  }
+
+  var windowInnerHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  var offsets = Array.isArray(component.props.offset) ? component.props.offset : [component.props.offset, component.props.offset]; // Be compatible with previous API
+
+  return top - offsets[0] <= windowInnerHeight && top + elementHeight + offsets[1] >= 0;
+};
+
+/**
+ * Detect if element is visible in viewport, if so, set `visible` state to true.
+ * If `once` prop is provided true, remove component as listener after checkVisible
+ *
+ * @param  {React} component   React component that respond to scroll and resize
+ */
+var checkVisible = function checkVisible(component) {
+  var node = component.ref;
+  if (!(node instanceof HTMLElement)) {
+    return;
+  }
+
+  var parent = (0, _scrollParent2.default)(node);
+  var isOverflow = component.props.overflow && parent !== node.ownerDocument && parent !== document && parent !== document.documentElement;
+  var visible = isOverflow ? checkOverflowVisible(component, parent) : checkNormalVisible(component);
+  if (visible) {
+    // Avoid extra render if previously is visible
+    if (!component.visible) {
+      if (component.props.once) {
+        pending.push(component);
+      }
+
+      component.visible = true;
+      component.forceUpdate();
+    }
+  } else if (!(component.props.once && component.visible)) {
+    component.visible = false;
+    if (component.props.unmountIfInvisible) {
+      component.forceUpdate();
+    }
+  }
+};
+
+var purgePending = function purgePending() {
+  pending.forEach(function (component) {
+    var index = listeners.indexOf(component);
+    if (index !== -1) {
+      listeners.splice(index, 1);
+    }
+  });
+
+  pending = [];
+};
+
+var lazyLoadHandler = function lazyLoadHandler() {
+  for (var i = 0; i < listeners.length; ++i) {
+    var listener = listeners[i];
+    checkVisible(listener);
+  }
+  // Remove `once` component in listeners
+  purgePending();
+};
+
+/**
+ * Forces the component to display regardless of whether the element is visible in the viewport.
+ */
+var forceVisible = function forceVisible() {
+  for (var i = 0; i < listeners.length; ++i) {
+    var listener = listeners[i];
+    listener.visible = true;
+    listener.forceUpdate();
+  }
+  // Remove `once` component in listeners
+  purgePending();
+};
+
+// Depending on component's props
+var delayType = void 0;
+var finalLazyLoadHandler = null;
+
+var isString = function isString(string) {
+  return typeof string === 'string';
+};
+
+var LazyLoad = function (_Component) {
+  _inherits(LazyLoad, _Component);
+
+  function LazyLoad(props) {
+    _classCallCheck(this, LazyLoad);
+
+    var _this = _possibleConstructorReturn(this, (LazyLoad.__proto__ || Object.getPrototypeOf(LazyLoad)).call(this, props));
+
+    _this.visible = false;
+    _this.setRef = _this.setRef.bind(_this);
+    return _this;
+  }
+
+  _createClass(LazyLoad, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // It's unlikely to change delay type on the fly, this is mainly
+      // designed for tests
+      var scrollport = window;
+      var scrollContainer = this.props.scrollContainer;
+
+      if (scrollContainer) {
+        if (isString(scrollContainer)) {
+          scrollport = scrollport.document.querySelector(scrollContainer);
+        }
+      }
+      var needResetFinalLazyLoadHandler = this.props.debounce !== undefined && delayType === 'throttle' || delayType === 'debounce' && this.props.debounce === undefined;
+
+      if (needResetFinalLazyLoadHandler) {
+        (0, _event.off)(scrollport, 'scroll', finalLazyLoadHandler, passiveEvent);
+        (0, _event.off)(window, 'resize', finalLazyLoadHandler, passiveEvent);
+        finalLazyLoadHandler = null;
+      }
+
+      if (!finalLazyLoadHandler) {
+        if (this.props.debounce !== undefined) {
+          finalLazyLoadHandler = (0, _debounce2.default)(lazyLoadHandler, typeof this.props.debounce === 'number' ? this.props.debounce : 300);
+          delayType = 'debounce';
+        } else if (this.props.throttle !== undefined) {
+          finalLazyLoadHandler = (0, _throttle2.default)(lazyLoadHandler, typeof this.props.throttle === 'number' ? this.props.throttle : 300);
+          delayType = 'throttle';
+        } else {
+          finalLazyLoadHandler = lazyLoadHandler;
+        }
+      }
+
+      if (this.props.overflow) {
+        var parent = (0, _scrollParent2.default)(this.ref);
+        if (parent && typeof parent.getAttribute === 'function') {
+          var listenerCount = 1 + +parent.getAttribute(LISTEN_FLAG);
+          if (listenerCount === 1) {
+            parent.addEventListener('scroll', finalLazyLoadHandler, passiveEvent);
+          }
+          parent.setAttribute(LISTEN_FLAG, listenerCount);
+        }
+      } else if (listeners.length === 0 || needResetFinalLazyLoadHandler) {
+        var _props = this.props,
+            scroll = _props.scroll,
+            resize = _props.resize;
+
+
+        if (scroll) {
+          (0, _event.on)(scrollport, 'scroll', finalLazyLoadHandler, passiveEvent);
+        }
+
+        if (resize) {
+          (0, _event.on)(window, 'resize', finalLazyLoadHandler, passiveEvent);
+        }
+      }
+
+      listeners.push(this);
+      checkVisible(this);
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate() {
+      return this.visible;
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this.props.overflow) {
+        var parent = (0, _scrollParent2.default)(this.ref);
+        if (parent && typeof parent.getAttribute === 'function') {
+          var listenerCount = +parent.getAttribute(LISTEN_FLAG) - 1;
+          if (listenerCount === 0) {
+            parent.removeEventListener('scroll', finalLazyLoadHandler, passiveEvent);
+            parent.removeAttribute(LISTEN_FLAG);
+          } else {
+            parent.setAttribute(LISTEN_FLAG, listenerCount);
+          }
+        }
+      }
+
+      var index = listeners.indexOf(this);
+      if (index !== -1) {
+        listeners.splice(index, 1);
+      }
+
+      if (listeners.length === 0 && typeof window !== 'undefined') {
+        (0, _event.off)(window, 'resize', finalLazyLoadHandler, passiveEvent);
+        (0, _event.off)(window, 'scroll', finalLazyLoadHandler, passiveEvent);
+      }
+    }
+  }, {
+    key: 'setRef',
+    value: function setRef(element) {
+      if (element) {
+        this.ref = element;
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          height = _props2.height,
+          children = _props2.children,
+          placeholder = _props2.placeholder,
+          className = _props2.className,
+          classNamePrefix = _props2.classNamePrefix,
+          style = _props2.style;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: classNamePrefix + '-wrapper ' + className, ref: this.setRef, style: style },
+        this.visible ? children : placeholder ? placeholder : _react2.default.createElement('div', {
+          style: { height: height },
+          className: classNamePrefix + '-placeholder'
+        })
+      );
+    }
+  }]);
+
+  return LazyLoad;
+}(_react.Component);
+
+LazyLoad.propTypes = {
+  className: _propTypes2.default.string,
+  classNamePrefix: _propTypes2.default.string,
+  once: _propTypes2.default.bool,
+  height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  offset: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.arrayOf(_propTypes2.default.number)]),
+  overflow: _propTypes2.default.bool,
+  resize: _propTypes2.default.bool,
+  scroll: _propTypes2.default.bool,
+  children: _propTypes2.default.node,
+  throttle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.bool]),
+  debounce: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.bool]),
+  placeholder: _propTypes2.default.node,
+  scrollContainer: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object]),
+  unmountIfInvisible: _propTypes2.default.bool,
+  style: _propTypes2.default.object
+};
+
+LazyLoad.defaultProps = {
+  className: '',
+  classNamePrefix: 'lazyload',
+  once: false,
+  offset: 0,
+  overflow: false,
+  resize: false,
+  scroll: true,
+  unmountIfInvisible: false
+};
+
+var getDisplayName = function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+};
+
+var decorator = function decorator() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return function lazyload(WrappedComponent) {
+    return function (_Component2) {
+      _inherits(LazyLoadDecorated, _Component2);
+
+      function LazyLoadDecorated() {
+        _classCallCheck(this, LazyLoadDecorated);
+
+        var _this2 = _possibleConstructorReturn(this, (LazyLoadDecorated.__proto__ || Object.getPrototypeOf(LazyLoadDecorated)).call(this));
+
+        _this2.displayName = 'LazyLoad' + getDisplayName(WrappedComponent);
+        return _this2;
+      }
+
+      _createClass(LazyLoadDecorated, [{
+        key: 'render',
+        value: function render() {
+          return _react2.default.createElement(
+            LazyLoad,
+            options,
+            _react2.default.createElement(WrappedComponent, this.props)
+          );
+        }
+      }]);
+
+      return LazyLoadDecorated;
+    }(_react.Component);
+  };
+};
+
+exports.lazyload = decorator;
+exports.default = LazyLoad;
+exports.forceCheck = lazyLoadHandler;
+exports.forceVisible = forceVisible;
+
+/***/ }),
+
+/***/ "./node_modules/react-lazyload/lib/utils/debounce.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-lazyload/lib/utils/debounce.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = debounce;
+function debounce(func, wait, immediate) {
+  var timeout = void 0;
+  var args = void 0;
+  var context = void 0;
+  var timestamp = void 0;
+  var result = void 0;
+
+  var later = function later() {
+    var last = +new Date() - timestamp;
+
+    if (last < wait && last >= 0) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        if (!timeout) {
+          context = null;
+          args = null;
+        }
+      }
+    }
+  };
+
+  return function debounced() {
+    context = this;
+    args = arguments;
+    timestamp = +new Date();
+
+    var callNow = immediate && !timeout;
+    if (!timeout) {
+      timeout = setTimeout(later, wait);
+    }
+
+    if (callNow) {
+      result = func.apply(context, args);
+      context = null;
+      args = null;
+    }
+
+    return result;
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-lazyload/lib/utils/event.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-lazyload/lib/utils/event.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.on = on;
+exports.off = off;
+function on(el, eventName, callback, opts) {
+  opts = opts || false;
+  if (el.addEventListener) {
+    el.addEventListener(eventName, callback, opts);
+  } else if (el.attachEvent) {
+    el.attachEvent("on" + eventName, function (e) {
+      callback.call(el, e || window.event);
+    });
+  }
+}
+
+function off(el, eventName, callback, opts) {
+  opts = opts || false;
+  if (el.removeEventListener) {
+    el.removeEventListener(eventName, callback, opts);
+  } else if (el.detachEvent) {
+    el.detachEvent("on" + eventName, callback);
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-lazyload/lib/utils/scrollParent.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-lazyload/lib/utils/scrollParent.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+/**
+ * @fileOverview Find scroll parent
+ */
+
+exports.default = function (node) {
+  if (!(node instanceof HTMLElement)) {
+    return document.documentElement;
+  }
+
+  var excludeStaticParent = node.style.position === 'absolute';
+  var overflowRegex = /(scroll|auto)/;
+  var parent = node;
+
+  while (parent) {
+    if (!parent.parentNode) {
+      return node.ownerDocument || document.documentElement;
+    }
+
+    var style = window.getComputedStyle(parent);
+    var position = style.position;
+    var overflow = style.overflow;
+    var overflowX = style['overflow-x'];
+    var overflowY = style['overflow-y'];
+
+    if (position === 'static' && excludeStaticParent) {
+      parent = parent.parentNode;
+      continue;
+    }
+
+    if (overflowRegex.test(overflow) && overflowRegex.test(overflowX) && overflowRegex.test(overflowY)) {
+      return parent;
+    }
+
+    parent = parent.parentNode;
+  }
+
+  return node.ownerDocument || node.documentElement || document.documentElement;
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-lazyload/lib/utils/throttle.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-lazyload/lib/utils/throttle.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = throttle;
+/*eslint-disable */
+function throttle(fn, threshhold, scope) {
+  threshhold || (threshhold = 250);
+  var last, deferTimer;
+  return function () {
+    var context = scope || this;
+
+    var now = +new Date(),
+        args = arguments;
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
 
 /***/ }),
 

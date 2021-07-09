@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
 import { Card, Col, Row } from "react-bootstrap";
+import LazyLoad from 'react-lazyload';
 
 function BookItem(props) {
     const dispatch = useDispatch();
@@ -31,7 +32,10 @@ function BookItem(props) {
                     book_og_price: bookItem.book_price,
                     book_price: bookItem.discount_price,
                     book_cover_photo: bookItem.book_cover_photo,
-                    author: bookItem.author,
+                    author: {
+                        author_name: bookItem.author_name,
+                        id: bookItem.author_id
+                    },
                     id: bookItem.id,
                 },
                 1
@@ -73,15 +77,17 @@ function BookItem(props) {
         <Card className="book-item landscape">
             <Row className="no-gutters">
                 <Col md={4}>
-                    <Card.Img
-                        width="100%"
-                        variant="top"
-                        src={
-                            bookItem.book_cover_photo
-                                ? `./images/bookcover/${bookItem.book_cover_photo}.jpg`
-                                : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
-                        }
-                    />
+                    <LazyLoad height={200}>
+                        <Card.Img
+                            width="100%"
+                            variant="top"
+                            src={
+                                bookItem.book_cover_photo
+                                    ? `./images/bookcover/${bookItem.book_cover_photo}.jpg`
+                                    : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
+                            }
+                        />
+                    </LazyLoad>
                 </Col>
                 <Col md={8}>
                     <Card.Body>

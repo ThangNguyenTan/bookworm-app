@@ -26,7 +26,7 @@ function Navigator() {
                         </NavLink>
                         <NavLink
                             activeClassName="active"
-                            to="/shop-client"
+                            to="/shop"
                             className="nav-link"
                         >
                             Shop

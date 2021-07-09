@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Utils\Sorter;
+use App\Http\Utils\Utilities;
 use App\Models\Review;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
@@ -13,12 +16,53 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id, Request $request)
     {
-        //
-        $reviews = Review::where('book_id', $id)->get();
+        $utils = new Utilities();
+        $sorter = new Sorter();
 
-        return response($reviews);
+        $ratings = $request->input('ratings') ?: 0;
+        $pageSize = intval($request->input('page-size')) ?: 15;
+        $sortCriteria = $request->input('sort') ?: "datedesc";
+
+        $q1 = $utils->generateGetNumberOfReviewsQuery(1, $id);
+        $q2 = $utils->generateGetNumberOfReviewsQuery(2, $id);
+        $q3 = $utils->generateGetNumberOfReviewsQuery(3, $id);
+        $q4 = $utils->generateGetNumberOfReviewsQuery(4, $id);
+        $q5 = $utils->generateGetNumberOfReviewsQuery(5, $id);
+
+        $reviews = DB::table("reviews")
+        ->selectRaw("
+            *
+        ")
+        ->where('reviews.book_id', '=', $id);
+
+        if ($ratings != 0) {
+            $reviews = $reviews->where('reviews.rating_start', "=", $ratings);
+        }
+
+        $reviews = $sorter->sortReviewsQuery($reviews, $sortCriteria);
+        $reviews = $reviews->paginate($pageSize);
+
+        $reviewsStatus = DB::table("books")
+        ->join("reviews", "reviews.book_id", "=", "books.id")
+        ->selectRaw("
+            DISTINCT books.id as book_id,
+            $q1 AS numberOf1StarReviews,
+            $q2 AS numberOf2StarReviews,
+            $q3 AS numberOf3StarReviews,
+            $q4 AS numberOf4StarReviews,
+            $q5 AS numberOf5StarReviews,
+            $utils->avg_ratings_book_query AS ratings
+        ")
+        ->groupBy("books.id", "reviews.book_id", "reviews.rating_start")
+        ->having('reviews.book_id', '=', $id);
+        $reviewsStatus = $reviewsStatus->get();
+        
+        return response([
+            "reviews" => $reviews,
+            "reviewsStatus" => $reviewsStatus
+        ]);
     }
 
     /**

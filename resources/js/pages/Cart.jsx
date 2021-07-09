@@ -29,16 +29,18 @@ function Cart(props) {
                             >
                                 <div>
                                     <h2>
-                                        You have successfully placed an order.{" "}
-                                        <br /> You will be redirected back to
-                                        home page.
+                                        You have successfully placed an order.
                                     </h2>
-                                    <Link
+                                    <h2>
+                                        You will be redirected back to home
+                                        page.
+                                    </h2>
+                                    {/* <Link
                                         to="/"
                                         className="button primary mt-3"
                                     >
                                         Go to Home page
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             </div>
                         </div>

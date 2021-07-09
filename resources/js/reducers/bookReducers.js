@@ -10,7 +10,6 @@ import {
     GET_RECOMMENDED_BOOKS_SUCCESS,
     GET_SERVER_BOOKS_SUCCESS,
 } from "../constants/bookConstants";
-import { calculateDiscountPrice, calculateRatings } from "../utils/calculation";
 import { paginate } from "../utils/pagination";
 
 export const bookListReducer = (
@@ -112,7 +111,6 @@ export const bookDetailsReducer = (
                 loading: false,
                 book: {
                     ...action.payload,
-                    discount_price: calculateDiscountPrice(action.payload),
                 },
             };
         case GET_BOOK_DETAILS_FAIL:

@@ -6,18 +6,40 @@ import {
     GET_BOOK_REVIEWS_FAIL,
     GET_BOOK_REVIEWS_REQUEST,
     GET_BOOK_REVIEWS_SUCCESS,
+    SET_REVIEWS_SEARCH_OBJECT,
 } from "../constants/reviewConstants";
 
 const REVIEWS_URL = `/api/reviews`;
 
-export const getReviewsByBookID = (bookID) => {
+const createSearchReviewURL = (bookID, searchQueryObj) => {
+    //page, page-size, author, category, ratings, sort
+    const {
+        currentPage,
+        pageSize,
+        selectedSortCriteria,
+        searchedRating
+    } = searchQueryObj;
+    let searchURL = `${REVIEWS_URL}/${bookID}/book?page=${currentPage}`;
+    searchURL = `${searchURL}&page-size=${pageSize}`;
+    searchURL = `${searchURL}&ratings=${searchedRating}`;
+    searchURL = `${searchURL}&sort=${selectedSortCriteria}`;
+
+    return searchURL;
+};
+
+export const getReviewsByBookID = (bookID, searchQueryObj) => {
     return async (dispatch) => {
         dispatch({
             type: GET_BOOK_REVIEWS_REQUEST,
             payload: bookID,
         });
         try {
-            const { data } = await axios.get(`${REVIEWS_URL}/${bookID}/book`);
+            const url = createSearchReviewURL(bookID, searchQueryObj);
+            const { data } = await axios.get(`${url}`);
+            dispatch({
+                type: SET_REVIEWS_SEARCH_OBJECT,
+                payload: searchQueryObj
+            })
             dispatch({
                 type: GET_BOOK_REVIEWS_SUCCESS,
                 payload: data,
@@ -35,16 +57,21 @@ export const getReviewsByBookID = (bookID) => {
 };
 
 export const addReview = (newReview) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         dispatch({
             type: ADD_REVIEW_REQUEST,
             payload: newReview,
         });
+
+        const { reviewSearchObjectReducer } = getState();
+        const { searchObject } = reviewSearchObjectReducer;
+
         try {
             await axios.post(`${REVIEWS_URL}/${newReview.book_id}/book`, {
                 ...newReview,
             });
-            const { data } = await axios.get(`${REVIEWS_URL}/${newReview.book_id}/book`);
+            const url = createSearchReviewURL(newReview.book_id, searchObject);
+            const { data } = await axios.get(`${url}`);
             dispatch({
                 type: ADD_REVIEW_SUCCESS,
             });

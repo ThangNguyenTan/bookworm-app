@@ -16,6 +16,7 @@ import {
 import {
     reviewActionReducer,
     reviewListReducer,
+    reviewSearchObjectReducer,
 } from "../reducers/reviewReducers";
 
 const initialState = {};
@@ -31,7 +32,8 @@ const reducer = combineReducers({
     orderActionReducer,
     orderDetailsReducer,
     orderListReducer,
-    recBookListReducer
+    recBookListReducer,
+    reviewSearchObjectReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

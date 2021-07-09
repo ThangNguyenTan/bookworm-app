@@ -25,7 +25,7 @@ const createSearchBookURL = (searchQueryObj) => {
         searchedRating,
         selectedSortCriteria,
     } = searchQueryObj;
-    let searchURL = `${BOOKS_URL}/test?page=${currentPage}`;
+    let searchURL = `${BOOKS_URL}?page=${currentPage}`;
     searchURL = `${searchURL}&page-size=${pageSize}`;
     searchURL = `${searchURL}&sort=${selectedSortCriteria}`;
 
@@ -124,7 +124,7 @@ export const getBookDetails = (bookID) => {
             const { data } = await axios.get(`${BOOKS_URL}/${bookID}`);
             dispatch({
                 type: GET_BOOK_DETAILS_SUCCESS,
-                payload: data,
+                payload: data[0],
             });
         } catch (error) {
             dispatch({

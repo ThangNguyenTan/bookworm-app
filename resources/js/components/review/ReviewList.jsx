@@ -1,60 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getReviewsByBookID } from "../../actions/reviewActions";
 import data from "../../data";
-import { calculateRatings } from "../../utils/calculation";
-import { paginate } from "../../utils/pagination";
-import { sortReviews, sortReviewsOrderBy } from "../../utils/sorters";
+import { calculateTotalReviews } from "../../utils/calculation";
 import ErrorBox from "../Partials/ErrorBox";
 import LoadingBox from "../partials/LoadingBox";
 import Paginator from "../partials/Paginator";
 import ReviewItem from "./ReviewItem";
 
-function ReviewList({ loading, error, reviews }) {
-    const reviewRatingsObject = calculateRatings(reviews);
-    console.log(reviewRatingsObject);
+function ReviewList({ bookID }) {
+    const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageObjectGlobal, setPageObjectGlobal] = useState(null);
     const [pageSize, setPageSize] = useState(5);
     const [selectedSortCriteria, setSelectedSortCriteria] =
         useState("datedesc");
-    const [currentReviews, setCurrentReviews] = useState([]);
     const [searchedRating, setSearchedRating] = useState(0);
 
-    useEffect(() => {
-        if (!loading && !error) {
-            let currentReviewsData = sortReviews(reviews, {
-                searchedRating,
-            });
-            currentReviewsData = sortReviewsOrderBy(
-                currentReviewsData,
-                selectedSortCriteria
-            );
-
-            const pageObject = paginate(
-                currentReviewsData.length,
-                currentPage,
-                parseInt(pageSize),
-                5
-            );
-
-            currentReviewsData = currentReviewsData.slice(
-                pageObject.startIndex,
-                pageObject.endIndex + 1
-            );
-
-            setPageObjectGlobal(pageObject);
-            setCurrentReviews(currentReviewsData);
-        }
-    }, [
-        currentPage,
-        reviews,
+    const reviewListReducer = useSelector((state) => state.reviewListReducer);
+    const {
         loading,
         error,
-        pageSize,
-        selectedSortCriteria,
-        searchedRating,
-    ]);
+        reviews,
+        reviewsStatus,
+        pageObject: pageObjectGlobal,
+    } = reviewListReducer;
+
+    useEffect(() => {
+        dispatch(
+            getReviewsByBookID(bookID, {
+                currentPage,
+                pageSize,
+                selectedSortCriteria,
+                searchedRating,
+            })
+        );
+    }, [currentPage, pageSize, selectedSortCriteria, searchedRating]);
 
     if (error) {
         return <ErrorBox message={error} />;
@@ -70,7 +52,7 @@ function ReviewList({ loading, error, reviews }) {
     };
 
     const renderReviewItems = () => {
-        return currentReviews.map((review) => {
+        return reviews.map((review) => {
             return <ReviewItem key={review.id} reviewItem={review} />;
         });
     };
@@ -144,20 +126,20 @@ function ReviewList({ loading, error, reviews }) {
         );
     };
 
-    if (reviews.length === 0 && !loading && !error) {
-        return (
-            <div className="review-list">
-                <div className="container text-center">
-                    <h2>Currently, there is no review</h2>
-                </div>
-            </div>
-        );
-    }
+    // if (reviews.length === 0 && !loading && !error) {
+    //     return (
+    //         <div className="review-list">
+    //             <div className="container text-center">
+    //                 <h2>Currently, there is no review</h2>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     const renderReviewSortItems = () => {
         let ans = [];
 
-        for (let i = 1; i < 6; i++) {
+        for (let i = 1; i <= 5; i++) {
             if (i === 1) {
                 ans.push(
                     <React.Fragment key={i}>
@@ -167,7 +149,8 @@ function ReviewList({ loading, error, reviews }) {
                                 setSearchedRating(i);
                             }}
                         >
-                            {i} star ({reviewRatingsObject.numberOfReviews[i]})
+                            {i} star ({reviewsStatus[`numberof${i}starreviews`]}
+                            )
                         </li>
                         <li className="divider">|</li>
                     </React.Fragment>
@@ -183,7 +166,8 @@ function ReviewList({ loading, error, reviews }) {
                                 setSearchedRating(i);
                             }}
                         >
-                            {i} stars ({reviewRatingsObject.numberOfReviews[i]})
+                            {i} star ({reviewsStatus[`numberof${i}starreviews`]}
+                            )
                         </li>
                     </React.Fragment>
                 );
@@ -197,7 +181,7 @@ function ReviewList({ loading, error, reviews }) {
                             setSearchedRating(i);
                         }}
                     >
-                        {i} stars ({reviewRatingsObject.numberOfReviews[i]})
+                        {i} star ({reviewsStatus[`numberof${i}starreviews`]})
                     </li>
                     <li className="divider">|</li>
                 </React.Fragment>
@@ -219,7 +203,7 @@ function ReviewList({ loading, error, reviews }) {
                 </h2>
             </div>
             <div className="review-list__sub-header">
-                <h2>{reviewRatingsObject.ratings} Star(s)</h2>
+                <h2>{reviewsStatus.ratings} Star(s)</h2>
                 <div className="review-list__ratings">
                     <ul>
                         <li
@@ -228,7 +212,7 @@ function ReviewList({ loading, error, reviews }) {
                                 setSearchedRating(0);
                             }}
                         >
-                            ({reviews.length})
+                            ({calculateTotalReviews(reviewsStatus)})
                         </li>
                         {renderReviewSortItems()}
                     </ul>
@@ -241,10 +225,7 @@ function ReviewList({ loading, error, reviews }) {
                             <p>No result</p>
                         ) : (
                             <p>{`Showing ${pageObjectGlobal.startIndex + 1} -
-                                                ${
-                                                    pageObjectGlobal.endIndex +
-                                                    1
-                                                } of ${
+                            ${pageObjectGlobal.endIndex + 1} of ${
                                 pageObjectGlobal.totalItems
                             } results`}</p>
                         )}

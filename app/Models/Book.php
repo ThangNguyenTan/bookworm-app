@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Http\Utils\Calculation;
+use App\Http\Utils\Utilities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Book extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['ratings', 'discount_price'];
 
     public $timestamps = false;
 
@@ -45,16 +45,22 @@ class Book extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function getRatingsAttribute() {
-        $calculator = new Calculation();
-        $reviews = $this->Reviews;
-        $ratings = $calculator->calculateRatings($reviews);
-        return $ratings;
-    }
+    public function fetchRequiredFieldsForShop() {
+        $utils = new Utilities();
 
-    public function getDiscountPriceAttribute() {
-        return $this->BestDiscount ? 
-        $this->BestDiscount->discount_price : 
-        $this->book_price;
+        $books = DB::table("books")
+        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
+        ->join("authors", "books.author_id", "=", "authors.id")
+        ->join("categories", "books.category_id", "=", "categories.id")
+        ->selectRaw("
+            books.*,
+            authors.id AS author_id, 
+            authors.author_name AS author_name, 
+            categories.id AS category_id, 
+            $utils->min_discount_price_query_coalesce AS discount_price
+        ")
+        ->groupBy("books.id", "authors.id", "categories.id");
+
+        return $books;
     }
 }

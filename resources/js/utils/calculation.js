@@ -48,52 +48,13 @@ export const calculateRatings = (reviews) => {
     };
 };
 
-const filterDiscountItems = (discounts) => {
-    return discounts.filter((discount) => {
-        const { discount_start_date, discount_end_date } = discount;
-
-        return (
-            new Date(discount_start_date).getTime() >= new Date().getTime() &&
-                (!discount_end_date ||
-            new Date(discount_end_date).getTime() < new Date().getTime())
-        );
-    });
+export const calculateTotalReviews = (reviewsStatus) => {
+    let sum = 0;
+    for (let i = 1; i <= 5; i++) {
+        const element = reviewsStatus[`numberof${i}starreviews`];
+        sum += parseInt(element);
+    }
+    return sum;
 }
 
-const sortDiscountItems = (discounts) => {
-    if (discounts.length > 1) {
-        return discounts.sort((a, b) => a.discount_price - b.discount_price);
-    }
 
-    return discounts;
-}
-
-export const calculateDiscountPrice = (book) => {
-    const { discounts, book_price } = book;
-    let finalPrice = book_price;
-
-    let sortedDiscounts = filterDiscountItems(discounts);
-
-    if (sortedDiscounts.length > 0) {
-        sortedDiscounts = sortDiscountItems(sortedDiscounts);
-
-        finalPrice = sortedDiscounts[0].discount_price;
-    }
-
-    return finalPrice;
-};
-
-export const calculateDiscountPriceDiff = (book) => {
-    const { discounts, book_price } = book;
-    let finalPrice = 0;
-
-    let sortedDiscounts = filterDiscountItems(discounts);
-
-    if (sortedDiscounts.length > 0) {
-        sortedDiscounts = sortDiscountItems(sortedDiscounts);
-
-        finalPrice = parseFloat(book_price) - parseFloat(sortedDiscounts[0].discount_price);
-    }
-
-    return finalPrice;
-};

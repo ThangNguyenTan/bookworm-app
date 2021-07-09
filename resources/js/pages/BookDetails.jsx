@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getBookDetails } from "../actions/bookActions";
 import { addToCart } from "../actions/cartActions";
-import { getReviewsByBookID } from "../actions/reviewActions";
 import AlertBox from "../components/partials/AlertBox";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
@@ -17,12 +16,7 @@ function BookDetails(props) {
     const { cart } = useSelector((state) => state.cartReducer);
     const bookDetailsReducer = useSelector((state) => state.bookDetailsReducer);
     const { loading, error, book } = bookDetailsReducer;
-    const reviewListReducer = useSelector((state) => state.reviewListReducer);
-    const {
-        loading: reviewLoading,
-        error: reviewError,
-        reviews,
-    } = reviewListReducer;
+    
     
     const [quantity, setQuantity] = useState(1);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -62,7 +56,10 @@ function BookDetails(props) {
                     book_og_price: book.book_price,
                     book_price: book.discount_price,
                     book_cover_photo: book.book_cover_photo,
-                    author: book.author,
+                    author: {
+                        author_name: book.author_name,
+                        id: book.author_id
+                    },
                     id: book.id,
                 },
                 quantity
@@ -143,7 +140,7 @@ function BookDetails(props) {
 
     useEffect(() => {
         dispatch(getBookDetails(bookID));
-        dispatch(getReviewsByBookID(bookID));
+        //dispatch(getReviewsByBookID(bookID));
     }, [dispatch]);
 
     if (error) {
@@ -181,7 +178,7 @@ function BookDetails(props) {
                                         />
                                         <h6>
                                             <span>By (author) </span>
-                                            {book.author.author_name}
+                                            {book.author_name}
                                         </h6>
                                     </Col>
                                     <Col md={8}>
@@ -239,9 +236,7 @@ function BookDetails(props) {
                 <Row>
                     <Col lg={8} md={12} sm={12}>
                         <ReviewList
-                            loading={reviewLoading}
-                            error={reviewError}
-                            reviews={reviews}
+                            bookID={bookID}
                         />
                     </Col>
 
