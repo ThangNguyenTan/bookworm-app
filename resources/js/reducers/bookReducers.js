@@ -8,7 +8,6 @@ import {
     GET_RECOMMENDED_BOOKS_FAIL,
     GET_RECOMMENDED_BOOKS_REQUEST,
     GET_RECOMMENDED_BOOKS_SUCCESS,
-    GET_SERVER_BOOKS_SUCCESS,
 } from "../constants/bookConstants";
 import { paginate } from "../utils/pagination";
 
@@ -28,16 +27,6 @@ export const bookListReducer = (
                 error: null,
             };
         case GET_ALL_BOOKS_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                books: action.payload.map((bookItem) => {
-                    return {
-                        ...bookItem,
-                    };
-                }),
-            };
-        case GET_SERVER_BOOKS_SUCCESS:
             return {
                 ...state,
                 loading: false,
