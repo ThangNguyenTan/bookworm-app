@@ -20,6 +20,7 @@ class ReviewController extends Controller
     {
         $sorter = new Sorter();
 
+        // Extracting search query
         $ratings = $request->input('ratings') ?: 0;
         $pageSize = intval($request->input('page-size')) ?: 15;
         $sortCriteria = $request->input('sort') ?: "datedesc";
@@ -30,6 +31,8 @@ class ReviewController extends Controller
         ")
         ->where('reviews.book_id', '=', $id);
 
+        // Only get specific ratings when ratings is not zero.
+        // If it is zero then we pass this and get all the reviews instead
         if ($ratings != 0) {
             $reviews = $reviews->where('reviews.rating_start', "=", $ratings);
         }
@@ -40,7 +43,7 @@ class ReviewController extends Controller
 
         $reviewsStatus = new Review();
         $reviewsStatus = $reviewsStatus->fetchReviewsStatus($id);
-        
+
         return response([
             "reviews" => $reviews,
             "reviewsStatus" => $reviewsStatus

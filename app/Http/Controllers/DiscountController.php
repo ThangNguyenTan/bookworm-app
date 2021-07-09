@@ -14,10 +14,6 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        //
-        $discounts = Discount::all();
-
-        return response($discounts);
     }
 
     /**
@@ -56,10 +52,6 @@ class DiscountController extends Controller
      */
     public function show($id)
     {
-        //
-        $discount = Discount::findOrFail($id);
-
-        return response($discount);
     }
 
     /**
@@ -71,24 +63,6 @@ class DiscountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $discount = Discount::findOrFail($id);
-
-        $validated = $request->validate([
-            'book_id' => 'required',
-            'discount_start_date' => 'required|max:13|date',
-            'discount_end_date' => 'required|max:13|date|after_or_equal:discount_start_date',
-            'discount_price' => 'required',
-        ]);
-
-        $discount->book_id = $request->book_id;
-        $discount->discount_start_date = $request->discount_start_date;
-        $discount->discount_end_date = $request->discount_end_date;
-        $discount->discount_price = $request->discount_price;
-
-        $discount->save();
-
-        return response($discount);
     }
 
     /**
@@ -99,11 +73,6 @@ class DiscountController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $discount = Discount::findOrFail($id);
-
-        $discount->delete();
-
-        return response($discount);
+        
     }
 }

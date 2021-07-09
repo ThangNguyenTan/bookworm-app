@@ -27,6 +27,7 @@ class Review extends Model
     public function fetchReviewsStatus($id) {
         $utils = new Utilities();
 
+        // Create count query for each rating type from 1 to 5
         $q1 = $utils->generateGetNumberOfReviewsQuery(1, $id);
         $q2 = $utils->generateGetNumberOfReviewsQuery(2, $id);
         $q3 = $utils->generateGetNumberOfReviewsQuery(3, $id);
@@ -45,8 +46,23 @@ class Review extends Model
             $utils->avg_ratings_book_query AS ratings
         ")
         ->groupBy("books.id", "reviews.book_id", "reviews.rating_start")
-        ->having('reviews.book_id', '=', $id);
-        $reviewsStatus = $reviewsStatus->get();
+        ->having('reviews.book_id', '=', $id)
+        ->get()
+        ->toArray();
+
+        // If the reviewsStatus is empty
+        // We generate a default pattern for the client-site to behave normally
+        if (count($reviewsStatus) === 0) {
+            $reviewsStatus[] = collect([
+                "book_id" => $id,
+                "numberof1starreviews" => 0,
+                "numberof2starreviews" => 0,
+                "numberof3starreviews" => 0,
+                "numberof4starreviews" => 0,
+                "numberof5starreviews" => 0,
+                "ratings" => "0"
+            ]);
+        }
 
         return $reviewsStatus;
     }

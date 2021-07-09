@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAuthors } from "../actions/authorActions";
-import { getAllBooksTest } from "../actions/bookActions";
+import { getAllBooks } from "../actions/bookActions";
 import { getAllCategories } from "../actions/categoryActions";
 import BookList from "../components/book/BookList";
 import ErrorBox from "../components/Partials/ErrorBox";
@@ -306,7 +306,7 @@ function Shop(props) {
 
     useEffect(() => {
         dispatch(
-            getAllBooksTest({
+            getAllBooks({
                 currentPage,
                 pageSize,
                 searchedCategories,

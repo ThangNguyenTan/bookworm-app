@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
+import { CLEAR_CART } from "../constants/cartConstants";
 import {
     ADD_ORDER_FAIL,
     ADD_ORDER_REQUEST,

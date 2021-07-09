@@ -33,11 +33,12 @@ class OrderController extends Controller
         //
         $validated = $request->validate([
             'order_amount' => 'required',
-            "order_items"    => "required|array|min:1",
+            "order_items"  => "required|array|min:1",
         ]);
 
         $orderItems = $request->order_items;
 
+        // Check for the validity of all of the items in the cart
         foreach ($orderItems as $index => $orderItemNormal) {
             $bookID = $orderItemNormal['bookID'];
             $quantity = $orderItemNormal['quantity'];
@@ -59,6 +60,7 @@ class OrderController extends Controller
             }
         }
 
+        // Generate a new order
         $order = new Order();
         
         $order->order_amount = $request->order_amount;
@@ -66,6 +68,7 @@ class OrderController extends Controller
 
         $order->save();
 
+        // Perform a loop to add all of the valid cart items into the created order
         foreach ($orderItems as $index => $orderItemNormal) {
             $orderItem = new OrderItem();
 
@@ -84,7 +87,7 @@ class OrderController extends Controller
         
         $order = Order::findOrFail($order->id);
 
-        $order->orderItems = $order->OrderItems;
+        $order->OrderItems;
 
         return response($order);
     }
@@ -118,20 +121,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
-        $author = Author::findOrFail($id);
-
-        $validated = $request->validate([
-            'author_name' => 'required|max:255',
-        ]);
-
-        $author->author_name = $request->author_name;
-        $author->author_bio = $request->author_bio;
-
-        $author->save();
-
-        return response($author);
-        */
     }
 
     /**
@@ -142,12 +131,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        /*
-        $order = Order::findOrFail($id);
-
-        $order->delete();
-
-        return response($order);
-        */
+        
     }
 }
