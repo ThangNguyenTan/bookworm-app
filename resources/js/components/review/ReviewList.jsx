@@ -39,11 +39,19 @@ function ReviewList({ bookID }) {
     }, [currentPage, pageSize, selectedSortCriteria, searchedRating]);
 
     if (error) {
-        return <ErrorBox message={error} />;
+        return (
+            <div className="review-list">
+                <ErrorBox message={error} />
+            </div>
+        );
     }
 
     if (loading || !pageObjectGlobal) {
-        return <LoadingBox />;
+        return (
+            <div className="review-list">
+                <LoadingBox />
+            </div>
+        );
     }
 
     const onChangePageNumber = (pageNum) => {
