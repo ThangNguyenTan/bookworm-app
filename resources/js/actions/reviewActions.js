@@ -9,7 +9,8 @@ import {
     SET_REVIEWS_SEARCH_OBJECT,
 } from "../constants/reviewConstants";
 
-const REVIEWS_URL = `/api/reviews`;
+//const REVIEWS_URL = `/api/reviews`;
+const BOOKS_URL = `/api/books`;
 
 const createSearchReviewURL = (bookID, searchQueryObj) => {
     //page, page-size, author, category, ratings, sort
@@ -19,7 +20,7 @@ const createSearchReviewURL = (bookID, searchQueryObj) => {
         selectedSortCriteria,
         searchedRating
     } = searchQueryObj;
-    let searchURL = `${REVIEWS_URL}/${bookID}/book?page=${currentPage}`;
+    let searchURL = `${BOOKS_URL}/${bookID}/reviews?page=${currentPage}`;
     searchURL = `${searchURL}&page-size=${pageSize}`;
     searchURL = `${searchURL}&ratings=${searchedRating}`;
     searchURL = `${searchURL}&sort=${selectedSortCriteria}`;
@@ -67,7 +68,7 @@ export const addReview = (newReview) => {
         const { searchObject } = reviewSearchObjectReducer;
 
         try {
-            await axios.post(`${REVIEWS_URL}/${newReview.book_id}/book`, {
+            await axios.post(`${BOOKS_URL}/${newReview.book_id}/review`, {
                 ...newReview,
             });
             const url = createSearchReviewURL(newReview.book_id, searchObject);

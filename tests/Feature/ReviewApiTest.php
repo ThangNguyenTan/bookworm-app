@@ -13,7 +13,7 @@ class ReviewApiTest extends TestCase
     private $url = '/api/reviews';
 
     private function generateReviewURL($id) {
-        return "/api/reviews/$id/book";
+        return "/api/books/$id/reviews";
     }
 
     /**
@@ -31,7 +31,7 @@ class ReviewApiTest extends TestCase
             "review_details" => "Nulla sollicitudin, lectus vel pulvinar laoreet, mauris nisi iaculis felis, et mattis dolor turpis id nibh. Aliquam hendrerit ipsum eget lectus convallis, in sollicitudin sem commodo. Nunc sit amet ligula a nisl molestie egestas vitae ac massa. In dictum risus eu mattis bibendum. Integer laoreet varius neque ac tristique. Cras feugiat lectus vel nulla feugiat, id dignissim augue auctor. Mauris tempor felis nibh, ut rhoncus mauris pharetra at. Aliquam et metus faucibus, aliquam augue non, tempus turpis. Phasellus gravida dui enim, luctus venenatis ligula mattis at. Curabitur sodales non erat vel blandit.",
             "rating_start" => "5"
         ];
-        $response = $this->post($this->generateReviewURL(137), $data);
+        $response = $this->post("/api/books/137/review", $data);
         $createdReviewID = $response->original['id'];
 
         $response->assertStatus(200);

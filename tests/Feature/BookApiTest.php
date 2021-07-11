@@ -13,7 +13,7 @@ class BookApiTest extends TestCase
     private $url = '/api/books';
 
     private function generateDiscountURL($id) {
-        return "/api/discounts/$id/book";
+        return "/api/books/$id/discount";
     }
 
     /**
@@ -94,7 +94,7 @@ class BookApiTest extends TestCase
      */
     public function test_cannot_get_book_by_id()
     {
-        $response = $this->get("$this->url/1000");
+        $response = $this->get("$this->url/999999999");
 
         $response->assertStatus(404);
     }

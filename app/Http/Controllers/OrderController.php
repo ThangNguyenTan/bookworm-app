@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Business\OrderBusiness;
 use App\Models\Book;
 use App\Models\Order;
-use App\Models\OrderItem;
+use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
@@ -30,7 +32,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orderBusiness = new OrderBusiness();
+
         $validated = $request->validate([
             'order_amount' => 'required',
             "order_items"  => "required|array|min:1",
@@ -38,17 +41,19 @@ class OrderController extends Controller
 
         $orderItems = $request->order_items;
 
-        // Check for the validity of all of the items in the cart
-        foreach ($orderItems as $index => $orderItemNormal) {
-            $bookID = $orderItemNormal['bookID'];
-            $quantity = $orderItemNormal['quantity'];
-            $price = $orderItemNormal['price'];
-
-            if (!$bookID || !$quantity || !$price) {
+        // Check for the validity of all the items in the cart
+        foreach ($orderItems as $orderItemNormal) {
+            try {
+                $bookID = $orderItemNormal['bookID'];
+                $quantity = $orderItemNormal['quantity'];
+                $price = $orderItemNormal['price'];
+            } catch (Exception $e) {
                 return response(collect([
-                    "message" => "Lack of information for the order items"
-                ]), 400);
+                    "message" => $e->getMessage()
+                ]), Response::HTTP_BAD_REQUEST);
             }
+
+            $bookID = $orderItemNormal['bookID'];
 
             $existedBook = Book::find($bookID);
 
@@ -56,37 +61,23 @@ class OrderController extends Controller
                 return response(collect([
                     "message" => "The book with an ID of $bookID does not exist",
                     "invalid_book_id" => $bookID
-                ]), 404); 
+                ]), Response::HTTP_NOT_FOUND); 
             }
         }
 
-        // Generate a new order
+        // Create new order
         $order = new Order();
-        
         $order->order_amount = $request->order_amount;
         $order->order_date = date("Y-m-d H:i:s");
-
         $order->save();
 
-        // Perform a loop to add all of the valid cart items into the created order
-        foreach ($orderItems as $index => $orderItemNormal) {
-            $orderItem = new OrderItem();
-
-            $bookID = $orderItemNormal['bookID'];
-            $orderID = $order->id;
-            $quantity = $orderItemNormal['quantity'];
-            $price = $orderItemNormal['price'];
-
-            $orderItem->book_id = $bookID;
-            $orderItem->order_id = $orderID;
-            $orderItem->quantity = $quantity;
-            $orderItem->price = $price;
-
-            $orderItem->save();
-        }
+        // Create records for valid order items 
+        // and bind them with the new order
+        $orderBusiness->createOrderItems($orderItems, $order);
         
+        // Find them again and use relational 
+        // query to extract the full data
         $order = Order::findOrFail($order->id);
-
         $order->OrderItems;
 
         return response($order);

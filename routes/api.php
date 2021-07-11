@@ -49,7 +49,6 @@ Route::put("/books/edit/{id}", [BookController::class, "update"]);
 Route::delete("/books/delete/{id}", [BookController::class, "destroy"]);
 */
 
-Route::get("books/test/{id}", [BookController::class, 'showTest']);
 Route::get("books/rec", [BookController::class, 'getBookRec']);
 Route::apiResource("books", BookController::class);
 
@@ -61,7 +60,7 @@ Route::put("/discounts/edit/{id}", [DiscountController::class, "update"]);
 Route::delete("/discounts/delete/{id}", [DiscountController::class, "destroy"]);
 */
 
-Route::post("discounts/{id}/book", [DiscountController::class, "store"]);
+Route::post("books/{id}/discount", [DiscountController::class, "store"]);
 
 /*
 Route::get("/reviews", [ReviewController::class, "index"]);
@@ -72,10 +71,11 @@ Route::put("/reviews/edit/{id}", [ReviewController::class, "update"]);
 Route::delete("/reviews/delete/{id}", [ReviewController::class, "destroy"]);
 */
 
-Route::get("/reviews/{id}/book", [ReviewController::class, "index"]);
-Route::post("/reviews/{id}/book", [ReviewController::class, "store"]);
-Route::put("/reviews/{id}", [ReviewController::class, "update"]);
-Route::delete("/reviews/{id}", [ReviewController::class, "destroy"]);
+Route::get("books/{id}/reviews", [ReviewController::class, 'index']);
+Route::post("books/{id}/review", [ReviewController::class, 'store']);
+Route::apiResource("reviews", ReviewController::class, [
+    'only' => ['show', 'update', 'destroy']
+]);
 
 /*
 Route::get("/orders", [OrderController::class, "index"]);

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Business\BookBusiness;
 use App\Http\Utils\Filterer;
 use App\Http\Utils\Sorter;
+use App\Http\Utils\Utilities;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
@@ -21,13 +24,13 @@ class BookController extends Controller
 
         // Extracting search query
         $pageSize = intval($request->input('page-size')) ?: 15;
-        $author = $request->input('author') ?: false;
-        $category = $request->input('category') ?: false;
-        $ratings = $request->input('ratings') ?: false;
-        $sortCriteria = $request->input('sort') ?: false;
+        $author = $request->input('author');
+        $category = $request->input('category');
+        $ratings = $request->input('ratings');
+        $sortCriteria = $request->input('sort') ?: "popularity";
 
-        $books = new Book();
-        $books = $books->fetchRequiredFieldsForShop();
+        $bookBusiness = new BookBusiness();
+        $books = $bookBusiness->fetchRequiredFieldsForShop();
 
         $searchCriteria = [
             'author' => $author,
@@ -56,13 +59,15 @@ class BookController extends Controller
     public function getBookRec(Request $request)
     {
         $sorter = new Sorter();
+        $utils = new Utilities();
 
-        $books = new Book();
+        $bookBusiness = new BookBusiness();
+        $books = $bookBusiness->fetchRequiredFieldsForShop();
 
         // Filter the books by popularity
         // i.e. number of reviews. 
         // The more the reviews the higher the rakings
-        $popularBooks = $books->fetchRequiredFieldsForShop();
+        $popularBooks = $books;
         $popularBooks = $sorter->sortBooksQuery($popularBooks, "popularity");
         $popularBooks = $popularBooks
         ->skip(0)
@@ -73,7 +78,7 @@ class BookController extends Controller
         // Filter the books by on sale
         // i.e. the difference between book price and discount price. 
         // The higher the difference the higher the rakings
-        $onSaleBooks = $books->fetchRequiredFieldsForShop();
+        $onSaleBooks = $books;
         $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
         $onSaleBooks = $onSaleBooks
         ->skip(0)
@@ -81,12 +86,12 @@ class BookController extends Controller
         ->get()
         ;
 
-        // Filter the books by avg ratings
+        // Filter the books by average ratings
         // The higher the ratings the higher the rakings
-        $highlyRatedBooks = $books->fetchRequiredFieldsForShop();
+        $highlyRatedBooks = $books;
         $highlyRatedBooks = $highlyRatedBooks
         ->orderByRaw("
-            (SELECT avg (CAST (reviews.rating_start AS float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id) DESC
+            $utils->avg_ratings_book_query DESC
         ")
         ->skip(0)
         ->take(8)
@@ -139,11 +144,17 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $books = new Book();
-        $books = $books->fetchRequiredFieldsForShop();
+        $bookBusiness = new BookBusiness();
+        $books = $bookBusiness->fetchRequiredFieldsForShop();
         $books = $books
         ->where('books.id', '=', $id)
         ->get();
+
+        if (count($books) === 0) {
+            return response(collect([
+                "message" => "Record with this ID does not exist"
+            ]), Response::HTTP_NOT_FOUND);
+        }
 
         return response($books);
     }

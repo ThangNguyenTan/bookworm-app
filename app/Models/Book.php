@@ -45,22 +45,4 @@ class Book extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function fetchRequiredFieldsForShop() {
-        $utils = new Utilities();
-
-        $books = DB::table("books")
-        ->leftjoin("discounts", "books.id", "=", "discounts.book_id")
-        ->join("authors", "books.author_id", "=", "authors.id")
-        ->join("categories", "books.category_id", "=", "categories.id")
-        ->selectRaw("
-            books.*,
-            authors.id AS author_id, 
-            authors.author_name AS author_name, 
-            categories.id AS category_id, 
-            $utils->min_discount_price_query_coalesce AS discount_price
-        ")
-        ->groupBy("books.id", "authors.id", "categories.id");
-
-        return $books;
-    }
 }
