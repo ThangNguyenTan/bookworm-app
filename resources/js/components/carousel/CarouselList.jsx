@@ -2,19 +2,10 @@ import React from "react";
 import CardItem from "../card/CardItem";
 import Slider from "react-slick";
 
-function BookCarousel({ books }) {
+function CarouselList({ carouselItems }) {
     const renderCarouselItem = () => {
-        return books.map((bookItem) => {
-            const item = {
-                discount_price: bookItem.discount_price,
-                original_price: bookItem.book_price,
-                title: bookItem.book_title,
-                author_name: bookItem.author_name,
-                author_id: bookItem.author_id,
-                cover_photo: bookItem.book_cover_photo,
-                id: bookItem.id,
-            };
-            return <CardItem key={bookItem.id} item={item} />;
+        return carouselItems.map((carouselItem) => {
+            return <CardItem key={carouselItem.id} item={carouselItem} />;
         });
     };
 
@@ -76,4 +67,4 @@ function BookCarousel({ books }) {
     );
 }
 
-export default BookCarousel;
+export default CarouselList;

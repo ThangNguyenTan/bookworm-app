@@ -3,8 +3,8 @@ import { Col, Container, Row, Tab, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getRecBooks } from "../actions/bookActions";
-import BookCarousel from "../components/book/BookCarousel";
 import BookList from "../components/book/BookList";
+import CarouselList from "../components/carousel/CarouselList";
 import ErrorBox from "../components/Partials/ErrorBox";
 import LoadingBox from "../components/partials/LoadingBox";
 
@@ -43,7 +43,18 @@ function Home() {
                     </div>
 
                     <div className="on-sale__carousel">
-                        <BookCarousel books={onSaleBooks} />
+                        <CarouselList carouselItems={onSaleBooks.map(bookItem => {
+                            const item = {
+                                discount_price: bookItem.discount_price,
+                                original_price: bookItem.book_price,
+                                title: bookItem.book_title,
+                                author_name: bookItem.author_name,
+                                author_id: bookItem.author_id,
+                                cover_photo: bookItem.book_cover_photo,
+                                id: bookItem.id,
+                            };
+                            return item;
+                        })} />
                     </div>
                 </section>
 
