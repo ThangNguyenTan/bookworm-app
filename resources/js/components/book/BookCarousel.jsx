@@ -1,21 +1,27 @@
 import React from "react";
-import BookItem from "./BookItem";
+import CardItem from "../card/CardItem";
 import Slider from "react-slick";
 
 function BookCarousel({ books }) {
     const renderCarouselItem = () => {
         return books.map((bookItem) => {
-            return <BookItem key={bookItem.id} bookItem={bookItem} />;
+            const item = {
+                discount_price: bookItem.discount_price,
+                original_price: bookItem.book_price,
+                title: bookItem.book_title,
+                author_name: bookItem.author_name,
+                author_id: bookItem.author_id,
+                cover_photo: bookItem.book_cover_photo,
+                id: bookItem.id,
+            };
+            return <CardItem key={bookItem.id} item={item} />;
         });
     };
 
     function SampleNextArrow(props) {
         const { onClick } = props;
         return (
-            <div
-                className={`carousel-nav next`}
-                onClick={onClick}
-            >
+            <div className={`carousel-nav next`} onClick={onClick}>
                 <i className="fas fa-caret-right"></i>
             </div>
         );
@@ -24,10 +30,7 @@ function BookCarousel({ books }) {
     function SamplePrevArrow(props) {
         const { onClick } = props;
         return (
-            <div
-                className="carousel-nav prev"
-                onClick={onClick}
-            >
+            <div className="carousel-nav prev" onClick={onClick}>
                 <i className="fas fa-caret-left"></i>
             </div>
         );

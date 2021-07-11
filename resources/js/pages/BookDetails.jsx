@@ -163,7 +163,7 @@ function BookDetails(props) {
                 <Row>
                     <Col lg={8} md={12} sm={12}>
                         <div className="book-details__card">
-                            <Card className="book-item landscape">
+                            <Card className="card-item landscape">
                                 <Row className="no-gutters">
                                     <Col md={4}>
                                         <Card.Img

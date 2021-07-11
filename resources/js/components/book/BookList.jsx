@@ -1,6 +1,6 @@
 import React from "react";
-import BookItem from "./BookItem";
-import BookItemLandScape from "./BookItemLandScape";
+import CardItem from "../card/CardItem";
+import CardItemLandscape from "../card/CardItemLandscape";
 import ErrorBox from "../Partials/ErrorBox";
 import { Col } from "react-bootstrap";
 
@@ -8,9 +8,19 @@ function BookList(props) {
     const renderBookItems = () => {
         if (props.books && props.books.length > 0) {
             return props.books.map((bookItem) => {
+                const item = {
+                    discount_price: bookItem.discount_price,
+                    original_price: bookItem.book_price,
+                    title: bookItem.book_title,
+                    author_name: bookItem.author_name,
+                    author_id: bookItem.author_id,
+                    cover_photo: bookItem.book_cover_photo,
+                    id: bookItem.id
+                };
+
                 return (
                     <Col lg={3} md={6} sm={12} key={bookItem.id}>
-                        <BookItem bookItem={bookItem} />
+                        <CardItem item={item} />
                     </Col>
                 );
             });
@@ -26,9 +36,20 @@ function BookList(props) {
     const renderLandScapeBookItems = () => {
         if (props.books && props.books.length > 0) {
             return props.books.map((bookItem) => {
+                const item = {
+                    discount_price: bookItem.discount_price,
+                    original_price: bookItem.book_price,
+                    title: bookItem.book_title,
+                    author_name: bookItem.author_name,
+                    author_id: bookItem.author_id,
+                    cover_photo: bookItem.book_cover_photo,
+                    id: bookItem.id,
+                    summary: bookItem.book_summary,
+                };
+
                 return (
                     <Col lg={6} md={12} sm={12} key={bookItem.id}>
-                        <BookItemLandScape bookItem={bookItem} />
+                        <CardItemLandscape item={item} />
                     </Col>
                 );
             });

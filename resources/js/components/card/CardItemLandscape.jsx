@@ -3,23 +3,33 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
 import { Card, Col, Row } from "react-bootstrap";
-import LazyLoad from 'react-lazyload';
+import LazyLoad from "react-lazyload";
 
-function BookItem(props) {
+function CardItemLandscape(props) {
     const dispatch = useDispatch();
-    const bookItem = props.bookItem;
+    const item = props.item;
+    const {
+        discount_price,
+        original_price,
+        title,
+        author_name,
+        author_id,
+        cover_photo,
+        id,
+        summary,
+    } = item;
 
     const { cart } = useSelector((state) => state.cartReducer);
 
     const renderPriceTag = () => {
-        if (bookItem.discount_price == bookItem.book_price) {
-            return <h4 className="price">${bookItem.book_price}</h4>;
+        if (discount_price == original_price) {
+            return <h4 className="price">${original_price}</h4>;
         }
 
         return (
             <h4 className="price">
-                ${bookItem.discount_price}
-                <span>${bookItem.book_price}</span>
+                ${discount_price}
+                <span>${original_price}</span>
             </h4>
         );
     };
@@ -28,15 +38,15 @@ function BookItem(props) {
         dispatch(
             addToCart(
                 {
-                    book_title: bookItem.book_title,
-                    book_og_price: bookItem.book_price,
-                    book_price: bookItem.discount_price,
-                    book_cover_photo: bookItem.book_cover_photo,
+                    book_title: title,
+                    book_og_price: discount_price,
+                    book_price: original_price,
+                    book_cover_photo: cover_photo,
                     author: {
-                        author_name: bookItem.author_name,
-                        id: bookItem.author_id
+                        author_name: author_name,
+                        id: author_id,
                     },
-                    id: bookItem.id,
+                    id: id,
                 },
                 1
             )
@@ -46,7 +56,7 @@ function BookItem(props) {
     const renderAddToCartButton = () => {
         if (cart) {
             const existed = cart.find((cartItem) => {
-                return cartItem.bookID === bookItem.id;
+                return cartItem.bookID === id;
             });
             if (existed) {
                 return (
@@ -74,7 +84,7 @@ function BookItem(props) {
     };
 
     return (
-        <Card className="book-item landscape">
+        <Card className="card-item landscape">
             <Row className="no-gutters">
                 <Col md={4}>
                     <LazyLoad height={200}>
@@ -82,8 +92,8 @@ function BookItem(props) {
                             width="100%"
                             variant="top"
                             src={
-                                bookItem.book_cover_photo
-                                    ? `./images/bookcover/${bookItem.book_cover_photo}.jpg`
+                                cover_photo
+                                    ? `./images/bookcover/${cover_photo}.jpg`
                                     : "https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw_400x400.jpg"
                             }
                         />
@@ -92,13 +102,11 @@ function BookItem(props) {
                 <Col md={8}>
                     <Card.Body>
                         <Card.Title>
-                            <Link to={`/books/${bookItem.id}`}>
-                                {bookItem.book_title}
-                            </Link>
+                            <Link to={`/books/${id}`}>{title}</Link>
                         </Card.Title>
                         <Card.Text>
-                            <p>{bookItem.book_summary}</p>
-                            <h6>{bookItem.author ? bookItem.author.author_name : bookItem.author_name}</h6>
+                            <p>{summary}</p>
+                            <h6>{author_name}</h6>
                             {renderPriceTag()}
                         </Card.Text>
                         {renderAddToCartButton()}
@@ -109,4 +117,4 @@ function BookItem(props) {
     );
 }
 
-export default BookItem;
+export default CardItemLandscape;
