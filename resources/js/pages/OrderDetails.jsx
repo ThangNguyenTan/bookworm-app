@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import { Container, Row, Card, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderDetails } from '../actions/orderActions';
-import CartTable from '../components/cart/CartTable';
-import ErrorBox from '../components/Partials/ErrorBox';
-import LoadingBox from '../components/partials/LoadingBox';
+import { getOrderDetails } from '../actions';
+import { CartTable } from '../components/cart';
+import { ErrorBox, LoadingBox } from '../components/partials';
 
 function OrderDetails(props) {
     const orderID = props.match.params.orderID;

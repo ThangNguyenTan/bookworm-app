@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import CartItem from './CartItem';
-import CartItemRO from './CartItemRO';
+import { CartItemRO, CartItem } from '.';
 
 function CartTable({cartList, disableUtils}) {
 

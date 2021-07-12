@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrders } from "../actions/orderActions";
-import OrderTable from "../components/order/OrderTable";
-import ErrorBox from "../components/Partials/ErrorBox";
-import LoadingBox from "../components/partials/LoadingBox";
+import { getAllOrders } from "../actions";
+import { OrderTable } from "../components/order";
+import { ErrorBox, LoadingBox } from "../components/partials";
 
 function Profile() {
     const dispatch = useDispatch();

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviewsByBookID } from "../../actions/reviewActions";
 import data from "../../data";
-import { calculateTotalReviews } from "../../utils/calculation";
-import ErrorBox from "../Partials/ErrorBox";
-import LoadingBox from "../partials/LoadingBox";
-import Paginator from "../partials/Paginator";
-import ReviewItem from "./ReviewItem";
+import { ReviewItem } from '.';
+import { ErrorBox, LoadingBox, Paginator } from "../partials";
+import { calculateTotalReviews } from "../../utils";
+import { getReviewsByBookID } from "../../actions";
 
 function ReviewList({ bookID }) {
     const dispatch = useDispatch();

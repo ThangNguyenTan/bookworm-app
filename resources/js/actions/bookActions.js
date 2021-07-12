@@ -9,7 +9,7 @@ import {
     GET_RECOMMENDED_BOOKS_REQUEST,
     GET_RECOMMENDED_BOOKS_SUCCESS,
     GET_RECOMMENDED_BOOKS_FAIL,
-} from "../constants/bookConstants";
+} from "../constants";
 
 //const BOOKS_URL = `${process.env.REACT_APP_API_URL}/api/books`;
 const BOOKS_URL = `/api/books`;

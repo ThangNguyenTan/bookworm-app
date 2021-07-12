@@ -14,10 +14,10 @@ function About() {
                 <div className="about-top">
                     <h1>Welcome to Bookworm</h1>
                     <p>
-                        "Bookworm is an independent New York bookstore and
+                        {`"Bookworm is an independent New York bookstore and
                         language school with locations in Manhattan and
                         Brooklyn. We specialize in travel books and language
-                        classes."
+                        classes."`}
                     </p>
                 </div>
 

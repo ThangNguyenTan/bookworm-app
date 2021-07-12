@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import OrderItem from './OrderItem';
+import { OrderItem } from '.';
 
 function OrderTable({orderList}) {
 

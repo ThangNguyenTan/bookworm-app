@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeQuantity, removeFromCart } from "../../actions/cartActions";
+import { changeQuantity, removeFromCart } from "../../actions";
 
 function CartItem({ cartItem }) {
     const dispatch = useDispatch();

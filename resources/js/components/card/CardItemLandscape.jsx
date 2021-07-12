@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../actions/cartActions";
 import { Card, Col, Row } from "react-bootstrap";
 import LazyLoad from "react-lazyload";
+import { addToCart } from "../../actions";
 
 function CardItemLandscape(props) {
     const dispatch = useDispatch();

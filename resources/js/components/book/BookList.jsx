@@ -1,8 +1,7 @@
 import React from "react";
-import CardItem from "../card/CardItem";
-import CardItemLandscape from "../card/CardItemLandscape";
-import ErrorBox from "../Partials/ErrorBox";
 import { Col } from "react-bootstrap";
+import { CardItem, CardItemLandscape } from "../card";
+import { ErrorBox } from "../partials";
 
 function BookList(props) {
     const renderBookItems = () => {

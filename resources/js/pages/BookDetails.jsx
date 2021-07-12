@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Container, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBookDetails } from "../actions/bookActions";
-import { addToCart } from "../actions/cartActions";
-import AlertBox from "../components/partials/AlertBox";
-import ErrorBox from "../components/Partials/ErrorBox";
-import LoadingBox from "../components/partials/LoadingBox";
-import ReviewForm from "../components/review/ReviewForm";
-import ReviewList from "../components/review/ReviewList";
+import { addToCart, getBookDetails } from "../actions";
+import { AlertBox, ErrorBox, LoadingBox } from "../components/partials";
+import { ReviewForm, ReviewList } from "../components/review";
 
 function BookDetails(props) {
     const bookID = props.match.params.bookID;

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { GET_ALL_CATEGORIES_FAIL, GET_ALL_CATEGORIES_REQUEST, GET_ALL_CATEGORIES_SUCCESS } from "../constants/categoryConstants";
+import {
+    GET_ALL_CATEGORIES_FAIL,
+    GET_ALL_CATEGORIES_REQUEST,
+    GET_ALL_CATEGORIES_SUCCESS,
+} from "../constants";
 
 //const CATEGORIES_URL = `${process.env.REACT_APP_API_URL}/api/categories`;
 const CATEGORIES_URL = `/api/categories`;

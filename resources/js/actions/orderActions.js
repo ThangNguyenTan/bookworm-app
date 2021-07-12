@@ -1,5 +1,4 @@
 import axios from "axios";
-import { CLEAR_CART } from "../constants/cartConstants";
 import {
     ADD_ORDER_FAIL,
     ADD_ORDER_REQUEST,
@@ -10,8 +9,9 @@ import {
     GET_ORDER_DETAILS_FAIL,
     GET_ORDER_DETAILS_REQUEST,
     GET_ORDER_DETAILS_SUCCESS,
-} from "../constants/orderConstants";
-import { removeFromCart } from "./cartActions";
+    CLEAR_CART
+} from "../constants";
+import { removeFromCart } from ".";
 
 const ORDERS_URL = `/api/orders`;
 

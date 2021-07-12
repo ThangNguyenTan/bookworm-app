@@ -7,7 +7,7 @@ import {
     GET_BOOK_REVIEWS_REQUEST,
     GET_BOOK_REVIEWS_SUCCESS,
     SET_REVIEWS_SEARCH_OBJECT,
-} from "../constants/reviewConstants";
+} from "../constants";
 
 //const REVIEWS_URL = `/api/reviews`;
 const BOOKS_URL = `/api/books`;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../actions/cartActions";
 import { Card } from "react-bootstrap";
 import LazyLoad from 'react-lazyload';
+import { addToCart } from "../../actions";
 
 function CardItem(props) {
     const dispatch = useDispatch();

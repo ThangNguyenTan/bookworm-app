@@ -1,6 +1,6 @@
 import React from "react";
-import CardItem from "../card/CardItem";
 import Slider from "react-slick";
+import { CardItem } from "../card";
 
 function CarouselList({ carouselItems }) {
     const renderCarouselItem = () => {

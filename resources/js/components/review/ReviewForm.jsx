@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview } from "../../actions/reviewActions";
+import { addReview } from "../../actions";
 import data from "../../data";
-import AlertBox from "../partials/AlertBox";
-import ErrorBox from "../Partials/ErrorBox";
-//import LoadingBox from "../partials/LoadingBox";
+import { AlertBox, ErrorBox } from "../partials";
 
 function ReviewForm({ bookID }) {
     const dispatch = useDispatch();
