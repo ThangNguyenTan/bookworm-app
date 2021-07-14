@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Accordion } from "react-bootstrap";
+import { Container, Row, Col, Card, Accordion, 
+    //Button 
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAuthors, getAllBooks, getAllCategories } from "../actions";
 import { BookList } from "../components/book";
@@ -48,14 +50,16 @@ function Shop(props) {
     const [selectedSortCriteria, setSelectedSortCriteria] =
         useState(sortByQueryString);
 
-    const resetSearch = () => {
-        setSearchedCategories("");
-        setSearchedAuthors("");
-        setSearchedRating(0);
-    };
+    // const resetSearch = () => {
+    //     setSearchedCategories("");
+    //     setSearchedAuthors("");
+    //     setSearchedRating(0);
+    //     setCurrentPage(1);
+    // };
 
     const selectCategoryItem = (categoryID) => {
-        resetSearch();
+        setSearchedCategories("");
+        setCurrentPage(1);
 
         if (categoryID === searchedCategories) {
             return setSearchedCategories("");
@@ -65,7 +69,8 @@ function Shop(props) {
     };
 
     const selectAuthorItem = (authorID) => {
-        resetSearch();
+        setSearchedAuthors("");
+        setCurrentPage(1);
 
         if (authorID === searchedAuthors) {
             return setSearchedAuthors("");
@@ -251,7 +256,9 @@ function Shop(props) {
                                                 : ""
                                         }`}
                                         onClick={() => {
-                                            resetSearch();
+                                            setSearchedRating(0);
+                                            setCurrentPage(1);
+
                                             if (
                                                 searchedRating ===
                                                 reviewCriteria.value
@@ -279,15 +286,23 @@ function Shop(props) {
         let withAnd = false;
 
         if (searchedCategories) {
-            ans += `Category `;
+            ans += `Category: `;
             withAnd = true;
-            ans += `#${searchedCategories}`;
+            ans += `${
+                categories.find((category) => {
+                    return searchedCategories === category.id;
+                }).category_name
+            }`;
         }
 
         if (searchedAuthors) {
-            ans += `${withAnd ? " and" : ""} Author `;
+            ans += `${withAnd ? " and" : ""} Author: `;
             withAnd = true;
-            ans += `#${searchedAuthors}`;
+            ans += `${
+                authors.find((author) => {
+                    return searchedAuthors === author.id;
+                }).author_name
+            }`;
         }
 
         if (searchedRating != 0) {
@@ -346,6 +361,9 @@ function Shop(props) {
                             {renderSearchByAuthorsPanel()}
                             {renderSearchByReviewsPanel()}
                         </Accordion>
+                        {/* <Button block className="mt-4" onClick={resetSearch}>
+                            Reset All
+                        </Button> */}
                     </Col>
 
                     <Col lg={9} md={8} sm={12}>
