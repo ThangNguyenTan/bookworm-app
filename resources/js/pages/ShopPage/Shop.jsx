@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Accordion, 
-    //Button 
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    Accordion,
+    //Button
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAuthors, getAllBooks, getAllCategories } from "../actions";
-import { BookList } from "../components/book";
+import { getAllAuthors, getAllBooks, getAllCategories } from "../../actions";
+import { BookList } from "../../components/BookList";
 import {
     ErrorBox,
     GridButtonGroup,
     LoadingBox,
-    Paginator,
-} from "../components/partials";
-import data from "../data";
+} from "../../components/Partials";
+import { Paginator } from "../../components/Paginator";
+import data from "../../data";
 
 function Shop(props) {
     const dispatch = useDispatch();

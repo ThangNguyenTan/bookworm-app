@@ -5,9 +5,9 @@ namespace App\Http\Utils;
 class Filterer 
 {
     public function filterBooksQuery($books, $searchCriteria) {
-        $author = $searchCriteria['author'] ?: false;
-        $category = $searchCriteria['category'] ?: false;
-        $ratings = $searchCriteria['ratings'] ?: false;
+        $author = $searchCriteria['author'];
+        $category = $searchCriteria['category'];
+        $ratings = $searchCriteria['ratings'];
         $utils = new Utilities();
 
         if ($author) {

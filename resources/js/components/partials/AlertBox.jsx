@@ -6,7 +6,11 @@ function AlertBox({ message, variant, isShowed }) {
 
     if (show && message) {
         return (
-            <Alert variant={variant ? variant : "success"} onClose={() => setShow(false)} dismissible>
+            <Alert
+                variant={variant ? variant : "success"}
+                onClose={() => setShow(false)}
+                dismissible
+            >
                 {message}
             </Alert>
         );

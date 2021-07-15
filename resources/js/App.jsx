@@ -1,15 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Layout, ScrollToTop } from "./components/partials";
-import {
-    About,
-    BookDetails,
-    Cart,
-    Home,
-    OrderDetails,
-    Profile,
-    Shop,
-} from "./pages";
+import { Layout, ScrollToTop } from "./components/Partials";
+import { About } from "./pages/AboutPage";
+import { Home } from "./pages/HomePage";
+import { BookDetails } from "./pages/BookDetailsPage";
+import { Cart } from "./pages/CartPage";
+import { OrderDetails } from "./pages/OrderDetailsPage";
+import { Profile } from "./pages/ProfilePage";
+import { Shop } from "./pages/ShopPage";
 
 function App() {
     return (

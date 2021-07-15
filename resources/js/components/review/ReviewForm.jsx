@@ -3,7 +3,7 @@ import { Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../actions";
 import data from "../../data";
-import { AlertBox, ErrorBox } from "../partials";
+import { AlertBox, ErrorBox } from "../Partials";
 
 function ReviewForm({ bookID }) {
     const dispatch = useDispatch();

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { placeOrder } from "../actions";
-import { CartTable } from "../components/cart";
-import { ErrorBox, LoadingBox } from "../components/partials";
+import { placeOrder } from "../../actions";
+import { CartTable } from "../../components/Cart";
+import { ErrorBox, LoadingBox } from "../../components/Partials";
 
 function Cart(props) {
     const dispatch = useDispatch();

@@ -3,7 +3,8 @@ import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import data from "../../data";
 import { ReviewItem } from '.';
-import { ErrorBox, LoadingBox, Paginator } from "../partials";
+import { ErrorBox, LoadingBox } from "../Partials";
+import { Paginator } from "../Paginator";
 import { calculateTotalReviews } from "../../utils";
 import { getReviewsByBookID } from "../../actions";
 

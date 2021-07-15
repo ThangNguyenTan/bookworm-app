@@ -65,7 +65,7 @@ class BookController extends Controller
 
         // Filter the books by on sale
         // i.e. the difference between book price and discount price. 
-        // The higher the difference the higher the rakings
+        // The higher the difference the higher the rankings
         $onSaleBooks = $bookBusiness->fetchRequiredFieldsForShop();
         $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
         $onSaleBooks = $onSaleBooks
@@ -76,7 +76,7 @@ class BookController extends Controller
 
         // Filter the books by popularity
         // i.e. number of reviews. 
-        // The more the reviews the higher the rakings
+        // The more the reviews the higher the rankings
         $popularBooks = $bookBusiness->fetchRequiredFieldsForShop();
         $popularBooks = $sorter->sortBooksQuery($popularBooks, "popularity");
         $popularBooks = $popularBooks
@@ -86,7 +86,7 @@ class BookController extends Controller
         ;
 
         // Filter the books by average ratings
-        // The higher the ratings the higher the rakings
+        // The higher the ratings the higher the rankings
         $highlyRatedBooks = $bookBusiness->fetchRequiredFieldsForShop();
         $highlyRatedBooks = $highlyRatedBooks
         ->orderByRaw("

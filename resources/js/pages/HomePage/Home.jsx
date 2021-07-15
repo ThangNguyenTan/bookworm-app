@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Col, Container, Row, Tab, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRecBooks } from "../actions";
-import { BookList } from "../components/book";
-import { CarouselList } from "../components/carousel";
-import { ErrorBox, LoadingBox } from "../components/partials";
+import { getRecBooks } from "../../actions";
+import { BookList } from "../../components/BookList";
+import { CarouselList } from "./components";
+import { ErrorBox, LoadingBox } from "../../components/Partials";
 
 function Home() {
     const dispatch = useDispatch();
