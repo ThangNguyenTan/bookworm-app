@@ -72,7 +72,7 @@ Route::delete("/reviews/delete/{id}", [ReviewController::class, "destroy"]);
 */
 
 Route::get("books/{id}/reviews", [ReviewController::class, 'index']);
-Route::post("books/{id}/review", [ReviewController::class, 'store']);
+Route::post("books/{id}/reviews", [ReviewController::class, 'store']);
 Route::apiResource("reviews", ReviewController::class, [
     'only' => ['show', 'update', 'destroy']
 ]);

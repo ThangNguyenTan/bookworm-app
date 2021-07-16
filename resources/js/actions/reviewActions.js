@@ -68,7 +68,7 @@ export const addReview = (newReview) => {
         const { searchObject } = reviewSearchObjectReducer;
 
         try {
-            await axios.post(`${BOOKS_URL}/${newReview.book_id}/review`, {
+            await axios.post(`${BOOKS_URL}/${newReview.book_id}/reviews`, {
                 ...newReview,
             });
             const url = createSearchReviewURL(newReview.book_id, searchObject);
