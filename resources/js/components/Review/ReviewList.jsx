@@ -90,26 +90,8 @@ function ReviewList({ bookID }) {
 
     const renderPageSizeSelect = () => {
         let options = [];
-        const pageSizeCriterias = [
-            {
-                name: "Show 5",
-                size: 5,
-            },
-            {
-                name: "Show 15",
-                size: 15,
-            },
-            {
-                name: "Show 20",
-                size: 20,
-            },
-            {
-                name: "Show 25",
-                size: 25,
-            },
-        ];
 
-        pageSizeCriterias.forEach((pageSizeCriteria) => {
+        data.pageSizeCriterias.forEach((pageSizeCriteria) => {
             options.push(
                 <option
                     key={pageSizeCriteria.name}

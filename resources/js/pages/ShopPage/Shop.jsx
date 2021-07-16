@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    Container,
-    Row,
-    Col,
-    Card,
-    Accordion,
-    //Button
-} from "react-bootstrap";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAuthors, getAllBooks, getAllCategories } from "../../actions";
 import { BookList } from "../../components/BookList";
@@ -17,14 +10,17 @@ import {
 } from "../../components/Partials";
 import { Paginator } from "../../components/Paginator";
 import data from "../../data";
+import { AuthorsPanel, CategoriesPanel, RatingsPanel } from "./components";
 
 function Shop(props) {
     const dispatch = useDispatch();
+
     const bookListReducer = useSelector((state) => state.bookListReducer);
     const categoryListReducer = useSelector(
         (state) => state.categoryListReducer
     );
     const authorListReducer = useSelector((state) => state.authorListReducer);
+
     const {
         loading,
         error,
@@ -55,13 +51,6 @@ function Shop(props) {
     const [selectedSortCriteria, setSelectedSortCriteria] =
         useState(sortByQueryString);
 
-    // const resetSearch = () => {
-    //     setSearchedCategories("");
-    //     setSearchedAuthors("");
-    //     setSearchedRating(0);
-    //     setCurrentPage(1);
-    // };
-
     const selectCategoryItem = (categoryID) => {
         setSearchedCategories("");
         setCurrentPage(1);
@@ -86,6 +75,16 @@ function Shop(props) {
 
     const onChangeViewMode = (view) => {
         setViewMode(view);
+    };
+
+    const onChangeSearchedRatings = (reviewCriteriaValue) => {
+        setSearchedRating(0);
+        setCurrentPage(1);
+
+        if (searchedRating === reviewCriteriaValue) {
+            return setSearchedRating(0);
+        }
+        setSearchedRating(reviewCriteriaValue);
     };
 
     const onChangePageNumber = (pageNum) => {
@@ -119,26 +118,8 @@ function Shop(props) {
 
     const renderPageSizeSelect = () => {
         let options = [];
-        const pageSizeCriterias = [
-            {
-                name: "Show 5",
-                size: 5,
-            },
-            {
-                name: "Show 15",
-                size: 15,
-            },
-            {
-                name: "Show 20",
-                size: 20,
-            },
-            {
-                name: "Show 25",
-                size: 25,
-            },
-        ];
-
-        pageSizeCriterias.forEach((pageSizeCriteria) => {
+       
+        data.pageSizeCriterias.forEach((pageSizeCriteria) => {
             options.push(
                 <option
                     key={pageSizeCriteria.name}
@@ -164,125 +145,34 @@ function Shop(props) {
 
     const renderSearchByCategoriesPanel = () => {
         return (
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
-                    Category
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                    <Card.Body>
-                        {categoryError && <ErrorBox message={categoryError} />}
-
-                        {categoryLoading ? (
-                            <LoadingBox />
-                        ) : (
-                            <div className="categories-group row">
-                                {categories.map((category) => {
-                                    return (
-                                        <div
-                                            key={category.id}
-                                            className={`category-item ${
-                                                searchedCategories ===
-                                                category.id
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            onClick={() =>
-                                                selectCategoryItem(category.id)
-                                            }
-                                        >
-                                            {category.category_name}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </Card.Body>
-                </Accordion.Collapse>
-            </Card>
+            <CategoriesPanel
+                searchedCategories={searchedCategories}
+                selectCategoryItem={selectCategoryItem}
+                categoryError={categoryError}
+                categoryLoading={categoryLoading}
+                categories={categories}
+            />
         );
     };
 
     const renderSearchByAuthorsPanel = () => {
         return (
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
-                    Author
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                    <Card.Body>
-                        {authorError && <ErrorBox message={authorError} />}
-
-                        {authorLoading ? (
-                            <LoadingBox />
-                        ) : (
-                            <div className="author-group categories-group row">
-                                {authors.map((author) => {
-                                    return (
-                                        <div
-                                            key={author.id}
-                                            className={`category-item ${
-                                                searchedAuthors === author.id
-                                                    ? "active"
-                                                    : ""
-                                            }`}
-                                            onClick={() =>
-                                                selectAuthorItem(author.id)
-                                            }
-                                        >
-                                            {author.author_name}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </Card.Body>
-                </Accordion.Collapse>
-            </Card>
+            <AuthorsPanel
+                searchedAuthors={searchedAuthors}
+                selectAuthorItem={selectAuthorItem}
+                authorError={authorError}
+                authorLoading={authorLoading}
+                authors={authors}
+            />
         );
     };
 
     const renderSearchByReviewsPanel = () => {
         return (
-            <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
-                    Review
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                    <Card.Body>
-                        <div className="categories-group row">
-                            {data.reviewCriterias.map((reviewCriteria) => {
-                                return (
-                                    <div
-                                        key={reviewCriteria.id}
-                                        className={`category-item ${
-                                            searchedRating ===
-                                            reviewCriteria.value
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSearchedRating(0);
-                                            setCurrentPage(1);
-
-                                            if (
-                                                searchedRating ===
-                                                reviewCriteria.value
-                                            ) {
-                                                return setSearchedRating(0);
-                                            }
-                                            setSearchedRating(
-                                                reviewCriteria.value
-                                            );
-                                        }}
-                                    >
-                                        {reviewCriteria.name}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </Card.Body>
-                </Accordion.Collapse>
-            </Card>
+            <RatingsPanel
+                searchedRating={searchedRating}
+                onChangeSearchedRatings={onChangeSearchedRatings}
+            />
         );
     };
 
@@ -366,9 +256,6 @@ function Shop(props) {
                             {renderSearchByAuthorsPanel()}
                             {renderSearchByReviewsPanel()}
                         </Accordion>
-                        {/* <Button block className="mt-4" onClick={resetSearch}>
-                            Reset All
-                        </Button> */}
                     </Col>
 
                     <Col lg={9} md={8} sm={12}>
