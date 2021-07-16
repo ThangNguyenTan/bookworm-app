@@ -66,14 +66,14 @@ function ReviewForm({ bookID }) {
     const renderSubmitReviewButton = () => {
         if (loading) {
             return (
-                <button type="button" className="button dark block">
+                <button type="button" className="btn btn-dark btn-block">
                     Loading...
                 </button>
             );
         }
 
         return (
-            <button type="submit" className="button dark block">
+            <button type="submit" className="btn btn-dark btn-block">
                 Submit Review
             </button>
         );

@@ -104,7 +104,7 @@ function Cart(props) {
                 <h3>${totalPrice}</h3>
                 <button
                     onClick={handlePlaceOrder}
-                    className="button dark block mt-3"
+                    className="btn btn-dark btn-block mt-3"
                 >
                     Place Order
                 </button>
@@ -127,7 +127,7 @@ function Cart(props) {
                     >
                         <div>
                             <h2>{`Currently you don't have any items`}</h2>
-                            <Link to="/shop" className="button primary mt-3">
+                            <Link to="/shop" className="btn btn-primary mt-3">
                                 Go to Shop
                             </Link>
                         </div>

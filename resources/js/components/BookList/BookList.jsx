@@ -47,7 +47,7 @@ function BookList(props) {
                 };
 
                 return (
-                    <Col lg={6} md={12} sm={12} key={bookItem.id}>
+                    <Col lg={6} md={12} sm={12} key={bookItem.id} className="mb-4">
                         <CardItemLandscape item={item} />
                     </Col>
                 );

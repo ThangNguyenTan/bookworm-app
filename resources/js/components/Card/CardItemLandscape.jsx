@@ -64,7 +64,7 @@ function CardItemLandscape(props) {
                         to="/cart"
                         type="button"
                         style={{ textAlign: "center" }}
-                        className="button primary block"
+                        className="btn btn-primary btn-block"
                     >
                         Go to cart
                     </Link>
@@ -75,7 +75,7 @@ function CardItemLandscape(props) {
         return (
             <button
                 type="button"
-                className="button dark block"
+                className="btn btn-dark btn-block"
                 onClick={handleAddToCart}
             >
                 Add to cart
@@ -104,11 +104,11 @@ function CardItemLandscape(props) {
                         <Card.Title>
                             <Link to={`/books/${id}`}>{title}</Link>
                         </Card.Title>
-                        <Card.Text>
+                        <div>
                             <p>{summary}</p>
                             <h6>{author_name}</h6>
                             {renderPriceTag()}
-                        </Card.Text>
+                        </div>
                         {renderAddToCartButton()}
                     </Card.Body>
                 </Col>

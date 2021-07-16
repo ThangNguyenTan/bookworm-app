@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import LazyLoad from 'react-lazyload';
+import LazyLoad from "react-lazyload";
 import { addToCart } from "../../actions";
 
 function CardItem(props) {
@@ -15,7 +15,7 @@ function CardItem(props) {
         author_name,
         author_id,
         cover_photo,
-        id
+        id,
     } = item;
 
     const { cart } = useSelector((state) => state.cartReducer);
@@ -43,7 +43,7 @@ function CardItem(props) {
                     book_cover_photo: cover_photo,
                     author: {
                         author_name: author_name,
-                        id: author_id
+                        id: author_id,
                     },
                     id: id,
                 },
@@ -63,7 +63,7 @@ function CardItem(props) {
                         to="/cart"
                         type="button"
                         style={{ textAlign: "center" }}
-                        className="button primary block"
+                        className="btn btn-primary btn-block"
                     >
                         Go to cart
                     </Link>
@@ -74,7 +74,7 @@ function CardItem(props) {
         return (
             <button
                 type="button"
-                className="button dark block"
+                className="btn btn-dark btn-block"
                 onClick={handleAddToCart}
             >
                 Add to cart
@@ -98,14 +98,12 @@ function CardItem(props) {
             </Link>
             <Card.Body>
                 <Card.Title>
-                    <Link to={`/books/${id}`}>
-                        {title}
-                    </Link>
+                    <Link to={`/books/${id}`}>{title}</Link>
                 </Card.Title>
-                <Card.Text>
+                <div>
                     <h6 className="author">{author_name}</h6>
                     {renderPriceTag()}
-                </Card.Text>
+                </div>
                 {renderAddToCartButton()}
             </Card.Body>
         </Card>

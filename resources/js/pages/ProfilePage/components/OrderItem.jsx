@@ -21,7 +21,7 @@ function OrderItem({orderItem}) {
                 ${order_amount}
             </td>
             <td>
-                <Link className="button dark" to={`orders/${id}`}>Details</Link>
+                <Link className="btn btn-dark" to={`orders/${id}`}>Details</Link>
             </td>
         </tr>
     )

@@ -76,7 +76,7 @@ function BookDetails(props) {
                         to="/cart"
                         type="button"
                         style={{ textAlign: "center" }}
-                        className="button primary block"
+                        className="btn btn-primary btn-block"
                     >
                         Go to cart
                     </Link>
@@ -125,7 +125,7 @@ function BookDetails(props) {
                 </div>
                 <button
                     type="button"
-                    className="button dark block mt-4"
+                    className="btn btn-dark btn-block mt-4"
                     onClick={handleAddToCart}
                 >
                     Add to cart
