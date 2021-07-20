@@ -69,6 +69,13 @@
 
     .review-list__header {
         margin-bottom: 40px;
+
+        h2 {
+            span {
+                font-size: 1rem;
+                color: grey;
+            }
+        }
     }
 
     .review-list__ratings {
