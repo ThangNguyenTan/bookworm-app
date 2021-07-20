@@ -18,7 +18,7 @@ class Utilities
 
     // This subquery is to calculate the average ratings of a book
     public $avg_ratings_book_query = "
-        (SELECT AVG (CAST (reviews.rating_start AS float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id)
+        COALESCE ((SELECT AVG (CAST (reviews.rating_start AS float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id), 0)
     ";
 
     // This function is to generate a subquery which will calculate
