@@ -58,48 +58,17 @@ class BookController extends Controller
      */
     public function getBookRec(Request $request)
     {
-        $sorter = new Sorter();
-        $utils = new Utilities();
-
         $bookBusiness = new BookBusiness();
 
-        // Filter the books by on sale
-        // i.e. the difference between book price and discount price. 
-        // The higher the difference the higher the rankings
-        $onSaleBooks = $bookBusiness->fetchRequiredFieldsForHome();
-        $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
-        $onSaleBooks = $onSaleBooks
-        ->skip(0)
-        ->take(10)
-        ->get()
-        ;
+        // Get on sale books
+        $onSaleBooks = $bookBusiness->getOnSaleBooks(10);
 
-        // Filter the books by popularity
-        // i.e. number of reviews. 
-        // The more the reviews the higher the rankings
-        $popularBooks = $bookBusiness->fetchRequiredFieldsForHome();
-        $popularBooks = $sorter->sortBooksQuery($popularBooks, "popularity");
-        $popularBooks = $sorter->sortBooksQuery($popularBooks, "priceasc");
-        $popularBooks = $popularBooks
-        ->skip(0)
-        ->take(8)
-        ->get()
-        ;
+        // Get popular books
+        $popularBooks = $bookBusiness->getPopularBooks(8);
 
-        // Filter the books by average ratings
-        // The higher the ratings the higher the rankings
-        $highlyRatedBooks = $bookBusiness->fetchRequiredFieldsForHome();
-        $highlyRatedBooks = $highlyRatedBooks
-        ->orderByRaw("
-            $utils->avg_ratings_book_query DESC
-        ");
-        $highlyRatedBooks = $sorter->sortBooksQuery($highlyRatedBooks, "priceasc");
-        $highlyRatedBooks = $highlyRatedBooks
-        ->skip(0)
-        ->take(8)
-        ->get()
-        ;
-        
+        // Get highly rated books
+        $highlyRatedBooks = $bookBusiness->getHighlyRatedBooks(8);
+
         return response([
             'popularBooks' => $popularBooks,
             'onSaleBooks' => $onSaleBooks,

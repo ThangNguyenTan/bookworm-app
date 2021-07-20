@@ -2,6 +2,7 @@
 
 namespace App\Http\Business;
 
+use App\Http\Utils\Sorter;
 use App\Http\Utils\Utilities;
 use Illuminate\Support\Facades\DB;
 
@@ -47,5 +48,61 @@ class BookBusiness
         ->groupBy("books.id", "authors.id");
 
         return $books;
+    }
+
+    public function getOnSaleBooks($limit){
+        $sorter = new Sorter();
+
+        // Filter the books by on sale
+        // i.e. the difference between book price and discount price. 
+        // The higher the difference the higher the rankings
+        $onSaleBooks = $this->fetchRequiredFieldsForHome();
+        $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
+        $onSaleBooks = $onSaleBooks
+        ->skip(0)
+        ->take($limit)
+        ->get()
+        ;
+
+        return $onSaleBooks;
+    }
+
+    public function getPopularBooks($limit){
+        $sorter = new Sorter();
+
+        // Filter the books by popularity
+        // i.e. number of reviews. 
+        // The more the reviews the higher the rankings
+        $popularBooks = $this->fetchRequiredFieldsForHome();
+        $popularBooks = $sorter->sortBooksQuery($popularBooks, "popularity");
+        $popularBooks = $sorter->sortBooksQuery($popularBooks, "priceasc");
+        $popularBooks = $popularBooks
+        ->skip(0)
+        ->take($limit)
+        ->get()
+        ;
+
+        return $popularBooks;
+    }
+
+    public function getHighlyRatedBooks($limit){
+        $sorter = new Sorter();
+        $utils = new Utilities();
+
+        // Filter the books by average ratings
+        // The higher the ratings the higher the rankings
+        $highlyRatedBooks = $this->fetchRequiredFieldsForHome();
+        $highlyRatedBooks = $highlyRatedBooks
+        ->orderByRaw("
+            $utils->avg_ratings_book_query DESC
+        ");
+        $highlyRatedBooks = $sorter->sortBooksQuery($highlyRatedBooks, "priceasc");
+        $highlyRatedBooks = $highlyRatedBooks
+        ->skip(0)
+        ->take($limit)
+        ->get()
+        ;
+
+        return $highlyRatedBooks;
     }
 }

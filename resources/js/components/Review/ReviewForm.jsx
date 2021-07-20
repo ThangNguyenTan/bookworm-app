@@ -44,6 +44,20 @@ function ReviewForm({ bookID }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let reg = new RegExp(/[!-/:-@[-`{-~*]/, "gm");
+
+        if (reg.test(title)) {
+            return alert(
+                `The title of a review must not contain any special characters (!, -, /, :, -, @, [, -, \`, {, -, ~, *)`
+            );
+        }
+
+        if (reg.test(description)) {
+            return alert(
+                `The description of a review must not contain any special characters (!, -, /, :, -, @, [, -, \`, {, -, ~, *)`
+            );
+        }
+
         dispatch(
             addReview({
                 book_id: bookID,
