@@ -4,6 +4,7 @@ namespace App\Http\Business;
 
 use App\Models\Book;
 use App\Models\OrderItem;
+use Exception;
 use \Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
@@ -25,6 +26,32 @@ class OrderBusiness
             $orderItem->price = $price;
 
             $orderItem->save();
+        }
+    }
+
+    public function validateOrderItems($orderItems) {
+        // Check for the validity of all the items in the cart
+        foreach ($orderItems as $orderItemNormal) {
+            try {
+                $bookID = $orderItemNormal['bookID'];
+                $quantity = $orderItemNormal['quantity'];
+                $price = $orderItemNormal['price'];
+            } catch (Exception $e) {
+                return response(collect([
+                    "message" => $e->getMessage()
+                ]), Response::HTTP_BAD_REQUEST);
+            }
+
+            $bookID = $orderItemNormal['bookID'];
+
+            $existedBook = Book::find($bookID);
+
+            if (!$existedBook) {
+                return response(collect([
+                    "message" => "The book with an ID of $bookID does not exist",
+                    "invalid_book_id" => $bookID
+                ]), Response::HTTP_NOT_FOUND); 
+            }
         }
     }
 }

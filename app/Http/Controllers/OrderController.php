@@ -42,27 +42,9 @@ class OrderController extends Controller
         $orderItems = $request->order_items;
 
         // Check for the validity of all the items in the cart
-        foreach ($orderItems as $orderItemNormal) {
-            try {
-                $bookID = $orderItemNormal['bookID'];
-                $quantity = $orderItemNormal['quantity'];
-                $price = $orderItemNormal['price'];
-            } catch (Exception $e) {
-                return response(collect([
-                    "message" => $e->getMessage()
-                ]), Response::HTTP_BAD_REQUEST);
-            }
-
-            $bookID = $orderItemNormal['bookID'];
-
-            $existedBook = Book::find($bookID);
-
-            if (!$existedBook) {
-                return response(collect([
-                    "message" => "The book with an ID of $bookID does not exist",
-                    "invalid_book_id" => $bookID
-                ]), Response::HTTP_NOT_FOUND); 
-            }
+        $isOrderItemsNotValid = $orderBusiness->validateOrderItems($orderItems);
+        if ($isOrderItemsNotValid) {
+            return $isOrderItemsNotValid;
         }
 
         // Create new order
