@@ -38,5 +38,7 @@
         "sass-loader": "^12.1.0",
         "slick-carousel": "^1.8.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "http-errors": "^1.8.0"
+    }
 }

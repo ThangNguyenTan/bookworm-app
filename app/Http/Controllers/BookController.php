@@ -15,6 +15,7 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @query: page, page-size, author, category, ratings, sort
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -53,7 +54,6 @@ class BookController extends Controller
     /**
      * Display a listing of recommendation for the books
      *
-     * @query: page, page-size, author, category, ratings, sort
      * @return \Illuminate\Http\Response
      */
     public function getBookRec(Request $request)
