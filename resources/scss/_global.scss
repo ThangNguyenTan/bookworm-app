@@ -124,6 +124,16 @@ a:hover {
     }
 }
 
+/*Form*/
+form {
+    label {
+        sup.required {
+            color: #f75454;
+            margin-bottom: -20px;
+        }
+    }
+}
+
 /*Scroll bar*/
 /* customize scrollbar css */
 ::-webkit-scrollbar {

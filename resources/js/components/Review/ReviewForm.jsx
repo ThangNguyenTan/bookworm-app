@@ -103,7 +103,10 @@ function ReviewForm({ bookID }) {
                     {alertBoxContainer}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="title">Add a title</Form.Label>
+                            <Form.Label htmlFor="title">
+                                Add a title
+                                <sup className="required">*</sup>
+                            </Form.Label>
                             <Form.Control
                                 type="text"
                                 id="title"
@@ -138,6 +141,7 @@ function ReviewForm({ bookID }) {
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="star">
                                 Select a rating star
+                                <sup className="required">*</sup>
                             </Form.Label>
                             <select
                                 className="custom-select"
