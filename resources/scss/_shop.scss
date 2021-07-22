@@ -43,6 +43,7 @@
     display: block;
     width: 100%;
     text-align: center;
+    text-transform: capitalize;
 
     &.active {
         background-color: $primary-color;

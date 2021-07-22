@@ -11,12 +11,15 @@ class Sorter
             $books = $books->orderByRaw("
                 books.book_price - $utils->min_discount_price_query_coalesce DESC
             ");
+            $books = $books->orderByRaw("
+                $utils->min_discount_price_query_coalesce ASC
+            ");
         } else if ($sortCriteria === "popularity") {
             $books = $books->orderByRaw("
                 (SELECT COUNT(reviews.id) FROM reviews WHERE reviews.book_id = books.id) DESC
             ");
         } else if ($sortCriteria === "priceasc") {
-            $books = $books->orderByraw("
+            $books = $books->orderByRaw("
                 $utils->min_discount_price_query_coalesce ASC
             ");
         } else if ($sortCriteria === "pricedesc") {

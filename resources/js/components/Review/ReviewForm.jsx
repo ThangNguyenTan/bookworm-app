@@ -41,21 +41,33 @@ function ReviewForm({ bookID }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let reg = new RegExp(/[!-/:-@[-`{-~*]/, "gm");
+        let reg = new RegExp(/[!/:@`~*$]/, "gm");
 
         if (reg.test(title)) {
-            return alert(
-                `The title of a review must not contain any special characters (!, -, /, :, -, @, [, -, \`, {, -, ~, *)`
+            await setAlertBoxContainer(<></>);
+            setAlertBoxContainer(
+                <AlertBox
+                    isShowed={true}
+                    message={`The title of a review must not contain any special characters (!, /, :, @, \`, ~, *, $)`}
+                    variant="danger"
+                />
             );
+            return;
         }
 
         if (reg.test(description)) {
-            return alert(
-                `The description of a review must not contain any special characters (!, -, /, :, -, @, [, -, \`, {, -, ~, *)`
+            await setAlertBoxContainer(<></>);
+            setAlertBoxContainer(
+                <AlertBox
+                    isShowed={true}
+                    message={`The description of a review must not contain any special characters (!, /, :, @, \`, ~, *, $)`}
+                    variant="danger"
+                />
             );
+            return;
         }
 
         dispatch(
@@ -104,8 +116,8 @@ function ReviewForm({ bookID }) {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="title">
-                                Add a title
                                 <sup className="required">*</sup>
+                                Add a title
                             </Form.Label>
                             <Form.Control
                                 type="text"
@@ -140,8 +152,8 @@ function ReviewForm({ bookID }) {
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="star">
-                                Select a rating star
                                 <sup className="required">*</sup>
+                                Select a rating star
                             </Form.Label>
                             <select
                                 className="custom-select"

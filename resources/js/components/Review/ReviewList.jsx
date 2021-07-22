@@ -136,6 +136,7 @@ function ReviewList({ bookID }) {
                             className={searchedRating === i ? "active" : ""}
                             onClick={() => {
                                 setSearchedRating(i);
+                                setCurrentPage(1);
                             }}
                         >
                             {i} star ({reviewsStatus[`numberof${i}starreviews`]}
@@ -153,6 +154,7 @@ function ReviewList({ bookID }) {
                             className={searchedRating === i ? "active" : ""}
                             onClick={() => {
                                 setSearchedRating(i);
+                                setCurrentPage(1);
                             }}
                         >
                             {i} star ({reviewsStatus[`numberof${i}starreviews`]}
@@ -168,6 +170,7 @@ function ReviewList({ bookID }) {
                         className={searchedRating === i ? "active" : ""}
                         onClick={() => {
                             setSearchedRating(i);
+                            setCurrentPage(1);
                         }}
                     >
                         {i} star ({reviewsStatus[`numberof${i}starreviews`]})
@@ -199,6 +202,7 @@ function ReviewList({ bookID }) {
                             className={searchedRating === 0 ? "active" : ""}
                             onClick={() => {
                                 setSearchedRating(0);
+                                setCurrentPage(1);
                             }}
                         >
                             ({calculateTotalReviews(reviewsStatus)})
