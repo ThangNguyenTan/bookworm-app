@@ -2721,7 +2721,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getOrderDetails": () => (/* reexport safe */ _orderActions__WEBPACK_IMPORTED_MODULE_4__.getOrderDetails),
 /* harmony export */   "placeOrder": () => (/* reexport safe */ _orderActions__WEBPACK_IMPORTED_MODULE_4__.placeOrder),
 /* harmony export */   "addReview": () => (/* reexport safe */ _reviewActions__WEBPACK_IMPORTED_MODULE_5__.addReview),
-/* harmony export */   "getReviewsByBookID": () => (/* reexport safe */ _reviewActions__WEBPACK_IMPORTED_MODULE_5__.getReviewsByBookID)
+/* harmony export */   "getReviewsByBookID": () => (/* reexport safe */ _reviewActions__WEBPACK_IMPORTED_MODULE_5__.getReviewsByBookID),
+/* harmony export */   "getShopFilters": () => (/* reexport safe */ _mainActions__WEBPACK_IMPORTED_MODULE_6__.getShopFilters)
 /* harmony export */ });
 /* harmony import */ var _authorActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./authorActions */ "./resources/js/actions/authorActions.js");
 /* harmony import */ var _bookActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bookActions */ "./resources/js/actions/bookActions.js");
@@ -2729,12 +2730,100 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _categoryActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./categoryActions */ "./resources/js/actions/categoryActions.js");
 /* harmony import */ var _orderActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./orderActions */ "./resources/js/actions/orderActions.js");
 /* harmony import */ var _reviewActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reviewActions */ "./resources/js/actions/reviewActions.js");
+/* harmony import */ var _mainActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mainActions */ "./resources/js/actions/mainActions.js");
 
 
 
 
 
 
+
+
+/***/ }),
+
+/***/ "./resources/js/actions/mainActions.js":
+/*!*********************************************!*\
+  !*** ./resources/js/actions/mainActions.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getShopFilters": () => (/* binding */ getShopFilters)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./resources/js/constants/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var MAIN_URL = "/api/main";
+var getShopFilters = function getShopFilters() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      var _yield$axios$get, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_AUTHORS_REQUEST
+              });
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_CATEGORIES_REQUEST
+              });
+              _context.prev = 2;
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(MAIN_URL, "/filters"));
+
+            case 5:
+              _yield$axios$get = _context.sent;
+              data = _yield$axios$get.data;
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_AUTHORS_SUCCESS,
+                payload: data.authors
+              });
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_CATEGORIES_SUCCESS,
+                payload: data.categories
+              });
+              _context.next = 15;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](2);
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_AUTHORS_FAIL,
+                payload: _context.t0.response && _context.t0.response.data.message ? _context.t0.response.data.message : _context.t0.message
+              });
+              dispatch({
+                type: _constants__WEBPACK_IMPORTED_MODULE_2__.GET_ALL_CATEGORIES_FAIL,
+                payload: _context.t0.response && _context.t0.response.data.message ? _context.t0.response.data.message : _context.t0.message
+              });
+
+            case 15:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 11]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
 
 /***/ }),
 
@@ -6838,8 +6927,7 @@ function Shop(props) {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getAllCategories)());
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getAllAuthors)());
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getShopFilters)());
   }, [dispatch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getAllBooks)({

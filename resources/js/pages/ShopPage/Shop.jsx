@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAuthors, getAllBooks, getAllCategories } from "../../actions";
+import { getAllBooks, getShopFilters } from "../../actions";
 import { BookList } from "../../components/BookList";
 import {
     ErrorBox,
@@ -210,8 +210,7 @@ function Shop(props) {
     };
 
     useEffect(() => {
-        dispatch(getAllCategories());
-        dispatch(getAllAuthors());
+        dispatch(getShopFilters());
     }, [dispatch]);
 
     useEffect(() => {
