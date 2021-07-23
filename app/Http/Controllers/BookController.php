@@ -34,13 +34,6 @@ class BookController extends Controller
 
         $books = $bookBusiness->fetchRequiredFieldsForShop();
 
-        // Conditionally inner join the discounts
-        // since onsale books are the books 
-        // which have more than 1 available discounts
-        if ($sortCriteria === "onsale") {
-            $books = $bookBusiness->fetchRequiredFieldsOfOnSaleBooks();
-        }
-
         $searchCriteria = [
             'author' => $author,
             'category' => $category,
@@ -52,11 +45,6 @@ class BookController extends Controller
         
         // Append order by query to the book model
         $books = $sorter->sortBooksQuery($books, $sortCriteria);
-
-        // Conditionally append having to the current books
-        if ($sortCriteria === "onsale") {
-            $books = $bookBusiness->appendHavingToOnSaleBooks($books);
-        }
 
         // Create pagination for the filtered and sorted books
         $books = $books->paginate($pageSize);

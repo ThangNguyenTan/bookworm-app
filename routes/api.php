@@ -22,22 +22,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Main Route
 Route::get("main/filters", [MainController::class, "getShopFilters"]);
 
+// Main Route
 Route::apiResource("authors", AuthorController::class);
 
+// Main Route
 Route::apiResource("categories", CategoryController::class);
 
+// Main Route
 Route::get("books/rec", [BookController::class, 'getBookRec']);
 Route::apiResource("books", BookController::class);
 
+// Main Route
 Route::post("books/{id}/discount", [DiscountController::class, "store"]);
 
+// Books Reviews Route
 Route::get("books/{id}/reviews", [ReviewController::class, 'index']);
 Route::post("books/{id}/reviews", [ReviewController::class, 'store']);
 Route::apiResource("reviews", ReviewController::class, [
     'only' => ['show', 'update', 'destroy']
 ]);
 
+// Main Route
 Route::apiResource("orders", OrderController::class);
 
