@@ -16,6 +16,13 @@ class Utilities
         )
     ";
 
+    // This conditional statement is for validating 
+    // the correct books which contain available discount
+    public $available_discount_condition = "
+        discount_start_date <= CURRENT_DATE
+        AND (discount_end_date IS NULL OR discount_end_date >= CURRENT_DATE)
+    ";
+
     // This subquery is to calculate the average ratings of a book
     public $avg_ratings_book_query = "
         COALESCE ((SELECT AVG (CAST (reviews.rating_start AS float))::numeric (10, 1) FROM reviews WHERE books.id = reviews.book_id), 0)

@@ -65,13 +65,19 @@ class BookBusiness
         ->join("discounts", "books.id", "=", "discounts.book_id")
         ->join("authors", "books.author_id", "=", "authors.id")
         ->selectRaw($comma_separated)
-        ->groupBy("books.id", "authors.id");
+        ->groupBy(
+            "books.id", 
+            "authors.id", 
+            "discounts.discount_start_date", 
+            "discounts.discount_end_date"
+        );
 
         return $books;
     }
 
     public function getOnSaleBooks($limit){
         $sorter = new Sorter();
+        $utils = new Utilities();
 
         // Filter the books by on sale
         // i.e. the difference between book price and discount price. 
@@ -79,6 +85,7 @@ class BookBusiness
         $onSaleBooks = $this->fetchRequiredFieldsForOnSaleBooks();
         $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
         $onSaleBooks = $onSaleBooks
+        ->havingRaw($utils->available_discount_condition)
         ->skip(0)
         ->take($limit)
         ->get()
