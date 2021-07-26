@@ -73,7 +73,7 @@ export const getRecBooks = () => {
             type: GET_RECOMMENDED_BOOKS_REQUEST,
         });
         try {
-            const { data } = await axios.get(`${BOOKS_URL}/rec`);
+            const { data } = await axios.get(`${BOOKS_URL}/recommended`);
             dispatch({
                 type: GET_RECOMMENDED_BOOKS_SUCCESS,
                 payload: data,

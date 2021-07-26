@@ -32,7 +32,7 @@ Route::apiResource("authors", AuthorController::class);
 Route::apiResource("categories", CategoryController::class);
 
 // Main Route
-Route::get("books/rec", [BookController::class, 'getBookRec']);
+Route::get("books/recommended", [BookController::class, 'getBookRec']);
 Route::apiResource("books", BookController::class);
 
 // Main Route
