@@ -18,6 +18,9 @@ class Sorter
             $books = $books->orderByRaw("
                 (SELECT COUNT(reviews.id) FROM reviews WHERE reviews.book_id = books.id) DESC
             ");
+            $books = $books->orderByRaw("
+                $utils->min_discount_price_query_coalesce ASC
+            ");
         } else if ($sortCriteria === "priceasc") {
             $books = $books->orderByRaw("
                 $utils->min_discount_price_query_coalesce ASC

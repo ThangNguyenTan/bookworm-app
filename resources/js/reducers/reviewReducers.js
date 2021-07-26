@@ -7,21 +7,24 @@ import {
     GET_BOOK_REVIEWS_SUCCESS,
     SET_REVIEWS_SEARCH_OBJECT,
 } from "../constants/reviewConstants";
-import { paginate } from "../utils/pagination";
+import paginate from "jw-paginate";
 
-export const reviewSearchObjectReducer = (state = {
-    searchObject: {}
-}, action) => {
+export const reviewSearchObjectReducer = (
+    state = {
+        searchObject: {},
+    },
+    action
+) => {
     switch (action.type) {
         case SET_REVIEWS_SEARCH_OBJECT:
             return {
                 ...state,
-                searchObject: action.payload
+                searchObject: action.payload,
             };
         default:
             return state;
     }
-}
+};
 
 export const reviewListReducer = (
     state = {
@@ -45,7 +48,12 @@ export const reviewListReducer = (
                 loading: false,
                 reviews: action.payload.reviews.data,
                 reviewsStatus: action.payload.reviewsStatus[0],
-                pageObject: paginate(action.payload.reviews.total, action.payload.reviews.current_page, action.payload.reviews.per_page)
+                pageObject: paginate(
+                    action.payload.reviews.total,
+                    action.payload.reviews.current_page,
+                    action.payload.reviews.per_page,
+                    6
+                ),
             };
         case GET_BOOK_REVIEWS_FAIL:
             return {

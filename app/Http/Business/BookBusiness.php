@@ -58,7 +58,6 @@ class BookBusiness
         // The higher the difference the higher the rankings
         $onSaleBooks = $this->fetchRequiredFieldsForHome();
         $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "onsale");
-        $onSaleBooks = $sorter->sortBooksQuery($onSaleBooks, "priceasc");
         $onSaleBooks = $onSaleBooks
         ->skip(0)
         ->take($limit)
@@ -76,7 +75,6 @@ class BookBusiness
         // The more the reviews the higher the rankings
         $popularBooks = $this->fetchRequiredFieldsForHome();
         $popularBooks = $sorter->sortBooksQuery($popularBooks, "popularity");
-        $popularBooks = $sorter->sortBooksQuery($popularBooks, "priceasc");
         $popularBooks = $popularBooks
         ->skip(0)
         ->take($limit)

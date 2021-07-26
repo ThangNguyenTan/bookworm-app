@@ -39,6 +39,7 @@
         "slick-carousel": "^1.8.1"
     },
     "dependencies": {
-        "http-errors": "^1.8.0"
+        "http-errors": "^1.8.0",
+        "jw-paginate": "^1.0.4"
     }
 }

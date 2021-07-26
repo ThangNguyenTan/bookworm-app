@@ -9,7 +9,7 @@ import {
     GET_RECOMMENDED_BOOKS_REQUEST,
     GET_RECOMMENDED_BOOKS_SUCCESS,
 } from "../constants/bookConstants";
-import { paginate } from "../utils/pagination";
+import paginate from "jw-paginate";
 
 export const bookListReducer = (
     state = {
@@ -31,7 +31,12 @@ export const bookListReducer = (
                 ...state,
                 loading: false,
                 books: action.payload.data,
-                pageObject: paginate(action.payload.total, action.payload.current_page, action.payload.per_page)
+                pageObject: paginate(
+                    action.payload.total,
+                    action.payload.current_page,
+                    action.payload.per_page,
+                    6
+                ),
             };
         case GET_ALL_BOOKS_FAIL:
             return {
